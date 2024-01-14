@@ -131,6 +131,46 @@ main{
     font-weight: 700;
 }
 
+#listado_usuario{
+    background-color: white;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    border: 1rem;
+    border-radius: 1rem;
+  }
+
+  th{
+    background-color: #09accd;
+  }
+  
+  td,
+  th {
+    text-align: left;
+    width: 50%;
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #c8c9c7;
+  }
+  
+  tr {
+    padding: 1rem;
+  }
+
+  #listado_usuarios tr:hover {background-color: #9feb92;}
+
+
+
+
+
+
+
 @media (max-width:600px) {
     #header_logo{
         width: 10rem;
@@ -143,9 +183,8 @@ main{
     }
     
     .main_contenido{
-       display: flex;
-       flex-direction: column;
-       margin: 1rem;
+        display: flex;
+        flex-direction: column;
     }
 
     .input_formulario{

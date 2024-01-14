@@ -70,7 +70,19 @@
                        <input type="submit" value="ACCEDER" name="acceder_bt" class="buton_formulario" onclick="set_insertar();">
                     </div>
                 </section>
-                <section id="listado_usuario"></section>
+
+                <section id="listado_usuario">
+                    <table id="listado_usuarios" class="listado_usuarios_css">
+                        <tr>
+                          <th>Nombre</th>
+                          <th>Identificacion</th>
+                        </tr>
+
+                        <?php get_listar_usuarios_todos();?>
+
+
+                    </table>
+                </section>
             </div>
         </main>
     </body>

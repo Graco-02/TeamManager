@@ -25,3 +25,9 @@ function set_insertar(){
         alert("faltan datos los obligatorios son nombres,apellidos,usuario,clave todos deben tener almenos 4 caracteres");
     }
 }
+
+
+
+function set_seleccionar(usuario){
+    alert("objeto seleccionado "+usuario);
+}
