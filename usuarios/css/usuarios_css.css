@@ -73,14 +73,14 @@ main{
 
 .main_contenido{
     display: grid;
-    grid-template-columns: 1.5fr 2fr;
-    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
     justify-content: center;
 }
 
 #usuario_logo{
-    width: 10rem;
-    height: 10rem;
+    width: 15rem;
+    height: 30rem;
 }
 
 #datos_usuario{
@@ -90,6 +90,7 @@ main{
     background-color: white;
     box-shadow: 5px 5px #888888;
     border-radius: 25px 25px 10px 10px;
+    width: 100%;
 }
 
 .loging_formulario{
@@ -105,6 +106,8 @@ main{
     color: aqua;
     width: 100%;
     min-height: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 .buton_formulario:hover{
@@ -113,8 +116,13 @@ main{
 }
 
 .input_formulario{
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     width: 100%;
-    min-height: 2rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
 }
 
 .formulario_legend{
@@ -128,4 +136,22 @@ main{
         width: 10rem;
         height: 5rem;
     }
+
+    #usuario_logo{
+        width: 10rem;
+        height: 15rem;
+    }
+    
+    .main_contenido{
+       display: flex;
+       flex-direction: column;
+       margin: 1rem;
+    }
+
+    .input_formulario{
+        padding-top: 0.1rem;
+        padding-bottom: 0.1rem;
+        margin-bottom: 0.1rem;
+    }
+    
 }
