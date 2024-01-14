@@ -1,0 +1,131 @@
+:root{
+    --color_primario:rgb(244, 241, 189);
+    --color_primario_2:#eeebeb;
+    --color_menu:#09accd;
+}
+
+body{
+    background-color: var(--color_primario_2);
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr;
+    width: 100%;
+    gap: 2rem;
+}
+
+header{
+    background-color: white;
+    width: 100%;
+}
+
+.cabecera{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+}
+
+#header_logo{
+    width: 20rem;
+    height: 10rem;
+}
+
+.logo_name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo_name p{
+    font-size: 2rem;
+}
+
+main{
+    width: 100%;
+}
+
+#header_contenido{
+    display: grid;
+    grid-template-rows:1fr 0.5fr;
+    gap: 1rem;
+}
+
+.menu_administracion_principal{
+    width: 100%;
+    background-color: var(--color_menu);
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    justify-content: center;
+    align-items: center;
+}
+
+.menu_administracion_principal a{
+    text-decoration: none;
+    cursor: pointer;
+    color: rgba(9, 9, 9, 0.864);
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.menu_administracion_principal a:hover{
+    color: wheat;
+    transition: 0.5s;
+}
+
+.main_contenido{
+    display: grid;
+    grid-template-columns: 1.5fr 2fr;
+    gap: 2rem;
+    justify-content: center;
+}
+
+#usuario_logo{
+    width: 10rem;
+    height: 10rem;
+}
+
+#datos_usuario{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    justify-content: center;
+    background-color: white;
+    box-shadow: 5px 5px #888888;
+    border-radius: 25px 25px 10px 10px;
+}
+
+.loging_formulario{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.buton_formulario{
+    background-color: blue;
+    color: aqua;
+    width: 100%;
+    min-height: 2rem;
+}
+
+.buton_formulario:hover{
+    background-color: rgb(20, 243, 57);
+    color: aqua;
+}
+
+.input_formulario{
+    width: 100%;
+    min-height: 2rem;
+}
+
+.formulario_legend{
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+@media (max-width:600px) {
+    #header_logo{
+        width: 10rem;
+        height: 5rem;
+    }
+}
