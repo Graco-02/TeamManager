@@ -34,10 +34,14 @@
 
         <main>
             <div class="main_contenido">
+            <form id="form" action="javascript: set_insertar();" enctype=" multipart/form-data"  class="loging_formulario">
                 <section id="datos_usuario">
-                    <img src="../imagenes/usuario1.png" alt="usuario" id="usuario_logo"/>
-                    <div class="loging_formulario">
+                        <div class="flex_colum">
+                             <img src="../imagenes/usuario1.png" alt="usuario" id="usuario_logo"/>
+                             <input type="file" name="pic" id="pic" onchange="readURL(this.value)"/>
+                         </div>
 
+                       <div>
                        <fieldset>
                         <legend class="formulario_legend">Datos Personales</legend>
                             <label for="usuario_names">Nombres</label>
@@ -67,9 +71,10 @@
 
                        </fieldset>
 
-                       <input type="submit" value="ACCEDER" name="acceder_bt" class="buton_formulario" onclick="set_insertar();">
-                    </div>
+                       <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
+                       </div>
                 </section>
+                </form>
 
                 <section id="listado_usuario">
                     <table id="listado_usuarios" class="listado_usuarios_css">
@@ -77,10 +82,7 @@
                           <th>Nombre</th>
                           <th>Identificacion</th>
                         </tr>
-
                         <?php get_listar_usuarios_todos();?>
-
-
                     </table>
                 </section>
             </div>
