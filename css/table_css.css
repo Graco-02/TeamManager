@@ -1,0 +1,35 @@
+#listado_usuario{
+    background-color: white;
+    overflow-y: scroll;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    border: 1rem;
+    border-radius: 1rem;
+  }
+
+  th{
+    background-color: #09accd;
+  }
+  
+  td,
+  th {
+    text-align: left;
+    width: 30%;
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #c8c9c7;
+  }
+  
+  tr {
+    padding: 1rem;
+  }
+
+  #listado_usuarios tr:hover {background-color: #9feb92;}
+

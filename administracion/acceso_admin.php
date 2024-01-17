@@ -11,8 +11,7 @@
                 $user_name = $_POST['longin_name'];
                 $user_clave = $_POST['longin_clave'];
                 if (set_validar_logging($user_name, $user_clave) === TRUE) {
-                    header("Location:administracion_admin_index.php");
-                  alert("acceso Correcto!");
+
                 } else {
                     alert("usuario o clave invalida");
                 }

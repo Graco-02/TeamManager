@@ -26,13 +26,19 @@ function set_validar_logging($user_name,$user_clave)
             $validacion=FALSE; 
             die("Connection failed: " . $conn->connect_error);
         }else{
-            $sql = "SELECT  usuario,clave FROM usu001 where usuario='$user_name'"; 
+            $sql = "SELECT  usuario,clave,tipo FROM usu001 where usuario='$user_name'"; 
             $result = $conn->query($sql);
             
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                     if($hash_clave == $row["clave"] || $row["clave"] == $user_clave){
+                        $conn->close();
                         $_SESSION['admin_user'] = $row["usuario"];
+                        if($row["tipo"]==0){
+                            header("Location:administracion_admin_index.php");    
+                        }else{
+                            header("Location:../index.php");    
+                        }
                     } else {
                         $validacion=FALSE; 
                     }
