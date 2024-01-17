@@ -29,4 +29,6 @@
         </header>
     </body>
     </html>
-<?php }?>
+<?php }else{
+    header("Location:acceso_admin.php");
+}?>

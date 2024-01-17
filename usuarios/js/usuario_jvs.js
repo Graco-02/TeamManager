@@ -30,9 +30,17 @@ function set_insertar(){
                         ,"url_img":response 
                         }
                         ,function(respuesta){
-                                alert(respuesta);
+                            var resp = respuesta.trim();
                                 usuario_names_entero = usuario_names+' , '+usuario_lastnames;
-                                set_agregar_fila(usuario_names_entero,usuario_identificacion);
+                                if(resp == 'AGREGADO CORRECTO'){
+                                    alert('AGREGADO CORRECTO');
+                                    set_agregar_fila(usuario_names_entero,usuario_identificacion);
+                                }else if(resp == 'MODIFICACION REALIZADA'){
+                                    alert('MODIFICACION REALIZADA');
+                                }else{
+                                    alert('ERROR => '+respuesta);
+                                }
+
                      }); 
                     }
                 });
@@ -55,9 +63,6 @@ function set_agregar_fila(usuario_names_entero,usuario_identificacion){
     fila.appendChild(celda2);
     tableRow.appendChild(fila);
 }
-
-
-
 
 function set_seleccionar(usuario){
     var accion = 2;//opcion para seleccionar los datos del usuario
@@ -85,7 +90,7 @@ function set_seleccionar(usuario){
         usuario_name_acces.value =json[3];
         usuario_clave.value =json[4];
         usuario_tipo.value = json[5];
-        if(json[6].length>0){
+        if(json[6]!=null && json[6].length>0){
             usuario_logo.src = "../imagenes_subidas/"+json[6];
         }else{
             usuario_logo.src = "../imagenes/usuario1.png";
@@ -93,7 +98,6 @@ function set_seleccionar(usuario){
 
     }); 
 }
-
 
 function readURL(input) {
     const $seleccionArchivos = document.querySelector("#pic"),

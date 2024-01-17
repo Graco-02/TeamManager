@@ -12,7 +12,7 @@
           $usuario_name_acces               = $_POST['usuario_name_acces'];
           $usuario_clave                    = $_POST['usuario_clave'];
           $usuario_tipo                     = $_POST['usuario_tipo'];
-          $url_img                          = $_POST['$url_img'];
+          $url_img                          = $_POST['url_img'];
           set_insert($usuario_names,$usuario_lastnames,$usuario_identificacion,$usuario_name_acces,$usuario_clave,$usuario_tipo,$url_img);
         break;
         case 2:
@@ -35,7 +35,7 @@ function set_insert($usuario_names,$usuario_lastnames,$usuario_identificacion,$u
          echo  'AGREGADO CORRECTO';
       }
      }else{
-      set_modificar($usuario_names,$usuario_lastnames,$usuario_identificacion,$usuario_name_acces,$usuario_clave,$usuario_tipo);
+      set_modificar($usuario_names,$usuario_lastnames,$usuario_identificacion,$usuario_name_acces,$usuario_clave,$usuario_tipo,$url_img);
      }
 }
 
@@ -123,14 +123,15 @@ function get_usuario($usuario){
      $conn->close();
 }
 
-function set_modificar($usuario_names,$usuario_lastnames,$usuario_identificacion,$usuario_name_acces,$usuario_clave,$usuario_tipo){
+function set_modificar($usuario_names,$usuario_lastnames,$usuario_identificacion,$usuario_name_acces,$usuario_clave,$usuario_tipo,$url_img){
    $conn = conectar();
 
       $sql="UPDATE usu001 SET identificacion='$usuario_identificacion',
                               apellidos='$usuario_lastnames',
                               nombres='$usuario_names',
                               tipo=$usuario_tipo,
-                              clave='$usuario_clave'
+                              clave='$usuario_clave',
+                              url_img='$url_img'
           where usuario ='$usuario_name_acces'";
 
       if ($conn->query($sql) == TRUE) {		   

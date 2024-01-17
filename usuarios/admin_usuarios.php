@@ -38,6 +38,7 @@
                 <section id="datos_usuario">
                         <div class="flex_colum">
                              <img src="../imagenes/usuario1.png" alt="usuario" id="usuario_logo"/>
+                             <br>
                              <input type="file" name="pic" id="pic" onchange="readURL(this.value)"/>
                          </div>
 
@@ -89,4 +90,5 @@
         </main>
     </body>
     </html>
-<?php }?>
+<?php }else{
+    header("Location:../administracion/acceso_admin.php");}?>
