@@ -37,7 +37,7 @@ function set_validar_logging($user_name,$user_clave)
                         if($row["tipo"]==0){
                             header("Location:administracion_admin_index.php");    
                         }else{
-                            header("Location:../index.php");    
+                            header("Location:../padron.php");    
                         }
                     } else {
                         $validacion=FALSE; 

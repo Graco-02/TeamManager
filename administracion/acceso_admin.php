@@ -35,10 +35,8 @@
 <body>
     <header>
         <div class="cabecera">
-            <img src="../imagenes/imagen_logo1.jpg" alt="header_logo" id="header_logo"/>
-            <div class="logo_name">
-                <p>Team Manager</p>
-            </div>
+                 <img src="../imagenes/fradiz1.jpg" alt="" srcset="" id="header_logo">
+                 <img src="../imagenes/IMG-20240117-WA0005.jpg" alt="" srcset="" id="header_logo">
         </div>
     </header>
 

@@ -17,15 +17,22 @@ header{
     width: 100%;
 }
 
+#header_cabecera{
+    width: 100%;
+    display: flex;
+}
+
 .cabecera{
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
     gap: 1rem;
 }
 
 #header_logo{
     width: 20rem;
-    height: 10rem;
+    height: 100%;
 }
 
 .logo_name{
@@ -116,6 +123,6 @@ main{
 @media (max-width:600px) {
     #header_logo{
         width: 10rem;
-        height: 5rem;
+        height: 100%;
     }
 }

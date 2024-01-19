@@ -86,6 +86,41 @@ function set_agregar_fila(usuario_names_entero,usuario_identificacion,colegio){
     tableRow.appendChild(fila);
 }
 
+function get_consultar(){
+    var usuario_identificacion  = document.getElementById("usuario_identificacion").value;
+    var accion = 2;//opcion para seleccionar los datos del usuario
+
+    $.post("ctrl/padron_ctrl.php"
+    ,{"usuario":usuario_identificacion 
+    ,"accion":accion 
+    }
+    ,function(respuesta){
+        var json = $.parseJSON(respuesta);
+        console.log(json);
+
+        var usuario_names           = document.getElementById("usuario_names");
+        var usuario_lastnames       = document.getElementById("usuario_lastnames");
+        var usuario_identificacion  = document.getElementById("usuario_identificacion");
+        var usuario_name_acces      = document.getElementById("usuario_colegio") ;
+        var usuario_clave           = document.getElementById("usuario_colegio_ubicacion");
+        var usuario_tipo            = document.getElementById("usuario_direccion");
+        var usuario_logo            = document.getElementById("usuario_logo_index");
+ 
+        usuario_names.value = json[0];
+        usuario_lastnames.value =json[1];
+        usuario_identificacion.value =json[2];
+        usuario_name_acces.value =json[3];
+        usuario_clave.value =json[4];
+        usuario_tipo.value = json[5];
+        if(json[6]!=null && json[6].length>0){
+            usuario_logo.src = "imagenes_subidas/"+json[6];
+        }else{
+            usuario_logo.src = "imagenes/usuario1.png";
+        }
+
+    }); 
+}
+
 function set_seleccionar(usuario){
     var accion = 2;//opcion para seleccionar los datos del usuario
     var usuario_select = event.srcElement.id;
