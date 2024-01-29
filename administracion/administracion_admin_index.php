@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="menu_administracion_principal">
-                    <a href="../usuarios/admin_usuarios.php">eventos</a> 
+                    <a href="../eventos/administracion_eventos.php">eventos</a> 
                     <a href="../usuarios/admin_usuarios.php">usuarios</a> 
                 </div>
             </div>

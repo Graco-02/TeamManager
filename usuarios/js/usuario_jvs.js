@@ -117,15 +117,3 @@ function readURL(input) {
     $imagenPrevisualizacion.src = objectURL;
 }
 
-function set_valdiaciones(){
-    var usuario_names           = document.getElementById("usuario_names").value;
-    var usuario_lastnames       = document.getElementById("usuario_lastnames").value;
-    var usuario_identificacion  = document.getElementById("usuario_identificacion").value;
-    var usuario_name_acces      = document.getElementById("usuario_name_acces").value ;
-    var usuario_clave           = document.getElementById("usuario_clave").value;
-    var usuario_tipo            = document.getElementById("usuario_tipo").value;
-    var accion = 1;
-    var url_img      = document.getElementById("pic").value;
-
-
-}

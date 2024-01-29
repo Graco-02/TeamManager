@@ -1,0 +1,60 @@
+header{
+    background-color: white;
+}
+
+.cabecera{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+}
+
+#header_logo{
+    width: 20rem;
+    height: 10rem;
+}
+
+.logo_name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo_name p{
+    font-size: 2rem;
+}
+
+.menu_administracion_principal{
+    width: 100%;
+    background-color: var(--color_menu);
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    justify-content: center;
+    align-items: center;
+}
+
+.menu_administracion_principal a{
+    text-decoration: none;
+    cursor: pointer;
+    color: rgba(9, 9, 9, 0.864);
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.menu_administracion_principal a:hover{
+    color: wheat;
+    transition: 0.5s;
+}
+
+#header_contenido{
+    display: grid;
+    grid-template-rows:1fr 0.5fr;
+    gap: 1rem;
+}
+
+@media (max-width:600px) {
+    #header_logo{
+        width: 15rem;
+        height: 10rem;
+    }
+}
