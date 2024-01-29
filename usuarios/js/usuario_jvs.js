@@ -8,7 +8,7 @@ function set_insertar(){
     var accion = 1;
     var url_img      = document.getElementById("pic").value;
 
-    if(usuario_names.length >= 4 && usuario_lastnames.length >= 4 && usuario_name_acces.length >= 4 && usuario_clave.length >= 4){
+    if(usuario_names.length >= 4 && usuario_lastnames.length >= 4 && usuario_name_acces.length >= 4 && usuario_clave.length >= 4 && usuario_identificacion.length >=10){
                 var formData = new FormData();
                 var file_data = $('#pic').prop('files')[0];
                 formData.append('file',file_data);
@@ -47,7 +47,7 @@ function set_insertar(){
 
 
     }else{
-        alert("faltan datos los obligatorios son nombres,apellidos,usuario,clave todos deben tener almenos 4 caracteres");
+        alert("faltan datos los obligatorios son nombres,apellidos,identificacion,usuario,clave todos deben tener almenos 4 caracteres");
     }
 }
 
@@ -115,4 +115,17 @@ function readURL(input) {
     const objectURL = URL.createObjectURL(primerArchivo);
     // Y a la fuente de la imagen le ponemos el objectURL
     $imagenPrevisualizacion.src = objectURL;
+}
+
+function set_valdiaciones(){
+    var usuario_names           = document.getElementById("usuario_names").value;
+    var usuario_lastnames       = document.getElementById("usuario_lastnames").value;
+    var usuario_identificacion  = document.getElementById("usuario_identificacion").value;
+    var usuario_name_acces      = document.getElementById("usuario_name_acces").value ;
+    var usuario_clave           = document.getElementById("usuario_clave").value;
+    var usuario_tipo            = document.getElementById("usuario_tipo").value;
+    var accion = 1;
+    var url_img      = document.getElementById("pic").value;
+
+
 }

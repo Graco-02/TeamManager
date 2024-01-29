@@ -7,7 +7,7 @@
 body{
     background-color: var(--color_primario_2);
     display: grid;
-    grid-template-rows: 1fr 2fr 1fr;
+    grid-template-rows: 0.1fr 1fr;
     width: 100%;
     gap: 2rem;
 }
@@ -84,8 +84,10 @@ main{
 }
 
 .flex_colum{
+    margin-top: 1rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 #datos_usuario{
@@ -185,7 +187,7 @@ table {
     }
 
     #usuario_logo{
-        width: 10rem;
+        width: 15rem;
         height: 15rem;
     }
     

@@ -27,7 +27,7 @@
                 </div>
                 <div class="menu_administracion_principal">
                     <a href="categorias.php">eventos</a> 
-                    <a href="categorias.php">usuarios</a> 
+                    <a href="../usuarios/admin_usuarios.php">usuarios</a> 
                 </div>
             </div>
         </header>

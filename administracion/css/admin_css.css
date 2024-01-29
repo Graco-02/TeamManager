@@ -7,14 +7,12 @@
 body{
     background-color: var(--color_primario_2);
     display: grid;
-    grid-template-rows: 1fr 2fr 1fr;
-    width: 100%;
+    grid-template-rows: 1fr 3fr;
     gap: 2rem;
 }
 
 header{
     background-color: white;
-    width: 100%;
 }
 
 .cabecera{
@@ -39,7 +37,6 @@ header{
 }
 
 main{
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,30 +45,35 @@ main{
 .main_contenido{
     background-color: white;
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 0.5fr 1fr;
     text-transform: uppercase;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     box-shadow: 5px 5px #888888;
-    margin: 1rem;
+    width: 50%;
 }
 
 .loging_formulario{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: 0.5rem;
+    width: 100%;
+    text-align: center;
     width: 100%;
 }
 
 #login_img{
     width: 100%;
-    height: 80%;
+    height: 10rem;
 }
 
 .input_formulario{
     padding: 1rem;
     margin-right: 1rem;
     margin-bottom: 1rem;
+    text-align: center;
+    width: 70%;
 }
 
 .buton_formulario{
