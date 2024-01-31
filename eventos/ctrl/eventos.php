@@ -50,6 +50,7 @@ function set_insert($evento_name, $evento_num_equipos,$evento_num_jug_equipos,$e
 
 function get_listar_eventos_todos(){
     $conn = conectar();
+    $date = date('Y-m-d');
       // Check connection
      if ($conn->connect_error) {
           die("Connection failed: " . $conn->connect_error);
@@ -68,6 +69,10 @@ function get_listar_eventos_todos(){
          $fecha_incio      = $row["fecha_incio"];
          $id      = $row["id"];
 
+
+         $diff = strtotime($fecha_incio) - strtotime($date);
+         $dias = $diff/(60*60*24);
+
            echo "<script> var usuario_js = '".$id."';</script>";
            echo "<tr>";
            echo "<td id='".$id."' name='fila'";
@@ -75,6 +80,14 @@ function get_listar_eventos_todos(){
            echo $nombre;
            echo "</td>";
            echo "<td >$fecha_incio</td>";
+
+           if($dias>0){
+             echo "<td >$dias</td>";
+           }else{
+            echo "<td >".'Ya ha Iniciado'."</td>";
+           }
+
+           
            echo "</tr> ";
        }		 
        
@@ -131,4 +144,5 @@ function get_listar_eventos_todos(){
       echo "Error Modificacion: " . $sql . "<br>" . $conn->error;
      }
  }
+
 ?>

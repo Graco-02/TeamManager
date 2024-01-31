@@ -1,7 +1,7 @@
 <?php
       require_once("../utilidades/conexion.php");
       require_once("../utilidades/alerta.php");
-      require_once("ctrl/eventos.php");
+      require_once("ctrl/equipos.php");
 ?>
 
 <!DOCTYPE html>
@@ -10,12 +10,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>administracion de eventos</title>
-    <link rel="stylesheet" href="css/eventos.css">
+    <link rel="stylesheet" href="css/equipos.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/table_css.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-    <script src="js/eventos.js"></script>
+    <script src="js/equipos.js"></script>
 </head>
 <body>
         <header>
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="menu_administracion_principal">
-                    <a href="../equipos/administracion_equipos.php">equipos</a> 
+                    <a href="../eventos/administracion_eventos.php">eventos</a> 
                     <a href="../usuarios/admin_usuarios.php">jugadores</a> 
                 </div>
             </div>
@@ -36,23 +36,23 @@
         <main>
             <div class="main_contenido">
                 <section class="formulario_entrada">
-                    <form id="form" action="javascript: set_insertar();" class="loging_formulario">
+                    <form id="form" action="javascript: set_insertar();" class="loging_formulario" enctype=" multipart/form-data">
+                         <div class="flex_colum">
+                             <img src="../imagenes/usuario1.png" alt="usuario" id="usuario_logo"/>
+                             <br>
+                             <input type="file" name="pic" id="pic" onchange="readURL(this.value)"/>
+                         </div>
                         <fieldset>
-                            <legend class="formulario_legend">Datos Evento</legend>
-                            <label for="evento_name">Nombre Del Evento</label>
-                             <input type="text" placeholder="Torneo X" class="input_formulario" name="evento_name" id="evento_name" required/>
+                            <legend class="formulario_legend">Datos Equipo</legend>
 
-                            <label for="evento_num_equipos">Cantidad de Equipos Permitidos</label>
-                            <input type="number" placeholder="0" class="input_formulario" name="evento_num_equipos" id="evento_num_equipos" required/>
+                            <label for="evento_name">Nombre</label>
+                            <input type="text" placeholder="XXX" class="input_formulario" name="equipo_name" id="equipo_name" required/>
 
-                            <label for="evento_num_jug_equipos">Cantidad de Jugadores Por Equipo</label>
-                            <input type="number" placeholder="0" class="input_formulario" name="evento_num_jug_equipos" id="evento_num_jug_equipos" required/>
+                            <label for="evento_name">Municipio</label>
+                            <input type="text" placeholder="XXX" class="input_formulario" name="equipo_name" id="equipo_municipio" required/>
 
-                            <label for="evento_descripcion">Descripcion Corta</label>
-                            <input type="text" placeholder="" class="input_formulario" name="evento_descripcion" id="evento_descripcion"/>
-
-                            <label for="evento_fecha_inicio">Fecha De Inicio</label>
-                            <input type="date" placeholder="" class="input_formulario" name="evento_fecha_inicio" id="evento_fecha_inicio"/>
+                            <label for="evento_name">Sector</label>
+                            <input type="text" placeholder="XXX" class="input_formulario" name="equipo_name" id="equipo_sector" required/>
 
                             <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
                         </fieldset>
@@ -63,8 +63,8 @@
                     <table id="listado_usuarios" class="listado_usuarios_css">
                         <tr>
                           <th>Nombre</th>
-                          <th>Fecha De Inicio</th>
-                          <th>Inicia en Dias</th>
+                          <th>Municipio</th>
+                          <th>Sector</th>
                         </tr>
                        <?php get_listar_eventos_todos();?>
                     </table>

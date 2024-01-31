@@ -25,7 +25,8 @@ function set_insertar(){
         var resp = respuesta.trim();
             if(resp == 'AGREGADO CORRECTO'){
                 alert('AGREGADO CORRECTO');
-                set_agregar_fila(evento_name,evento_fecha_inicio)
+              //  set_agregar_fila(evento_name,evento_fecha_inicio);
+                location.reload();
             }else if(resp == 'MODIFICACION REALIZADA'){
                 alert('MODIFICACION REALIZADA');
                 location.reload();

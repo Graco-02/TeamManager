@@ -1,0 +1,97 @@
+:root{
+    --color_primario:rgb(244, 241, 189);
+    --color_primario_2:#eeebeb;
+    --color_menu:#09accd;
+}
+
+
+body{
+    background-color: var(--color_primario_2);
+    display: grid;
+    grid-template-rows: 0.1fr 1fr;
+    gap: 2rem;
+}
+
+
+.main_contenido{
+    display: grid;
+    grid-template-columns: 0.5fr 1fr;
+    gap: 1rem;
+}
+
+.formulario_entrada{
+    background-color: white;
+    width: 100%;
+    box-shadow: 5px 5px #888888;
+    border-radius: 25px 25px 10px 10px;
+}
+
+.loging_formulario{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    height: 100%;
+}
+
+.buton_formulario{
+    background-color: blue;
+    color: aqua;
+    width: 100%;
+    min-height: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.buton_formulario:hover{
+    background-color: rgb(20, 243, 57);
+    color: aqua;
+}
+
+.input_formulario{
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.formulario_legend{
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+#listado_usuario{
+    background-color: white;
+    overflow-y: scroll;
+}
+
+#usuario_logo{
+    width: 15rem;
+    height: 15rem;
+}
+
+.flex_colum{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media (max-width:600px) {    
+    .main_contenido{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .input_formulario{
+        padding-top: 0.1rem;
+        padding-bottom: 0.1rem;
+        margin-bottom: 0.1rem;
+    }
+
+}
