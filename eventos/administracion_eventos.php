@@ -28,7 +28,7 @@
                 </div>
                 <div class="menu_administracion_principal">
                     <a href="../equipos/administracion_equipos.php">equipos</a> 
-                    <a href="../usuarios/admin_usuarios.php">jugadores</a> 
+                    <a href="../jugadores/administracion_jugadores.php">jugadores</a> 
                 </div>
             </div>
         </header>
@@ -55,11 +55,13 @@
                             <input type="date" placeholder="" class="input_formulario" name="evento_fecha_inicio" id="evento_fecha_inicio"/>
 
                             <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
+                            <input type="button" value="AGREGAR EQUIPOS" name="acceder_bt" class="buton_formulario" onclick="set_relacion_equipo();">
                         </fieldset>
                     </form>
                 </section>
 
                 <section id="listado_usuario">
+                    <h1>Eventos</h1>
                     <table id="listado_usuarios" class="listado_usuarios_css">
                         <tr>
                           <th>Nombre</th>
@@ -68,6 +70,18 @@
                         </tr>
                        <?php get_listar_eventos_todos();?>
                     </table>
+
+                    <div id='equipos_div' class='display_none'>
+                    <h1>Equipos</h1>
+                    <table id="listado_equipos" class="listado_usuarios_css">
+                        <tr>
+                          <th>Nombre</th>
+                          <th>Municipio</th>
+                          <th>Sector</th>
+                          <th>Accion</th>
+                        </tr>
+                    </table>
+                    </div>
                 </section>
 
             </div>

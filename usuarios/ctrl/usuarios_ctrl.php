@@ -13,7 +13,7 @@
           $usuario_clave                    = $_POST['usuario_clave'];
           $usuario_tipo                     = $_POST['usuario_tipo'];
           $url_img                          = $_POST['url_img'];
-          set_insert($usuario_names,$usuario_lastnames,$usuario_identificacion,$usuario_name_acces,$usuario_clave,$usuario_tipo,$url_img);
+          set_insert_usuario($usuario_names,$usuario_lastnames,$usuario_identificacion,$usuario_name_acces,$usuario_clave,$usuario_tipo,$url_img);
         break;
         case 2:
           $usuario    = $_POST['usuario'];
@@ -23,7 +23,7 @@
           
    }
    
-function set_insert($usuario_names,$usuario_lastnames,$usuario_identificacion,$usuario_name_acces,$usuario_clave,$usuario_tipo,$url_img){
+function set_insert_usuario($usuario_names,$usuario_lastnames,$usuario_identificacion,$usuario_name_acces,$usuario_clave,$usuario_tipo,$url_img){
     $date = date('Y-m-d');
     $conn = conectar();
              //   # Agregamos la LOS DATOS DE LA PERSONA a la base de datos
@@ -35,7 +35,7 @@ function set_insert($usuario_names,$usuario_lastnames,$usuario_identificacion,$u
          echo  'AGREGADO CORRECTO';
       }
      }else{
-      set_modificar($usuario_names,$usuario_lastnames,$usuario_identificacion,$usuario_name_acces,$usuario_clave,$usuario_tipo,$url_img);
+      set_modificar_usuario($usuario_names,$usuario_lastnames,$usuario_identificacion,$usuario_name_acces,$usuario_clave,$usuario_tipo,$url_img);
      }
 }
 
@@ -123,7 +123,7 @@ function get_usuario($usuario){
      $conn->close();
 }
 
-function set_modificar($usuario_names,$usuario_lastnames,$usuario_identificacion,$usuario_name_acces,$usuario_clave,$usuario_tipo,$url_img){
+function set_modificar_usuario($usuario_names,$usuario_lastnames,$usuario_identificacion,$usuario_name_acces,$usuario_clave,$usuario_tipo,$url_img){
    $conn = conectar();
 
       $sql="UPDATE usu001 SET identificacion='$usuario_identificacion',

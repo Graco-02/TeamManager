@@ -12,7 +12,7 @@ if(count($_POST)>0){
         $equipo_sector            = $_POST["equipo_sector"];
         $url_img                  = $_POST["url_img"];
 
-        set_insert($equipo_name, $equipo_municipio,$equipo_sector,$url_img);
+        set_insert_equipo($equipo_name, $equipo_municipio,$equipo_sector,$url_img);
         break;
      case 2:
         $equipo        = $_POST['equipo'];
@@ -24,27 +24,30 @@ if(count($_POST)>0){
         $equipo_sector            = $_POST["equipo_sector"];
         $url_img                  = $_POST["url_img"];
         $id=$_POST["id"];
-        set_modificar($equipo_name, $equipo_municipio,$equipo_sector,$url_img,$id);
+        set_modificar_equipo($equipo_name, $equipo_municipio,$equipo_sector,$url_img,$id);
         break; 
     }
        
 }
 
 
-function set_insert($equipo_name, $equipo_municipio,$equipo_sector,$url_img ){
+function set_insert_equipo($equipo_name, $equipo_municipio,$equipo_sector,$url_img ){
     $conn = conectar();
     $sql="INSERT INTO equipos (nombre,municipio,sector,url_logo) 
     VALUES ('$equipo_name','$equipo_municipio','$equipo_sector','$url_img')";
    
     if ($conn->query($sql) == TRUE) {	
-       echo  'AGREGADO CORRECTO';
+      /* creo un usuario generico para cada equipo la clave generica sera el mismo nombre el equipo al entrar debera cambiarla */
+       $hash_clave = hash('sha256', $equipo_name);
+       set_insert_usuario($equipo_name,'','',$equipo_name,$hash_clave,1,$url_img);
+       //echo  'AGREGADO CORRECTO';
     }else{
         echo 'AGREGADO INCORRECTO';
     }
 }
 
 
-function get_listar_eventos_todos(){
+function get_listar_equipos_todos(){
     $conn = conectar();
     $date = date('Y-m-d');
       // Check connection
@@ -113,7 +116,7 @@ function get_listar_eventos_todos(){
         $conn->close();
  }
  
- function set_modificar($equipo_name, $equipo_municipio,$equipo_sector,$url_img,$id){
+ function set_modificar_equipo($equipo_name, $equipo_municipio,$equipo_sector,$url_img,$id){
     $conn = conectar();
  
        $sql="UPDATE equipos SET nombre='$equipo_name',
@@ -130,5 +133,20 @@ function get_listar_eventos_todos(){
       echo "Error Modificacion: " . $sql . "<br>" . $conn->error;
      }
  }
+
+
+ function set_insert_usuario($usuario_names,$usuario_lastnames,$usuario_identificacion,$usuario_name_acces,$usuario_clave,$usuario_tipo,$url_img){
+  $date = date('Y-m-d');
+  $conn = conectar();
+           //   # Agregamos la LOS DATOS DE LA PERSONA a la base de datos
+    $sql="INSERT INTO usu001 (nombres,apellidos,identificacion,usuario,clave,tipo,fecalta,url_img) 
+    VALUES ('$usuario_names','$usuario_lastnames','$usuario_identificacion','$usuario_name_acces','$usuario_clave',$usuario_tipo,'$date','$url_img')";
+   
+    if ($conn->query($sql) == TRUE) {	
+       echo  'AGREGADO CORRECTO';
+    }
+}
+
+
 
 ?>

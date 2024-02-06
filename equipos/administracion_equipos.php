@@ -66,7 +66,7 @@
                           <th>Municipio</th>
                           <th>Sector</th>
                         </tr>
-                       <?php get_listar_eventos_todos();?>
+                       <?php get_listar_equipos_todos();?>
                     </table>
                 </section>
 

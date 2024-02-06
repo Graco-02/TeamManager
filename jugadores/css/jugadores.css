@@ -70,8 +70,25 @@ body{
     overflow-y: scroll;
 }
 
-.display_none{
-    display: none;
+#usuario_logo{
+    width: 15rem;
+    height: 15rem;
+}
+
+.flex_colum{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lupa{
+    width: 2rem;
+    height: 2rem;
+}
+
+.flex{
+    display: flex;
 }
 
 @media (max-width:600px) {    
@@ -85,4 +102,5 @@ body{
         padding-bottom: 0.1rem;
         margin-bottom: 0.1rem;
     }
+
 }

@@ -30,6 +30,15 @@ if(count($_POST)>0){
         $id=$_POST["id"];
         set_modificar($evento_name, $evento_num_equipos,$evento_num_jug_equipos,$evento_descripcion,$date,$id);
         break; 
+      case 4:
+        $evento        = $_POST['evento'];
+        get_listar_equipos_no_linkados($evento);
+        break;
+      case 5:
+          $evento        = $_POST['evento_id'];
+          $equipo        = $_POST['equipo_id'];
+          set_insert_relacion_equipo($evento, $equipo );
+          break;        
     }
        
 }
@@ -145,4 +154,48 @@ function get_listar_eventos_todos(){
      }
  }
 
+ 
+function get_listar_equipos_no_linkados($evento){
+  $conn = conectar();
+  $date = date('Y-m-d');
+    // Check connection
+   if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+   }
+
+    $sql = "SELECT id,nombre,municipio,sector,url_logo,estado from equipos where id not in (select equipo from relacion_equipo_evento where evento = $evento)"; 
+    $result = $conn->query($sql);
+    $count=1;     
+    $equipo_array_lista    = array();  
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc() ) {
+        
+         $equipo_array = array();    
+         array_push($equipo_array,$row["id"]);
+         array_push($equipo_array,$row["nombre"]);
+         array_push($equipo_array,$row["municipio"]);
+         array_push($equipo_array,$row["sector"]);
+         array_push($equipo_array,$row["url_logo"]);
+         array_push($equipo_array,$row["estado"]);
+
+         array_push($equipo_array_lista, $equipo_array);
+     }		 
+      echo json_encode($equipo_array_lista);
+    }
+  
+    $conn->close();
+}
+
+
+function set_insert_relacion_equipo($evento_id, $equipo_id ){
+  $conn = conectar();
+  $sql="INSERT INTO relacion_equipo_evento (equipo,evento) 
+  VALUES ($equipo_id, $evento_id)";
+ 
+  if ($conn->query($sql) == TRUE) {	
+     echo  'AGREGADO CORRECTO';
+  }else{
+      echo 'AGREGADO INCORRECTO';
+  }
+}
 ?>
