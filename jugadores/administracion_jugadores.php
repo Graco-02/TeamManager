@@ -57,7 +57,7 @@
                             <label for="jugador_cedula">Identificacion</label>
                             <div class="flex">
                              <input type="text" placeholder="" class="input_formulario" name="jugador_cedula" id="jugador_cedula" required/>
-                             <img src="../imagenes/lupa.png" alt="usuario" class="lupa" onclick="alert('click')"/>
+                             <img src="../imagenes/lupa.png" alt="usuario" class="lupa" onclick="set_filtrar_listado();"/>
                             </div>
 
 
@@ -75,19 +75,24 @@
                         <fieldset>
                              <legend class="formulario_legend">Archivos Adjuntos</legend>
                              <label for="adjunto1">Adjunto 1</label>
-                             <input type="file" name="adjunto1" id="adjunto1" onchange="readURL(this.value)"/>
+                             <img src="../imagenes/usuario1.png" alt="usuario" id="adjunto_1" hidden/>
+                             <input type="file" name="adjunto1" id="adjunto1" onchange="readURL2(this.value)"/>
                         </fieldset>
                     </form>
                 </section>
 
                 <section id="listado_usuario">
                     <table id="listado_usuarios" class="listado_usuarios_css">
+                    <thead>
                         <tr>
                           <th>Nombres</th>
                           <th>Apellidos</th>
                           <th>Identificacion</th>
                         </tr>
-                       <?php get_listar_jugadores_todos();?>
+                    </thead>
+                    <tbody id="jugadores">
+                         <?php get_listar_jugadores_todos();?>
+                    </tbody>
                     </table>
                 </section>
 

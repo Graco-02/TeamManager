@@ -28,7 +28,7 @@
                 </div>
                 <div class="menu_administracion_principal">
                     <a href="../eventos/administracion_eventos.php">eventos</a> 
-                    <a href="../usuarios/admin_usuarios.php">jugadores</a> 
+                    <a href="../jugadores/administracion_jugadores.php">jugadores</a> 
                 </div>
             </div>
         </header>

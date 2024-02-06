@@ -24,8 +24,24 @@ if(count($_POST)>0){
         get_jugador($jugador);
       break;
      case 3:
+        $jugadore_name              = $_POST["jugadore_name"];
+        $jugador_lastname           = $_POST["jugador_lastname"];
+        $jugador_fecha_nacimiento   = $_POST["jugador_fecha_nacimiento"];
+        $identificacion             = $_POST["identificacion"];
+        $jugador_direccion          = $_POST["jugador_direccion"];
+        $jugador_equipo             = $_POST["jugador_equipo"];
+        $ruta                       = $_POST["url_img"];
+        $ruta2                      = $_POST["url_adjunto"];
+        $id                         = $_POST["id"];
+        $date = date( "Y-m-d", strtotime($jugador_fecha_nacimiento) );
 
+        set_modificar_equipo($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$id);
         break; 
+      case 4:
+        $cedula        = $_POST['identificacion'];
+        $equipo        = $_POST['jugador_equipo'];
+        get_jugadores($cedula,$equipo);
+        break;  
     }
        
 }
@@ -118,13 +134,18 @@ function get_listar_jugadores_todos(){
         $conn->close();
  }
  
- function set_modificar_equipo($equipo_name, $equipo_municipio,$equipo_sector,$url_img,$id){
+ function set_modificar_equipo($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$id){
     $conn = conectar();
  
-       $sql="UPDATE equipos SET nombre='$equipo_name',
-                                municipio='$equipo_municipio',
-                                sector='$equipo_sector',
-                                url_logo='$url_img'
+       $sql="UPDATE jugadores SET nombres='$jugadore_name',
+                                  apellidos='$jugador_lastname',
+                                  identificacion='$identificacion',
+                                  fecha_nacimiento='$jugador_fecha_nacimiento',
+                                  direccion='$jugador_direccion',
+                                  equipo=$jugador_equipo,
+                                  url_img='$ruta',
+                                  url_adjunto1='$ruta2'
+
            where id =$id";
  
        if ($conn->query($sql) == TRUE) {		   
@@ -173,5 +194,38 @@ function get_listar_equipos_select(){
     $conn->close();
 }
 
+function get_jugadores($cedula,$equipo){
+  $conn = conectar();
+    // Check connection
+   if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+   }
+
+   $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1 
+   from jugadores where identificacion like '%".$cedula."%' " ; 
+
+    $result = $conn->query($sql);
+    $count=1;         
+    $jugadores_array = array();   
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc() ) {
+        
+       $jugador_array = array();    
+       array_push($jugador_array,$row["id"]);
+       array_push($jugador_array,$row["nombres"]);
+       array_push($jugador_array,$row["apellidos"]);
+       array_push($jugador_array,$row["identificacion"]);
+       array_push($jugador_array,$row["fecha_nacimiento"]);
+       array_push($jugador_array,$row["direccion"]);
+       array_push($jugador_array,$row["equipo"]);
+       array_push($jugador_array,$row["url_img"]);
+       array_push($jugador_array,$row["url_adjunto1"]);
+
+       array_push($jugadores_array,$jugador_array);
+     }		 
+        echo json_encode($jugadores_array);
+    }
+      $conn->close();
+}
 
 ?>
