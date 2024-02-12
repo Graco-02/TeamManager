@@ -1,88 +1,59 @@
-<?php 
-   session_start();
-   if(isset( $_SESSION['admin_user'])){
-      require_once("utilidades/conexion.php");
-      require_once("utilidades/alerta.php");
-      require_once("ctrl/padron_ctrl.php");
+<?php
+    require_once("utilidades/conexion.php");
+    require_once("utilidades/alerta.php");
+    require_once("administracion/validacion_admin.php");
+
+    session_start();
+
+    if(count($_POST)>0){
+        if (isset($_POST['longin_name']) && strlen($_POST['longin_name']) >= 5) {
+            if (isset($_POST['longin_clave']) && strlen($_POST['longin_clave']) >= 4) {
+                $user_name = $_POST['longin_name'];
+                $user_clave = $_POST['longin_clave'];
+                if (set_validar_logging($user_name, $user_clave) === TRUE) {
+                    
+                } else {
+                    alert("usuario o clave invalida");
+                }
+            }else{
+                alert("la clave de usuario debe tener al menos 4 caracteres");
+            }
+        }else{
+            alert("el nombre de usuario debe tener al menos 5 caracteres");
+        }
+    }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/table_css.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-    <script src="js/padron.js"></script>
-    <title>incio manejadores</title>
+    <link rel="stylesheet" href="administracion/css/admin_css.css">
+    <title>acceso_admin</title>
 </head>
 <body>
     <header>
-        <div id="header_cabecera">
-             <img src="imagenes/fradiz1.jpg" alt="" srcset="" id="header_logo">
-             <img src="imagenes/IMG-20240117-WA0005.jpg" alt="" srcset="" id="header_logo2">
+        <div class="cabecera">
+            <img src="imagenes/imagen_logo1.jpg" alt="header_logo" id="header_logo"/>
+            <div class="logo_name">
+                <p>Team Manager</p>
+            </div>
         </div>
     </header>
-    
+
     <main>
-        <div id="contenido_main">
-        <section class="datos_captura">
-             <form id="form" action="javascript: set_insertar();" enctype=" multipart/form-data"  class="formulario">
-                <div>
-                    <img src="imagenes/usuario1.png" alt="usuario" id="usuario_logo"/>
-                    <br>
-                    <input type="file" name="pic" id="pic" onchange="readURL(this.value)"/>
-                </div>
-                <div>
-                    <fieldset>
-                      <legend class="formulario_legend">Datos Personales</legend>
-                      <label for="usuario_names">Nombres</label>
-                      <input type="text" placeholder="FULANITO" class="input_formulario" name="usuario_names" id="usuario_names" required/>
+        <div class="main_contenido">
+            <img src="imagenes/loging_3.png" alt="header_logo" id="login_img"/>  
+            <form action="" method="post" class="loging_formulario">
+                     <label for="longin_name">usuario</label>
+                     <input type="text" placeholder="FULANITO" class="input_formulario" name="longin_name" id="longin_name"/>
+                     <label for="longin_clave">clave</label>
+                     <input type="password" placeholder="CLAVE" class="input_formulario" name="longin_clave" id="longin_clave"/>
 
-                      <label for="usuario_lastnames">Apellidos</label>
-                      <input type="text" placeholder="De Tal" class="input_formulario" name="usuario_lastnames" id="usuario_lastnames" required/>
-
-                      <label for="usuario_identificacion">Identificacion</label>
-                      <input type="text" placeholder="000-0000000-0" class="input_formulario" name="usuario_identificacion" id="usuario_identificacion"/>
-                    </fieldset>
-
-                    <fieldset>
-                      <legend class="formulario_legend">Datos Votacion</legend>
-                      <label for="usuario_colegio">Colegio Electoral</label>
-                      <input type="text" placeholder="Colegio Electoral" class="input_formulario" name="usuario_colegio" id="usuario_colegio"/>
-
-                      <label for="usuario_colegio_ubicacion">Ubicacion del colegio</label>
-                      <input type="text" placeholder="Ubicacion del colegio" class="input_formulario" name="usuario_colegio_ubicacion" id="usuario_colegio_ubicacion" />
-
-                      <label for="usuario_direccion">Direccion</label>
-                      <input type="text" placeholder="Direccion" class="input_formulario" name="usuario_direccion" id="usuario_direccion"/>
-                    </fieldset>
-
-                    <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
-                </div>
-
-             </form>
-        </section>
-
-        <section class="lista_datos">
-                    <table id="listado_usuarios" class="listado_usuarios_css">
-                        <tr>
-                          <th>Nombre</th>
-                          <th>Identificacion</th>
-                          <th>Colegio</th>
-                        </tr>
-                        <?php get_listar_usuarios_todos();?>
-                    </table>
-        </section>
+                     <input type="submit" value="ACCEDER" name="acceder_bt" class="buton_formulario input_formulario">
+            </form>
         </div>
-
     </main>
-
-
 </body>
 </html>
-
- <?php }else{
-     header("Location:administracion/acceso_admin.php");
- }  ?>

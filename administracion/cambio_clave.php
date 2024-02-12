@@ -8,12 +8,15 @@
     if(count($_POST)>0){
         if (isset($_POST['longin_name']) && strlen($_POST['longin_name']) >= 5) {
             if (isset($_POST['longin_clave']) && strlen($_POST['longin_clave']) >= 4) {
-                $user_name = $_POST['longin_name'];
-                $user_clave = $_POST['longin_clave'];
-                if (set_validar_logging($user_name, $user_clave) === TRUE) {
-
-                } else {
-                    alert("usuario o clave invalida");
+                if(set_validar_caracteres($_POST['longin_name'],$_POST['longin_clave'])  && ($_POST['longin_clave'] != $_POST['longin_name'])){
+                    if(set_modificar_clave($_POST['longin_name'],$_POST['longin_clave'])){
+                        alert("Modificacion realizada");
+                        header("Location:../index.php");    
+                    }else{
+                        alert("no se pudo realizar la modificacion");
+                    }
+                }else{
+                    alert("no se permiten caracteres ilegales, ademas de que la clave y el usuario no pueden ser iguales");
                 }
             }else{
                 alert("la clave de usuario debe tener al menos 4 caracteres");
@@ -44,14 +47,14 @@
 
     <main>
         <div class="main_contenido">
-            <img src="../imagenes/loging_2.png" alt="header_logo" id="login_img"/>  
+            <h1>cambio de credenciales</h1>
             <form action="" method="post" class="loging_formulario">
                      <label for="longin_name">usuario</label>
                      <input type="text" placeholder="FULANITO" class="input_formulario" name="longin_name" id="longin_name"/>
                      <label for="longin_clave">clave</label>
                      <input type="password" placeholder="CLAVE" class="input_formulario" name="longin_clave" id="longin_clave"/>
 
-                     <input type="submit" value="ACCEDER" name="acceder_bt" class="buton_formulario input_formulario">
+                     <input type="submit" value="CAMBIAR" name="acceder_bt" class="buton_formulario input_formulario">
             </form>
         </div>
     </main>

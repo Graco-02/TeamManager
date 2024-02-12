@@ -70,8 +70,8 @@ function set_seleccionar(id_seleccionado){
         var jugador_direccion          = document.getElementById("jugador_direccion") ;
         var jugador_equipo             = document.getElementById("jugador_equipo") ;
         var url_img                    = document.getElementById("pic");
-        var url_adjunto                = document.getElementById("adjunto1");
-
+        var url_adjunto                = document.getElementById("label_adjunto");
+        
 
         //id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1
 
@@ -93,7 +93,9 @@ function set_seleccionar(id_seleccionado){
         }
 
         if(json[8]!=null && json[8].length>0){
-            adjunto1.src = "../archivos_subidos/"+json[8];
+            url_adjunto.innerHTML = json[8];
+        }else{
+            url_adjunto.innerHTML ="Adjunto 1";
         }
     }); 
 }
@@ -191,13 +193,13 @@ function set_filtrar_listado(){
     var jugador_cedula             = document.getElementById("jugador_cedula").value ;
     var jugador_equipo             = document.getElementById("jugador_equipo").value ;
     
-    var listado_jugadores          = document.getElementById("jugadores");
+    var listado_jugadores          = document.getElementById("lista_jugadores");
     listado_jugadores.innerHTML = '';
     set_listado_filtrado(jugador_cedula,jugador_equipo);
 }
 
 function set_agregar_fila(jugadore_name,jugador_lastname,identificacion,id){
-    var tableRow = document.getElementById("listado_usuarios");
+    var tableRow = document.getElementById("lista_jugadores");
     var fila = document.createElement("tr");
     var celda1 = document.createElement("td");
     var celda2 = document.createElement("td");
@@ -222,6 +224,8 @@ function set_listado_filtrado(jugador_cedula,jugador_equipo){
         ,"accion":accion 
         }
         ,function(respuesta){
+            var listado_jugadores          = document.getElementById("lista_jugadores");
+            listado_jugadores.innerHTML = '';
             var json = $.parseJSON(respuesta);
             console.log(json);
             for(i=0;i<json.length;i++){

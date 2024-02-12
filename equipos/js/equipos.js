@@ -1,5 +1,7 @@
 let elento_seleccionado =0 ;
 let fichero_seleccionado ="" ;
+let id_seleccionado =0 ;
+let name_ant ="" ;
 
 function set_insertar(){
     var equipo_name              = document.getElementById("equipo_name").value;
@@ -38,6 +40,7 @@ function set_insertar(){
                 ,"accion":accion 
                 ,"url_img":ruta 
                 ,"id":elento_seleccionado 
+                ,"name_ant":name_ant
                 }
                 ,function(respuesta){
                     var resp = respuesta.trim();
@@ -75,20 +78,23 @@ function set_seleccionar(equipo){
         var equipo_sector          = document.getElementById("equipo_sector");
         var url_img                = document.getElementById("pic");
         var usuario_logo            = document.getElementById("usuario_logo");
-        var evento_id=0;
 
-        evento_id              = json[0];
+        id_seleccionado        = json[0];
         equipo_name.value      = json[1];
         equipo_municipio.value = json[2];
         equipo_sector.value    = json[3];
         var equipo_estado      = json[5];
         fichero_seleccionado = json[4];
 
+        name_ant=json[1];
+
         if(json[4]!=null && json[4].length>0){
             usuario_logo.src = "../imagenes_subidas/"+json[4];
         }else{
             usuario_logo.src = "../imagenes/usuario1.png";
         }
+
+        set_relacion_equipo();
     }); 
 }
 
@@ -104,6 +110,7 @@ function set_agregar_fila(evento_name,evento_fecha_inicio){
     fila.appendChild(celda2);
     tableRow.appendChild(fila);
 }
+
 
 function readURL(input) {
     const $seleccionArchivos = document.querySelector("#pic"),
@@ -121,4 +128,61 @@ function readURL(input) {
     const objectURL = URL.createObjectURL(primerArchivo);
     // Y a la fuente de la imagen le ponemos el objectURL
     $imagenPrevisualizacion.src = objectURL;
+}
+
+function set_agregar_fila_jugador(jugador_name,jugador_lastname,jugador_identificacion,id){
+    var tableRow = document.getElementById("jugadores");
+    var fila = document.createElement("tr");
+    var celda1 = document.createElement("td");
+    var celda2 = document.createElement("td");
+    var celda3 = document.createElement("td");
+    var celda4 = document.createElement("button");
+
+    celda1.innerHTML = jugador_name;
+    celda2.innerHTML = jugador_lastname;
+    celda3.innerHTML = jugador_identificacion;
+    celda4.innerHTML ="SACAR";
+
+celda4.onclick = function() { set_sacar_jugador(id);};
+    fila.appendChild(celda1);
+    fila.appendChild(celda2);
+    fila.appendChild(celda3);
+    fila.appendChild(celda4);
+    tableRow.appendChild(fila);
+}
+
+function set_relacion_equipo(){
+    var accion = 4;//opcion para seleccionar los datos del equipo
+    if(id_seleccionado>0){//primera validacion de que se ha seleccionado un elemento
+        $.post("ctrl/equipos.php"
+        ,{"equipo":id_seleccionado 
+        ,"accion":accion 
+        }
+        ,function(respuesta){
+            var json = $.parseJSON(respuesta);
+            console.log(json);
+            var tableRow = document.getElementById("jugadores");
+            tableRow.innerHTML="";
+
+            for(i=0;i<json.length;i++){
+                console.log(json[i]);                
+                set_agregar_fila_jugador(json[i][1],json[i][2],json[i][3],json[i][0]);
+            }
+        }); 
+    }else{
+        alert('DEBE SELECCIONAR UN EVENTO PRIMERO');
+    }
+}
+
+function set_sacar_jugador(id){
+    var accion = 5;//opcion para eliminar jugador
+
+    $.post("ctrl/equipos.php"
+    ,{"equipo":id_seleccionado 
+    ,"jugador":id 
+    ,"accion":accion 
+    }
+    ,function(respuesta){
+        alert(respuesta); location.reload(); 
+    }); 
 }

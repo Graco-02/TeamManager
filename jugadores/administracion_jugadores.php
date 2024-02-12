@@ -2,6 +2,10 @@
       require_once("../utilidades/conexion.php");
       require_once("../utilidades/alerta.php");
       require_once("ctrl/jugadores.php");
+      $equipo=0;
+      if(count($_GET)>0){
+         $equipo = $_GET['id_equipo'];
+      }
 ?>
 
 <!DOCTYPE html>
@@ -10,9 +14,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>administracion de eventos</title>
-    <link rel="stylesheet" href="css/jugadores.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/table_css.css">
+    <link rel="stylesheet" href="css/jugadores.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <script src="js/jugadores.js"></script>
@@ -27,8 +31,10 @@
                     </div>
                 </div>
                 <div class="menu_administracion_principal">
+                    <?php if( $equipo==0){?>
                     <a href="../eventos/administracion_eventos.php">eventos</a> 
                     <a href="../equipos/administracion_equipos.php">equipos</a> 
+                    <?php }?>
                 </div>
             </div>
         </header>
@@ -66,7 +72,7 @@
 
                             <label for="jugador_equipo">Equipo</label>
                             <select class="input_formulario" onchange="" id="jugador_equipo" name="jugador_equipo">
-                                <?php get_listar_equipos_select();?>
+                                <?php get_listar_equipos_select($equipo);?>
                             </select>
 
                             <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
@@ -74,7 +80,7 @@
 
                         <fieldset>
                              <legend class="formulario_legend">Archivos Adjuntos</legend>
-                             <label for="adjunto1">Adjunto 1</label>
+                             <label for="adjunto1" id="label_adjunto">Adjunto 1</label>
                              <img src="../imagenes/usuario1.png" alt="usuario" id="adjunto_1" hidden/>
                              <input type="file" name="adjunto1" id="adjunto1" onchange="readURL2(this.value)"/>
                         </fieldset>
@@ -83,16 +89,16 @@
 
                 <section id="listado_usuario">
                     <table id="listado_usuarios" class="listado_usuarios_css">
-                    <thead>
-                        <tr>
-                          <th>Nombres</th>
-                          <th>Apellidos</th>
-                          <th>Identificacion</th>
-                        </tr>
-                    </thead>
-                    <tbody id="jugadores">
-                         <?php get_listar_jugadores_todos();?>
-                    </tbody>
+                        <thead>
+                            <tr>
+                              <th>Nombres</th>
+                              <th>Apellidos</th>
+                              <th>Identificacion</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista_jugadores">
+                             <?php get_listar_jugadores_todos($equipo);?>
+                        </tbody>
                     </table>
                 </section>
 

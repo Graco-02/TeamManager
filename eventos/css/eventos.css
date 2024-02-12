@@ -74,6 +74,10 @@ body{
     display: none;
 }
 
+#listado_equipos{
+    transition: 1s;
+}
+
 @media (max-width:600px) {    
     .main_contenido{
         display: flex;

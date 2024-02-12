@@ -20,12 +20,22 @@ if(count($_POST)>0){
       break;
      case 3:
         $equipo_name              = $_POST["equipo_name"];
+        $equipo_name_ant          = $_POST["name_ant"];
         $equipo_municipio         = $_POST["equipo_municipio"];
         $equipo_sector            = $_POST["equipo_sector"];
         $url_img                  = $_POST["url_img"];
         $id=$_POST["id"];
-        set_modificar_equipo($equipo_name, $equipo_municipio,$equipo_sector,$url_img,$id);
+        set_modificar_equipo($equipo_name, $equipo_municipio,$equipo_sector,$url_img,$id,$equipo_name_ant);
         break; 
+      case 4:
+          $equipo        = $_POST['equipo'];
+          get_jugadores_equipo($equipo);
+        break ; 
+      case 5:
+          $equipo        = $_POST['equipo'];
+          $jugador       = $_POST['jugador'];
+          set_eliminar_jugador($equipo,$jugador);
+        break ;         
     }
        
 }
@@ -86,6 +96,46 @@ function get_listar_equipos_todos(){
       $conn->close();
  }
 
+ function get_listar_equipos_restringido($equipo_name){
+  $conn = conectar();
+  $date = date('Y-m-d');
+    // Check connection
+   if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+   }
+
+    $sql = "SELECT id,nombre,municipio,sector,url_logo,estado from equipos where nombre='$equipo_name'"; 
+    $result = $conn->query($sql);
+    $count=1;         
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc() ) {
+        
+       $nombre        = $row["nombre"];				  
+       $municipio     = $row["municipio"];
+       $sector        = $row["sector"];
+       $url_logo      = $row["url_logo"];
+       $estado        = $row["estado"];
+       $id            = $row["id"];
+
+
+         echo "<script> var usuario_js = '".$id."';</script>";
+         echo "<tr>";
+         echo "<td id='".$id."' name='fila'";
+         echo 'onclick="set_seleccionar(usuario_js);">';
+         echo $nombre;
+         echo "</td>";
+         echo "<td >$municipio</td>";
+         echo "<td >$sector</td>";
+
+         echo "</tr> ";
+     }		 
+     
+    }
+  
+    $conn->close();
+}
+
+
 
  function get_equipo($equipo){
     $conn = conectar();
@@ -116,7 +166,7 @@ function get_listar_equipos_todos(){
         $conn->close();
  }
  
- function set_modificar_equipo($equipo_name, $equipo_municipio,$equipo_sector,$url_img,$id){
+ function set_modificar_equipo($equipo_name, $equipo_municipio,$equipo_sector,$url_img,$id,$equipo_name_ant){
     $conn = conectar();
  
        $sql="UPDATE equipos SET nombre='$equipo_name',
@@ -126,12 +176,10 @@ function get_listar_equipos_todos(){
            where id =$id";
  
        if ($conn->query($sql) == TRUE) {		   
-         // # Cogemos el identificador con que se ha guardado
-         $id=$conn->insert_id;	
-         echo  'MODIFICACION REALIZADA';
-     }   else {
-      echo "Error Modificacion: " . $sql . "<br>" . $conn->error;
-     }
+        set_actualizar_usuario($equipo_name,$equipo_name,$equipo_name_ant);
+       }   else {
+        echo "Error Modificacion: " . $sql . "<br>" . $conn->error;
+       }
  }
 
 
@@ -147,6 +195,68 @@ function get_listar_equipos_todos(){
     }
 }
 
+function get_jugadores_equipo($equipo){
+  $conn = conectar();
+    // Check connection
+   if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+   }
 
+   $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1 
+   from jugadores where  equipo =".$equipo ; 
+
+    $result = $conn->query($sql);
+    $count=1;         
+    $jugadores_array = array();   
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc() ) {
+        
+       $jugador_array = array();    
+       array_push($jugador_array,$row["id"]);
+       array_push($jugador_array,$row["nombres"]);
+       array_push($jugador_array,$row["apellidos"]);
+       array_push($jugador_array,$row["identificacion"]);
+       array_push($jugador_array,$row["fecha_nacimiento"]);
+       array_push($jugador_array,$row["direccion"]);
+       array_push($jugador_array,$row["equipo"]);
+       array_push($jugador_array,$row["url_img"]);
+       array_push($jugador_array,$row["url_adjunto1"]);
+
+       array_push($jugadores_array,$jugador_array);
+     }		 
+        echo json_encode($jugadores_array);
+    }
+      $conn->close();
+}
+
+
+function set_actualizar_usuario($usuario,$clave,$equipo_name_ant){
+     $conn = conectar();
+     $hash_clave = hash('sha256', $clave);
+
+     $sql="UPDATE usu001 SET clave='$hash_clave',usuario='$usuario',nombres='$usuario'
+           WHERE usuario ='$equipo_name_ant'";
+
+     if ($conn->query($sql) == TRUE) {		   
+       $conn->close();
+       echo  'MODIFICACION REALIZADA';
+     }  else {
+    echo "Error Modificacion: " . $sql . "<br>" . $conn->error;
+     }  
+}
+
+
+function set_eliminar_jugador($equipo,$jugador_id){
+  $conn = conectar();
+ 
+  $sql="DELETE FROM jugadores WHERE id =".$jugador_id." AND equipo =".$equipo;
+
+  if ($conn->query($sql) == TRUE) {		   
+    // # Cogemos el identificador con que se ha guardado
+    echo  'ELIMINACION REALIZADA';
+}   else {
+    echo "Error Modificacion: " . $sql . "<br>" . $conn->error;
+}
+}
 
 ?>

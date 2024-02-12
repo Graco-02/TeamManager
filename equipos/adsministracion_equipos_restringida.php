@@ -2,6 +2,7 @@
       require_once("../utilidades/conexion.php");
       require_once("../utilidades/alerta.php");
       require_once("ctrl/equipos.php");
+      session_start();
 ?>
 
 <!DOCTYPE html>
@@ -27,8 +28,7 @@
                     </div>
                 </div>
                 <div class="menu_administracion_principal">
-                    <a href="../eventos/administracion_eventos.php">eventos</a> 
-                    <a href="../jugadores/administracion_jugadores.php">jugadores</a> 
+                    <a href="../jugadores/administracion_jugadores.php?id_equipo=<?php echo $_SESSION['admin_id'];?>">jugadores</a> 
                 </div>
             </div>
         </header>
@@ -67,7 +67,7 @@
                           <th>Municipio</th>
                           <th>Sector</th>
                         </tr>
-                       <?php get_listar_equipos_todos();?>
+                       <?php get_listar_equipos_restringido($_SESSION['admin_user']);?>
                     </table>
 
                     <div id='equipos_div' class='display_none'>

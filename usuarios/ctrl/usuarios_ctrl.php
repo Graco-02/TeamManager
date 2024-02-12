@@ -31,12 +31,13 @@ function set_insert_usuario($usuario_names,$usuario_lastnames,$usuario_identific
       $sql="INSERT INTO usu001 (nombres,apellidos,identificacion,usuario,clave,tipo,fecalta,url_img) 
       VALUES ('$usuario_names','$usuario_lastnames','$usuario_identificacion','$usuario_name_acces','$usuario_clave',$usuario_tipo,'$date','$url_img')";
      
-      if ($conn->query($sql) == TRUE) {	
+      if ($conn->query($sql) == TRUE) {
          echo  'AGREGADO CORRECTO';
       }
      }else{
       set_modificar_usuario($usuario_names,$usuario_lastnames,$usuario_identificacion,$usuario_name_acces,$usuario_clave,$usuario_tipo,$url_img);
      }
+     $conn->close();
 }
 
 
@@ -142,7 +143,6 @@ function set_modificar_usuario($usuario_names,$usuario_lastnames,$usuario_identi
      echo "Error Modificacion: " . $sql . "<br>" . $conn->error;
     }
 }
-
 
 function get_validar_existencia($usuario){
    $conn = conectar();

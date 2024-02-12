@@ -68,6 +68,9 @@ body{
 #listado_usuario{
     background-color: white;
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 #usuario_logo{

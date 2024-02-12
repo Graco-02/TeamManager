@@ -35,7 +35,7 @@ if(count($_POST)>0){
         $id                         = $_POST["id"];
         $date = date( "Y-m-d", strtotime($jugador_fecha_nacimiento) );
 
-        set_modificar_equipo($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$id);
+        set_modificar_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$id);
         break; 
       case 4:
         $cedula        = $_POST['identificacion'];
@@ -60,15 +60,22 @@ function set_insert_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_naci
 }
 
 
-function get_listar_jugadores_todos(){
+function get_listar_jugadores_todos($id_equipo){
     $conn = conectar();
     $date = date('Y-m-d');
       // Check connection
      if ($conn->connect_error) {
           die("Connection failed: " . $conn->connect_error);
      }
- 
-      $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1 from jugadores"; 
+      
+      $sql ="";
+      if($id_equipo == 0){
+        $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1 from jugadores"; 
+      }else{
+        $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1 from jugadores where equipo=$id_equipo"; 
+      }
+
+
       $result = $conn->query($sql);
       $count=1;         
       if ($result->num_rows > 0) {
@@ -134,7 +141,7 @@ function get_listar_jugadores_todos(){
         $conn->close();
  }
  
- function set_modificar_equipo($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$id){
+ function set_modificar_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$id){
     $conn = conectar();
  
        $sql="UPDATE jugadores SET nombres='$jugadore_name',
@@ -158,6 +165,7 @@ function get_listar_jugadores_todos(){
  }
 
 
+
  function set_insert_usuario($usuario_names,$usuario_lastnames,$usuario_identificacion,$usuario_name_acces,$usuario_clave,$usuario_tipo,$url_img){
   $date = date('Y-m-d');
   $conn = conectar();
@@ -168,17 +176,23 @@ function get_listar_jugadores_todos(){
     if ($conn->query($sql) == TRUE) {	
        echo  'AGREGADO CORRECTO';
     }
+       $conn->close();
 }
 
-function get_listar_equipos_select(){
+function get_listar_equipos_select($equipo){
   $conn = conectar();
   $date = date('Y-m-d');
     // Check connection
    if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
    }
-
-    $sql = "SELECT id,nombre,municipio,sector,url_logo,estado from equipos"; 
+    $sql = ""; 
+    if($equipo==0){
+      $sql = "SELECT id,nombre,municipio,sector,url_logo,estado from equipos";
+    }else{
+      $sql = "SELECT id,nombre,municipio,sector,url_logo,estado from equipos where id=$equipo"; 
+    } 
+    
     $result = $conn->query($sql);
     $count=1;         
     if ($result->num_rows > 0) {
@@ -186,7 +200,7 @@ function get_listar_equipos_select(){
         
            $nombre        = $row["nombre"];				
            $id            = $row["id"];
-          echo "<option value=".$id.">".$nombre."</option>";
+           echo "<option value=".$id.">".$nombre."</option>";
         }		 
      
     }

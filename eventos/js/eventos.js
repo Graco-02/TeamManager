@@ -63,27 +63,42 @@ function set_seleccionar(evento){
         evento_num_jug_equipos.value = json[3];
         evento_descripcion.value = json[4];
         evento_fecha_inicio.value = json[5];
+
+        var tableRow = document.getElementById("lista_equipos_evento").innerHTML="";
+        set_relacion_equipo();
     }); 
 }
 
-function set_agregar_fila(evento_name,municipio,sector,id){
-    var tableRow = document.getElementById("listado_equipos");
+function set_agregar_fila(evento_name,municipio,sector,id,validacion,cantidad_jugadores){
+    var tableRow = document.getElementById("lista_equipos_evento");
     var fila = document.createElement("tr");
     var celda1 = document.createElement("td");
     var celda2 = document.createElement("td");
     var celda3 = document.createElement("td");
+    var celda6 = document.createElement("td");
     var celda4 = document.createElement("button");
+    var celda5 = document.createElement("button");
     celda1.innerHTML = evento_name;
     celda2.innerHTML = municipio;
     celda3.innerHTML = sector;
     celda4.innerHTML = 'AGREGAR';
+    celda5.innerHTML = 'SACAR';
+    celda6.innerHTML = cantidad_jugadores+" / "+document.getElementById("evento_num_jug_equipos").value;
 
 
-    celda4.onclick = function() { set_linkar(id);  location.reload(); };
+    celda4.onclick = function() { set_linkar(id,cantidad_jugadores);};
+    celda5.onclick = function() { set_deslinkar(id);};
     fila.appendChild(celda1);
     fila.appendChild(celda2);
     fila.appendChild(celda3);
-    fila.appendChild(celda4);
+    fila.appendChild(celda6);
+
+    if(validacion==0){
+        fila.appendChild(celda4);
+    }else{
+        fila.appendChild(celda5);
+    }
+
     tableRow.appendChild(fila);
 }
 
@@ -91,18 +106,16 @@ function set_relacion_equipo(){
     var accion = 4;//opcion para seleccionar los datos del equipo
     
     if(elento_id_seleccionado>0){//primera validacion de que se ha seleccionado un elemento
-        var x = document.getElementById("equipos_div");
-        x.classList.toggle("display_none");
         $.post("ctrl/eventos.php"
         ,{"evento":elento_id_seleccionado 
         ,"accion":accion 
         }
         ,function(respuesta){
-            var json = $.parseJSON(respuesta);
-            console.log(json);
-            for(i=0;i<json.length;i++){
-                console.log(json[i]);                
-                set_agregar_fila(json[i][1],json[i][2],json[i][3],json[i][0]);
+            var json_equipos = $.parseJSON(respuesta);
+            console.log(json_equipos);
+
+            for(i=0;i<json_equipos.length;i++){            
+                set_agregar_fila(json_equipos[i][1],json_equipos[i][2],json_equipos[i][3],json_equipos[i][0],json_equipos[i][6],json_equipos[i][7]);
             }
         }); 
     }else{
@@ -111,8 +124,31 @@ function set_relacion_equipo(){
 }
 
 
-function set_linkar(id_equipo){
+function set_linkar(id_equipo,cantidad_jugadores){
     var accion = 5;
+
+    if(cantidad_jugadores>document.getElementById("evento_num_jug_equipos").value){
+        alert("Este equipo excede el limite de jugadores no se permite agregar al evento");
+    }else{
+        $.post("ctrl/eventos.php"
+        ,{"evento_id":elento_id_seleccionado 
+        ,"equipo_id":id_equipo 
+        ,"accion":accion 
+        }
+        ,function(respuesta){
+            var resp = respuesta.trim();
+                if(resp == 'AGREGADO CORRECTO'){
+                    alert(resp);
+                    location.reload();
+                }else{
+                    alert(resp);
+                }
+        }); 
+    }
+}
+
+function set_deslinkar(id_equipo){
+    var accion = 6;
 
     $.post("ctrl/eventos.php"
     ,{"evento_id":elento_id_seleccionado 
@@ -121,7 +157,7 @@ function set_linkar(id_equipo){
     }
     ,function(respuesta){
         var resp = respuesta.trim();
-            if(resp == 'AGREGADO CORRECTO'){
+            if(resp == 'BORRADO CORRECTO'){
                 alert(resp);
                 location.reload();
             }else{

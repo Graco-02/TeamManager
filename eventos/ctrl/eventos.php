@@ -38,7 +38,12 @@ if(count($_POST)>0){
           $evento        = $_POST['evento_id'];
           $equipo        = $_POST['equipo_id'];
           set_insert_relacion_equipo($evento, $equipo );
-          break;        
+          break;     
+      case 6:
+            $evento        = $_POST['evento_id'];
+            $equipo        = $_POST['equipo_id'];
+            set_eliminar_equipo_linkado($evento, $equipo );
+            break;                
     }
        
 }
@@ -163,7 +168,10 @@ function get_listar_equipos_no_linkados($evento){
         die("Connection failed: " . $conn->connect_error);
    }
 
-    $sql = "SELECT id,nombre,municipio,sector,url_logo,estado from equipos where id not in (select equipo from relacion_equipo_evento where evento = $evento)"; 
+    $sql = "SELECT a.id,a.nombre,a.municipio,a.sector,a.url_logo,a.estado 
+    from equipos a"; 
+
+
     $result = $conn->query($sql);
     $count=1;     
     $equipo_array_lista    = array();  
@@ -177,7 +185,9 @@ function get_listar_equipos_no_linkados($evento){
          array_push($equipo_array,$row["sector"]);
          array_push($equipo_array,$row["url_logo"]);
          array_push($equipo_array,$row["estado"]);
-
+         array_push($equipo_array,get_listar_equipos_linkados($evento,$row["id"]));
+         array_push($equipo_array,get_cantidad_jugadores($row["id"]));
+         
          array_push($equipo_array_lista, $equipo_array);
      }		 
       echo json_encode($equipo_array_lista);
@@ -187,15 +197,82 @@ function get_listar_equipos_no_linkados($evento){
 }
 
 
+function get_listar_equipos_linkados($evento,$equipo){
+  $conn = conectar();
+  $date = date('Y-m-d');
+    // Check connection
+   if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+   }
+
+    $sql = "SELECT equipo from relacion_equipo_evento where evento =".$evento." AND equipo = ".$equipo; 
+
+    $result = $conn->query($sql);
+    $count=1; 
+    $existe = 0;    
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc() ) {  
+          $existe=1;
+        }		 
+    }
+    $conn->close();
+    return $existe;
+}
+
+
 function set_insert_relacion_equipo($evento_id, $equipo_id ){
   $conn = conectar();
   $sql="INSERT INTO relacion_equipo_evento (equipo,evento) 
   VALUES ($equipo_id, $evento_id)";
  
   if ($conn->query($sql) == TRUE) {	
+    $conn->close();
      echo  'AGREGADO CORRECTO';
   }else{
+    $conn->close();
       echo 'AGREGADO INCORRECTO';
   }
+}
+
+
+function set_eliminar_equipo_linkado($evento,$equipo){
+  $conn = conectar();
+  $date = date('Y-m-d');
+    // Check connection
+   if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+   }
+
+    $sql = "DELETE FROM relacion_equipo_evento where evento =".$evento." AND equipo = ".$equipo; 
+    if ($conn->query($sql) == TRUE) {
+      $conn->close();	
+      echo  'BORRADO CORRECTO';
+    }else{
+      $conn->close();
+       echo 'BORRADO INCORRECTO';
+    }
+}
+
+
+function get_cantidad_jugadores($equipo ){
+  $conn = conectar();
+  $date = date('Y-m-d');
+    // Check connection
+   if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+   }
+
+    $sql = "SELECT count(*) as total
+     from jugadores where equipo = ".$equipo; 
+
+    $result = $conn->query($sql);
+    $count=1;    
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc() ) {  
+          $count=$row["total"];
+        }		 
+    }
+    $conn->close();
+    return $count;
 }
 ?>

@@ -45,11 +45,13 @@ main{
 .main_contenido{
     background-color: white;
     display: grid;
-    grid-template-rows: 0.5fr 1fr;
+    grid-template-columns: 0.5fr 2fr;
     text-transform: uppercase;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     box-shadow: 5px 5px #888888;
     width: 50%;
+    align-items: center;
+    justify-content: center;
 }
 
 .loging_formulario{
@@ -64,8 +66,9 @@ main{
 }
 
 #login_img{
-    width: 100%;
+    width: 10rem;
     height: 10rem;
+    margin-left: 1rem;
 }
 
 .input_formulario{
