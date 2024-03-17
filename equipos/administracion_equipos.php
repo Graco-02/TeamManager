@@ -45,8 +45,61 @@
                         <fieldset>
                             <legend class="formulario_legend">Datos Equipo</legend>
 
-                            <label for="evento_name">Nombre</label>
+                            <label for="equipo_name">Nombre Del CLub o Liga</label>
                             <input type="text" placeholder="XXX" class="input_formulario" name="equipo_name" id="equipo_name" required/>
+
+
+                            <div class="flex">
+                                <div>                               
+                                     <label for="equipo_categoria">categoria</label>
+                                     <input type="text" placeholder="XXX" class="input_formulario" name="equipo_categoria" id="equipo_categoria" required/>
+                                </div>     
+
+                                 <div>  
+                                    <label for="equipo_circunscripcion">circunscripcion</label>
+                                     <input type="text" placeholder="XXX" class="input_formulario" name="equipo_circunscripcion" id="equipo_circunscripcion" required/>
+                                </div>
+                            </div>
+
+                            <div class="flex">
+                                <div>
+                                <label for="equipo_anio">Anio</label>
+                                <input type="text" placeholder="XXX" class="input_formulario" name="equipo_anio" id="equipo_anio" required/>
+                                </div>
+
+                                <div>
+                                <label for="equipo_rama">rama</label>
+                                <input type="text" placeholder="XXX" class="input_formulario" name="equipo_rama" id="equipo_rama" required/>
+                                </div>
+                            </div>
+
+
+
+                            <div class="flex">
+                                <div>
+                                <label for="equipo_entrenador">entrenador@</label>
+                                <input type="text" placeholder="XXX" class="input_formulario" name="equipo_entrenador" id="equipo_entrenador" required/>
+                                </div>
+
+                                <div>
+                                <label for="equipo_entrenador_tel">telefono</label>
+                                <input type="text" placeholder="9999999999" class="input_formulario" name="equipo_entrenador_tel" id="equipo_entrenador_tel" required/>
+                                </div>
+                            </div>
+
+
+                            <div class="flex">
+                                <div>
+                                <label for="equipo_delegado">delegad@&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                <input type="text" placeholder="XXX" class="input_formulario" name="equipo_delegado" id="equipo_delegado" required/>
+                                </div>
+                                <div>
+                                <label for="equipo_delegado_tel">telefono</label>
+                                <input type="text" placeholder="9999999999" class="input_formulario" name="equipo_delegado_tel" id="equipo_delegado_tel" required/>
+                                </div>    
+                            </div>    
+
+
 
                             <label for="evento_name">Municipio</label>
                             <input type="text" placeholder="XXX" class="input_formulario" name="equipo_name" id="equipo_municipio" required/>

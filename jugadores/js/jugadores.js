@@ -1,6 +1,7 @@
 let elento_seleccionado =0 ;
 let fichero_seleccionado ="" ;
 let fichero_seleccionado2 ="" ;
+let user_type = 0;
 
 function set_insertar(){
     var jugadore_name              = document.getElementById("jugador_name").value;
@@ -32,6 +33,7 @@ function set_insertar(){
                 var ruta ='';
                 if(file_data!=null){
                     ruta=response;
+
                 }else{
                      ruta = fichero_seleccionado;
                 }
@@ -72,6 +74,7 @@ function set_seleccionar(id_seleccionado){
         var url_img                    = document.getElementById("pic");
         var url_adjunto                = document.getElementById("label_adjunto");
         
+
 
         //id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1
 
@@ -120,21 +123,26 @@ function readURL(input) {
 
 
 function readURL2(input) {
-    const $seleccionArchivos = document.querySelector("#adjunto1");
-    $imagenPrevisualizacion = document.querySelector("#adjunto_1");
 
-    const archivos = $seleccionArchivos.files;
-    // Si no hay archivos salimos de la función y quitamos la imagen
-    if (!archivos || !archivos.length) {
-      $imagenPrevisualizacion.src = "";
-      return;
+    if((fichero_seleccionado2!=null && fichero_seleccionado2.length>0) && user_type==1){
+        alert("ESTE USUARIO NO TIENE PERMISO DE CAMBIAR ESTE DATO UNA VEZ SUBIDO");
+    }else{
+        const $seleccionArchivos = document.querySelector("#adjunto1");
+        $imagenPrevisualizacion = document.querySelector("#adjunto_1");
+    
+        const archivos = $seleccionArchivos.files;
+        // Si no hay archivos salimos de la función y quitamos la imagen
+        if (!archivos || !archivos.length) {
+          $imagenPrevisualizacion.src = "";
+          return;
+        }
+        // Ahora tomamos el primer archivo, el cual vamos a previsualizar
+        const primerArchivo = archivos[0];
+        // Lo convertimos a un objeto de tipo objectURL
+        const objectURL = URL.createObjectURL(primerArchivo);
+        // Y a la fuente de la imagen le ponemos el objectURL
+        $imagenPrevisualizacion.src = objectURL;
     }
-    // Ahora tomamos el primer archivo, el cual vamos a previsualizar
-    const primerArchivo = archivos[0];
-    // Lo convertimos a un objeto de tipo objectURL
-    const objectURL = URL.createObjectURL(primerArchivo);
-    // Y a la fuente de la imagen le ponemos el objectURL
-    $imagenPrevisualizacion.src = objectURL;
 }
 
 function set_agregar_datos_php(jugadore_name,jugador_lastname,jugador_fecha_nacimiento,identificacion,jugador_direccion,jugador_equipo,accion,ruta,ruta2,id){
@@ -184,6 +192,10 @@ function set_subir_adjunto1(jugadore_name,jugador_lastname,jugador_fecha_nacimie
                  ruta2 = fichero_seleccionado2;
             }
 
+            if((fichero_seleccionado2!=null && fichero_seleccionado2.length>0) && user_type==1){
+                ruta2 = fichero_seleccionado2;
+            }
+            
             set_agregar_datos_php(jugadore_name,jugador_lastname,jugador_fecha_nacimiento,identificacion,jugador_direccion,jugador_equipo,accion,ruta,ruta2);
         }
     });

@@ -3,9 +3,12 @@
       require_once("../utilidades/alerta.php");
       require_once("ctrl/jugadores.php");
       $equipo=0;
+      session_start();
       if(count($_GET)>0){
          $equipo = $_GET['id_equipo'];
       }
+
+      $user_type = $_SESSION['user_type'];
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +23,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <script src="js/jugadores.js"></script>
+    <script>user_type=<?php echo $user_type; ?></script>
 </head>
 <body>
         <header>
@@ -31,7 +35,7 @@
                     </div>
                 </div>
                 <div class="menu_administracion_principal">
-                    <?php if( $equipo==0){?>
+                    <?php if( $user_type==0){?>
                     <a href="../eventos/administracion_eventos.php">eventos</a> 
                     <a href="../equipos/administracion_equipos.php">equipos</a> 
                     <?php }?>
@@ -94,6 +98,7 @@
                               <th>Nombres</th>
                               <th>Apellidos</th>
                               <th>Identificacion</th>
+                              <th>Equipo</th>
                             </tr>
                         </thead>
                         <tbody id="lista_jugadores">

@@ -21,6 +21,7 @@ function set_validar_logging($user_name,$user_clave){
                         if($user_clave != $user_name){
                             $conn->close();
                             $_SESSION['admin_user'] = $row["usuario"];
+                            $_SESSION['user_type'] = $row["tipo"];
                             get_equipo_validacion($_SESSION['admin_user']);
                             if($row["tipo"]==0){
                                 header("Location:administracion/administracion_admin_index.php");    

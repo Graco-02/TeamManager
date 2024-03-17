@@ -67,7 +67,7 @@
                          <label for="usuario_tipo" class="input_formulario">Tipo Acceso</label>
                          <select id="usuario_tipo" class="input_formulario" name="usuario_tipo">
                              <option value="0">Administrador</option>
-                             <option value="1">Gerente de equipo</option>
+                             <option value="1">Presidente del Club</option>
                          </select>
 
                        </fieldset>

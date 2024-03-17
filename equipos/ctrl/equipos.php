@@ -7,12 +7,20 @@ if(count($_POST)>0){
 
     switch ($accion) {
      case 1://opcion 1-agregar nuevo usuario
-        $equipo_name              = $_POST["equipo_name"];
+        $equipo_name              = $_POST["equipo_name"];              
+        $equipo_categoria         = $_POST["equipo_categoria"]; 
+        $equipo_circunscripcion   = $_POST["equipo_circunscripcion"]; 
+        $equipo_anio              = $_POST["equipo_anio"]; 
+        $equipo_rama              = $_POST["equipo_rama"]; 
+        $equipo_entrenador        = $_POST["equipo_entrenador"]; 
+        $equipo_entrenador_tel    = $_POST["equipo_entrenador_tel"]; 
+        $equipo_delegado          = $_POST["equipo_delegado"]; 
+        $equipo_delegado_tel      = $_POST["equipo_delegado_tel"]; 
         $equipo_municipio         = $_POST["equipo_municipio"];
         $equipo_sector            = $_POST["equipo_sector"];
         $url_img                  = $_POST["url_img"];
 
-        set_insert_equipo($equipo_name, $equipo_municipio,$equipo_sector,$url_img);
+        set_insert_equipo($equipo_name, $equipo_municipio,$equipo_sector,$url_img,$equipo_categoria,$equipo_circunscripcion,$equipo_anio,$equipo_rama,$equipo_entrenador,$equipo_entrenador_tel,$equipo_delegado,$equipo_delegado_tel);
         break;
      case 2:
         $equipo        = $_POST['equipo'];
@@ -20,12 +28,21 @@ if(count($_POST)>0){
       break;
      case 3:
         $equipo_name              = $_POST["equipo_name"];
+        $equipo_categoria         = $_POST["equipo_categoria"]; 
+        $equipo_circunscripcion   = $_POST["equipo_circunscripcion"]; 
+        $equipo_anio              = $_POST["equipo_anio"]; 
+        $equipo_rama              = $_POST["equipo_rama"]; 
+        $equipo_entrenador        = $_POST["equipo_entrenador"]; 
+        $equipo_entrenador_tel    = $_POST["equipo_entrenador_tel"]; 
+        $equipo_delegado          = $_POST["equipo_delegado"]; 
+        $equipo_delegado_tel      = $_POST["equipo_delegado_tel"]; 
+
         $equipo_name_ant          = $_POST["name_ant"];
         $equipo_municipio         = $_POST["equipo_municipio"];
         $equipo_sector            = $_POST["equipo_sector"];
         $url_img                  = $_POST["url_img"];
         $id=$_POST["id"];
-        set_modificar_equipo($equipo_name, $equipo_municipio,$equipo_sector,$url_img,$id,$equipo_name_ant);
+        set_modificar_equipo($equipo_name,$equipo_municipio,$equipo_sector,$url_img,$id,$equipo_name_ant,$equipo_categoria,$equipo_circunscripcion,$equipo_anio,$equipo_rama,$equipo_entrenador,$equipo_entrenador_tel,$equipo_delegado,$equipo_delegado_tel);
         break; 
       case 4:
           $equipo        = $_POST['equipo'];
@@ -41,10 +58,10 @@ if(count($_POST)>0){
 }
 
 
-function set_insert_equipo($equipo_name, $equipo_municipio,$equipo_sector,$url_img ){
+function set_insert_equipo($equipo_name, $equipo_municipio,$equipo_sector,$url_img,$equipo_categoria,$equipo_circunscripcion,$equipo_anio,$equipo_rama,$equipo_entrenador,$equipo_entrenador_tel,$equipo_delegado,$equipo_delegado_tel){
     $conn = conectar();
-    $sql="INSERT INTO equipos (nombre,municipio,sector,url_logo) 
-    VALUES ('$equipo_name','$equipo_municipio','$equipo_sector','$url_img')";
+    $sql="INSERT INTO equipos (nombre,municipio,sector,url_logo,categoria,circunscripcion,anio,rama,entrenador,entrenador_tel,delegado,delegado_tel) 
+    VALUES ('$equipo_name','$equipo_municipio','$equipo_sector','$url_img','$equipo_categoria','$equipo_circunscripcion','$equipo_anio','$equipo_rama','$equipo_entrenador','$equipo_entrenador_tel','$equipo_delegado','$equipo_delegado_tel')";
    
     if ($conn->query($sql) == TRUE) {	
       /* creo un usuario generico para cada equipo la clave generica sera el mismo nombre el equipo al entrar debera cambiarla */
@@ -144,7 +161,8 @@ function get_listar_equipos_todos(){
           die("Connection failed: " . $conn->connect_error);
      }
  
-      $sql = "SELECT id,nombre,municipio,sector,url_logo,estado from equipos where id=$equipo"; 
+      $sql = "SELECT id,nombre,municipio,sector,url_logo,estado,categoria,circunscripcion,anio,rama,entrenador,entrenador_tel,delegado,delegado_tel
+       from equipos where id=$equipo"; 
  
       $result = $conn->query($sql);
       $count=1;         
@@ -158,6 +176,14 @@ function get_listar_equipos_todos(){
          array_push($equipo_array,$row["sector"]);
          array_push($equipo_array,$row["url_logo"]);
          array_push($equipo_array,$row["estado"]);
+         array_push($equipo_array,$row["categoria"]);
+         array_push($equipo_array,$row["circunscripcion"]);
+         array_push($equipo_array,$row["anio"]);
+         array_push($equipo_array,$row["rama"]);
+         array_push($equipo_array,$row["entrenador"]);
+         array_push($equipo_array,$row["entrenador_tel"]);
+         array_push($equipo_array,$row["delegado"]);
+         array_push($equipo_array,$row["delegado_tel"]);
 
          echo json_encode($equipo_array);
        }		 
@@ -166,10 +192,18 @@ function get_listar_equipos_todos(){
         $conn->close();
  }
  
- function set_modificar_equipo($equipo_name, $equipo_municipio,$equipo_sector,$url_img,$id,$equipo_name_ant){
+ function set_modificar_equipo($equipo_name, $equipo_municipio,$equipo_sector,$url_img,$id,$equipo_name_ant,$equipo_categoria,$equipo_circunscripcion,$equipo_anio,$equipo_rama,$equipo_entrenador,$equipo_entrenador_tel,$equipo_delegado,$equipo_delegado_tel){
     $conn = conectar();
  
        $sql="UPDATE equipos SET nombre='$equipo_name',
+                                categoria='$equipo_categoria',
+                                circunscripcion='$equipo_circunscripcion',
+                                anio='$equipo_anio',
+                                rama='$equipo_rama',
+                                entrenador='$equipo_entrenador',
+                                entrenador_tel='$equipo_entrenador_tel',
+                                delegado='$equipo_delegado',
+                                delegado_tel='$equipo_delegado_tel',
                                 municipio='$equipo_municipio',
                                 sector='$equipo_sector',
                                 url_logo='$url_img'

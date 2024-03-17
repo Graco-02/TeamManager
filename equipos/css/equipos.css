@@ -10,12 +10,13 @@ body{
     display: grid;
     grid-template-rows: 0.1fr 1fr;
     gap: 2rem;
+    text-transform: uppercase;
 }
 
 
 .main_contenido{
     display: grid;
-    grid-template-columns: 0.5fr 1fr;
+    grid-template-columns: 0.8fr 1fr;
     gap: 1rem;
 }
 
@@ -97,4 +98,11 @@ body{
         margin-bottom: 0.1rem;
     }
 
+}
+
+.flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 }

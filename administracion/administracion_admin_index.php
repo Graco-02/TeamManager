@@ -22,8 +22,10 @@
                     </div>
                 </div>
                 <div class="menu_administracion_principal">
-                    <a href="../eventos/administracion_eventos.php">eventos</a> 
                     <a href="../usuarios/admin_usuarios.php">usuarios</a> 
+                    <a href="../eventos/administracion_eventos.php">eventos</a> 
+                    <a href="../equipos/administracion_equipos.php">equipos</a> 
+                    <a href="../jugadores/administracion_jugadores.php">jugadores</a> 
                 </div>
             </div>
         </header>

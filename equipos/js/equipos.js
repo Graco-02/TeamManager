@@ -4,7 +4,16 @@ let id_seleccionado =0 ;
 let name_ant ="" ;
 
 function set_insertar(){
-    var equipo_name              = document.getElementById("equipo_name").value;
+    var equipo_name                  = document.getElementById("equipo_name").value;
+    var equipo_categoria             = document.getElementById("equipo_categoria").value;
+    var equipo_circunscripcion       = document.getElementById("equipo_circunscripcion").value;
+    var equipo_anio                  = document.getElementById("equipo_anio").value;
+    var equipo_rama                  = document.getElementById("equipo_rama").value;
+    var equipo_entrenador            = document.getElementById("equipo_entrenador").value;
+    var equipo_entrenador_tel        = document.getElementById("equipo_entrenador_tel").value;
+    var equipo_delegado              = document.getElementById("equipo_delegado").value;
+    var equipo_delegado_tel          = document.getElementById("equipo_delegado_tel").value;
+
     var equipo_municipio       = document.getElementById("equipo_municipio").value;
     var equipo_sector   = document.getElementById("equipo_sector").value ;
     var url_img      = document.getElementById("pic").value;
@@ -35,6 +44,14 @@ function set_insertar(){
 
                 $.post("ctrl/equipos.php"
                 ,{"equipo_name":equipo_name 
+                ,"equipo_categoria":equipo_categoria 
+                ,"equipo_circunscripcion":equipo_circunscripcion 
+                ,"equipo_anio":equipo_anio 
+                ,"equipo_rama":equipo_rama 
+                ,"equipo_entrenador":equipo_entrenador 
+                ,"equipo_entrenador_tel":equipo_entrenador_tel 
+                ,"equipo_delegado":equipo_delegado 
+                ,"equipo_delegado_tel":equipo_delegado_tel 
                 ,"equipo_municipio":equipo_municipio 
                 ,"equipo_sector":equipo_sector 
                 ,"accion":accion 
@@ -72,8 +89,18 @@ function set_seleccionar(equipo){
     }
     ,function(respuesta){
         var json = $.parseJSON(respuesta);
+        console.log(json);  
 
-        var equipo_name            = document.getElementById("equipo_name");
+        var equipo_name                  = document.getElementById("equipo_name");
+        var equipo_categoria             = document.getElementById("equipo_categoria");
+        var equipo_circunscripcion       = document.getElementById("equipo_circunscripcion");
+        var equipo_anio                  = document.getElementById("equipo_anio");
+        var equipo_rama                  = document.getElementById("equipo_rama");
+        var equipo_entrenador            = document.getElementById("equipo_entrenador");
+        var equipo_entrenador_tel        = document.getElementById("equipo_entrenador_tel");
+        var equipo_delegado              = document.getElementById("equipo_delegado");
+        var equipo_delegado_tel          = document.getElementById("equipo_delegado_tel");
+
         var equipo_municipio       = document.getElementById("equipo_municipio");
         var equipo_sector          = document.getElementById("equipo_sector");
         var url_img                = document.getElementById("pic");
@@ -84,6 +111,17 @@ function set_seleccionar(equipo){
         equipo_municipio.value = json[2];
         equipo_sector.value    = json[3];
         var equipo_estado      = json[5];
+
+        equipo_categoria.value             = json[6];
+        equipo_circunscripcion.value       = json[7];
+        equipo_anio.value                  = json[8];
+        equipo_rama.value                  = json[9];
+        equipo_entrenador.value            = json[10];
+        equipo_entrenador_tel.value        = json[11];
+        equipo_delegado.value              = json[12];
+        equipo_delegado_tel.value          = json[13];
+
+
         fichero_seleccionado = json[4];
 
         name_ant=json[1];
@@ -160,12 +198,11 @@ function set_relacion_equipo(){
         }
         ,function(respuesta){
             var json = $.parseJSON(respuesta);
-            console.log(json);
+                
             var tableRow = document.getElementById("jugadores");
             tableRow.innerHTML="";
 
-            for(i=0;i<json.length;i++){
-                console.log(json[i]);                
+            for(i=0;i<json.length;i++){              
                 set_agregar_fila_jugador(json[i][1],json[i][2],json[i][3],json[i][0]);
             }
         }); 
