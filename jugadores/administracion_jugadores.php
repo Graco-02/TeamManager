@@ -55,11 +55,18 @@
                         <fieldset>
                             <legend class="formulario_legend">Datos Jugador</legend>
 
-                            <label for="jugador_name">Nombres</label>
-                            <input type="text" placeholder="XXX" class="input_formulario" name="jugador_name" id="jugador_name" required/>
+                            <div class="flex">
+                                <div>
+                                    <label for="jugador_name">Nombres</label>
+                                    <input type="text" placeholder="XXX" class="input_formulario" name="jugador_name" id="jugador_name" required/>
+                                </div>
 
-                            <label for="jugador_lastname">Apellidos</label>
-                            <input type="text" placeholder="XXX" class="input_formulario" name="jugador_lastname" id="jugador_lastname" required/>  
+                                <div>
+                                     <label for="jugador_lastname">Apellidos</label>
+                                      <input type="text" placeholder="XXX" class="input_formulario" name="jugador_lastname" id="jugador_lastname" required/>  
+                                </div>
+                            </div>
+
 
                             <label for="jugador_fecha_nacimiento">Fecha de Nacimiento</label>
                             <input type="date" placeholder="" class="input_formulario" name="jugador_fecha_nacimiento" id="jugador_fecha_nacimiento" required/>
@@ -71,13 +78,32 @@
                             </div>
 
 
+                            <div class="flex">
+                                <div>
+                                   <label for="jugador_estatus">Estatus</label>
+                                      <input type="text" placeholder="XXX" class="input_formulario" name="jugador_estatus" id="jugador_estatus" required/>  
+                                </div>
+                                <div>
+                                   <label for="jugador_telefono">Tel</label>
+                                      <input type="text" placeholder="XXX" class="input_formulario" name="jugador_telefono" id="jugador_telefono" required/>  
+                                </div>
+                            </div>
+
                             <label for="jugador_direccion">Direccion</label>
                             <input type="text" placeholder="" class="input_formulario" name="jugador_direccion" id="jugador_direccion" required/>
+
+
+                            <label for="jugador_centro">Centro</label>
+                            <input type="text" placeholder="" class="input_formulario" name="jugador_centro" id="jugador_centro" required/>
+
+
+
 
                             <label for="jugador_equipo">Equipo</label>
                             <select class="input_formulario" onchange="" id="jugador_equipo" name="jugador_equipo">
                                 <?php get_listar_equipos_select($equipo);?>
                             </select>
+
 
                             <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
                         </fieldset>
@@ -98,7 +124,6 @@
                               <th>Nombres</th>
                               <th>Apellidos</th>
                               <th>Identificacion</th>
-                              <th>Equipo</th>
                             </tr>
                         </thead>
                         <tbody id="lista_jugadores">

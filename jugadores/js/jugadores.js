@@ -12,6 +12,12 @@ function set_insertar(){
     var jugador_equipo             = document.getElementById("jugador_equipo").value ;
     var url_img                    = document.getElementById("pic").value;
     var url_adjunto                = document.getElementById("adjunto1").value;
+
+    var jugador_estatus               = document.getElementById("jugador_estatus").value;
+    var jugador_telefono              = document.getElementById("jugador_telefono").value;
+    var jugador_centro                = document.getElementById("jugador_centro").value;
+
+
     var accion = 1;
 
     if(elento_seleccionado>0){
@@ -37,7 +43,7 @@ function set_insertar(){
                 }else{
                      ruta = fichero_seleccionado;
                 }
-                set_subir_adjunto1(jugadore_name,jugador_lastname,jugador_fecha_nacimiento,jugador_cedula,jugador_direccion,jugador_equipo,accion,ruta);
+                set_subir_adjunto1(jugadore_name,jugador_lastname,jugador_fecha_nacimiento,jugador_cedula,jugador_direccion,jugador_equipo,accion,ruta,jugador_estatus,jugador_telefono,jugador_centro);
             }
         });
     }else{
@@ -73,7 +79,9 @@ function set_seleccionar(id_seleccionado){
         var jugador_equipo             = document.getElementById("jugador_equipo") ;
         var url_img                    = document.getElementById("pic");
         var url_adjunto                = document.getElementById("label_adjunto");
-        
+        var jugador_estatus            = document.getElementById("jugador_estatus");
+        var jugador_telefono           = document.getElementById("jugador_telefono");
+        var jugador_centro             = document.getElementById("jugador_centro");
 
 
         //id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1
@@ -88,6 +96,10 @@ function set_seleccionar(id_seleccionado){
 
         fichero_seleccionado = json[7];
         fichero_seleccionado2 = json[8];
+
+        jugador_estatus.value              = json[9];
+        jugador_telefono.value              = json[10];
+        jugador_centro.value              = json[11];
 
         if(json[7]!=null && json[7].length>0){
             usuario_logo.src = "../imagenes_subidas/"+json[7];
@@ -145,7 +157,7 @@ function readURL2(input) {
     }
 }
 
-function set_agregar_datos_php(jugadore_name,jugador_lastname,jugador_fecha_nacimiento,identificacion,jugador_direccion,jugador_equipo,accion,ruta,ruta2,id){
+function set_agregar_datos_php(jugadore_name,jugador_lastname,jugador_fecha_nacimiento,identificacion,jugador_direccion,jugador_equipo,accion,ruta,ruta2,jugador_estatus,jugador_telefono,jugador_centro){
     $.post("ctrl/jugadores.php"
     ,{"jugadore_name":jugadore_name 
     ,"jugador_lastname":jugador_lastname 
@@ -157,6 +169,9 @@ function set_agregar_datos_php(jugadore_name,jugador_lastname,jugador_fecha_naci
     ,"url_img":ruta 
     ,"url_adjunto":ruta2 
     ,"id":elento_seleccionado 
+    ,"jugador_estatus":jugador_estatus 
+    ,"jugador_telefono":jugador_telefono 
+    ,"jugador_centro":jugador_centro 
     }
     ,function(respuesta){
         var resp = respuesta.trim();
@@ -173,7 +188,7 @@ function set_agregar_datos_php(jugadore_name,jugador_lastname,jugador_fecha_naci
  });
 }
 
-function set_subir_adjunto1(jugadore_name,jugador_lastname,jugador_fecha_nacimiento,identificacion,jugador_direccion,jugador_equipo,accion,ruta){
+function set_subir_adjunto1(jugadore_name,jugador_lastname,jugador_fecha_nacimiento,identificacion,jugador_direccion,jugador_equipo,accion,ruta,jugador_estatus,jugador_telefono,jugador_centro){
     var formData = new FormData();
     var file_data = $('#adjunto1').prop('files')[0];
     formData.append('file',file_data);
@@ -196,7 +211,7 @@ function set_subir_adjunto1(jugadore_name,jugador_lastname,jugador_fecha_nacimie
                 ruta2 = fichero_seleccionado2;
             }
             
-            set_agregar_datos_php(jugadore_name,jugador_lastname,jugador_fecha_nacimiento,identificacion,jugador_direccion,jugador_equipo,accion,ruta,ruta2);
+            set_agregar_datos_php(jugadore_name,jugador_lastname,jugador_fecha_nacimiento,identificacion,jugador_direccion,jugador_equipo,accion,ruta,ruta2,jugador_estatus,jugador_telefono,jugador_centro);
         }
     });
 }

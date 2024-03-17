@@ -15,9 +15,12 @@ if(count($_POST)>0){
         $jugador_equipo             = $_POST["jugador_equipo"];
         $ruta                       = $_POST["url_img"];
         $ruta2                      = $_POST["url_adjunto"];
+        $jugador_estatus            = $_POST["jugador_estatus"];
+        $jugador_telefono           = $_POST["jugador_telefono"];
+        $jugador_centro             = $_POST["jugador_centro"];
         $date = date( "Y-m-d", strtotime($jugador_fecha_nacimiento) );
 
-        set_insert_jugador($jugadore_name,$jugador_lastname,$date,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2);
+        set_insert_jugador($jugadore_name,$jugador_lastname,$date,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$jugador_estatus,$jugador_telefono,$jugador_centro);
         break;
      case 2:
         $jugador        = $_POST['jugador'];
@@ -33,9 +36,12 @@ if(count($_POST)>0){
         $ruta                       = $_POST["url_img"];
         $ruta2                      = $_POST["url_adjunto"];
         $id                         = $_POST["id"];
+        $jugador_estatus            = $_POST["jugador_estatus"];
+        $jugador_telefono           = $_POST["jugador_telefono"];
+        $jugador_centro             = $_POST["jugador_centro"];
         $date = date( "Y-m-d", strtotime($jugador_fecha_nacimiento) );
 
-        set_modificar_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$id);
+        set_modificar_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$id,$jugador_estatus,$jugador_telefono,$jugador_centro);
         break; 
       case 4:
         $cedula        = $_POST['identificacion'];
@@ -47,10 +53,10 @@ if(count($_POST)>0){
 }
 
 
-function set_insert_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2 ){
+function set_insert_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$jugador_estatus,$jugador_telefono,$jugador_centro ){
     $conn = conectar();
-    $sql="INSERT INTO jugadores (nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1) 
-    VALUES ('$jugadore_name','$jugador_lastname','$identificacion','$jugador_fecha_nacimiento','$jugador_direccion',$jugador_equipo,'$ruta','$ruta2')";
+    $sql="INSERT INTO jugadores (nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro) 
+    VALUES ('$jugadore_name','$jugador_lastname','$identificacion','$jugador_fecha_nacimiento','$jugador_direccion',$jugador_equipo,'$ruta','$ruta2','$jugador_estatus','$jugador_telefono','$jugador_centro')";
    
     if ($conn->query($sql) == TRUE) {	
         echo  'AGREGADO CORRECTO';
@@ -70,9 +76,9 @@ function get_listar_jugadores_todos($id_equipo){
       
       $sql ="";
       if($id_equipo == 0){
-        $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1 from jugadores"; 
+        $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro from jugadores"; 
       }else{
-        $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1 from jugadores where equipo=$id_equipo"; 
+        $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro from jugadores where equipo=$id_equipo"; 
       }
 
 
@@ -90,6 +96,9 @@ function get_listar_jugadores_todos($id_equipo){
          $url_img               = $row["url_img"];
          $url_adjunto1          = $row["url_adjunto1"];
          $id                    = $row["id"];
+         $estatus               = $row["estatus"];
+         $telefono              = $row["telefono"];
+         $centro                = $row["centro"];
 
 
            echo "<script> var usuario_js = '".$id."';</script>";
@@ -116,7 +125,7 @@ function get_listar_jugadores_todos($id_equipo){
           die("Connection failed: " . $conn->connect_error);
      }
  
-     $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1 from jugadores where id=$jugador"; 
+     $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro from jugadores where id=$jugador"; 
  
       $result = $conn->query($sql);
       $count=1;         
@@ -133,6 +142,9 @@ function get_listar_jugadores_todos($id_equipo){
          array_push($jugador_array,$row["equipo"]);
          array_push($jugador_array,$row["url_img"]);
          array_push($jugador_array,$row["url_adjunto1"]);
+         array_push($jugador_array,$row["estatus"]);
+         array_push($jugador_array,$row["telefono"]);
+         array_push($jugador_array,$row["centro"]);
 
          echo json_encode($jugador_array);
        }		 
@@ -141,7 +153,7 @@ function get_listar_jugadores_todos($id_equipo){
         $conn->close();
  }
  
- function set_modificar_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$id){
+ function set_modificar_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$id,$jugador_estatus,$jugador_telefono,$jugador_centro){
     $conn = conectar();
  
        $sql="UPDATE jugadores SET nombres='$jugadore_name',
@@ -151,7 +163,11 @@ function get_listar_jugadores_todos($id_equipo){
                                   direccion='$jugador_direccion',
                                   equipo=$jugador_equipo,
                                   url_img='$ruta',
-                                  url_adjunto1='$ruta2'
+                                  url_adjunto1='$ruta2',
+                                  estatus='$jugador_estatus',
+                                  telefono='$jugador_telefono',
+                                  centro='$jugador_centro'
+
 
            where id =$id";
  
@@ -215,8 +231,8 @@ function get_jugadores($cedula,$equipo){
         die("Connection failed: " . $conn->connect_error);
    }
 
-   $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1 
-   from jugadores where identificacion like '%".$cedula."%' " ; 
+   $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro 
+   from jugadores where (identificacion like '%".$cedula."%' AND equipo = $equipo)  OR (equipo = $equipo)" ; 
 
     $result = $conn->query($sql);
     $count=1;         
@@ -234,6 +250,9 @@ function get_jugadores($cedula,$equipo){
        array_push($jugador_array,$row["equipo"]);
        array_push($jugador_array,$row["url_img"]);
        array_push($jugador_array,$row["url_adjunto1"]);
+       array_push($jugador_array,$row["estatus"]);
+       array_push($jugador_array,$row["telefono"]);
+       array_push($jugador_array,$row["centro"]);
 
        array_push($jugadores_array,$jugador_array);
      }		 
