@@ -104,6 +104,10 @@
                                 <?php get_listar_equipos_select($equipo);?>
                             </select>
 
+                            <label for="jugador_evento">Evento</label>
+                            <select class="input_formulario" onchange="" id="jugador_evento" name="jugador_evento">
+                                <?php get_listar_eventos_jugador($equipo,0);?>
+                            </select>
 
                             <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
                         </fieldset>

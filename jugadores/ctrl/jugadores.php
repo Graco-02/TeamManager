@@ -18,9 +18,10 @@ if(count($_POST)>0){
         $jugador_estatus            = $_POST["jugador_estatus"];
         $jugador_telefono           = $_POST["jugador_telefono"];
         $jugador_centro             = $_POST["jugador_centro"];
+        $jugador_evento             = $_POST["jugador_evento"];
         $date = date( "Y-m-d", strtotime($jugador_fecha_nacimiento) );
 
-        set_insert_jugador($jugadore_name,$jugador_lastname,$date,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$jugador_estatus,$jugador_telefono,$jugador_centro);
+        set_insert_jugador($jugadore_name,$jugador_lastname,$date,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$jugador_estatus,$jugador_telefono,$jugador_centro,$jugador_evento);
         break;
      case 2:
         $jugador        = $_POST['jugador'];
@@ -39,9 +40,10 @@ if(count($_POST)>0){
         $jugador_estatus            = $_POST["jugador_estatus"];
         $jugador_telefono           = $_POST["jugador_telefono"];
         $jugador_centro             = $_POST["jugador_centro"];
+        $jugador_evento             = $_POST["jugador_evento"];
         $date = date( "Y-m-d", strtotime($jugador_fecha_nacimiento) );
 
-        set_modificar_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$id,$jugador_estatus,$jugador_telefono,$jugador_centro);
+        set_modificar_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$id,$jugador_estatus,$jugador_telefono,$jugador_centro,$jugador_evento);
         break; 
       case 4:
         $cedula        = $_POST['identificacion'];
@@ -53,13 +55,18 @@ if(count($_POST)>0){
 }
 
 
-function set_insert_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$jugador_estatus,$jugador_telefono,$jugador_centro ){
+function set_insert_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$jugador_estatus,$jugador_telefono,$jugador_centro,$jugador_evento ){
     $conn = conectar();
     $sql="INSERT INTO jugadores (nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro) 
     VALUES ('$jugadore_name','$jugador_lastname','$identificacion','$jugador_fecha_nacimiento','$jugador_direccion',$jugador_equipo,'$ruta','$ruta2','$jugador_estatus','$jugador_telefono','$jugador_centro')";
    
-    if ($conn->query($sql) == TRUE) {	
+    if ($conn->query($sql) == TRUE) {
+      $id=$conn->insert_id;		
+      if(set_agregar_relacion_equipo_evento($id,$jugador_equipo,$jugador_evento)){
         echo  'AGREGADO CORRECTO';
+      }else{
+        echo  'ERROR EN AGREGADO';
+      }
     }else{
         echo 'AGREGADO INCORRECTO';
     }
@@ -153,7 +160,7 @@ function get_listar_jugadores_todos($id_equipo){
         $conn->close();
  }
  
- function set_modificar_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$id,$jugador_estatus,$jugador_telefono,$jugador_centro){
+ function set_modificar_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$id,$jugador_estatus,$jugador_telefono,$jugador_centro,$jugador_evento){
     $conn = conectar();
  
        $sql="UPDATE jugadores SET nombres='$jugadore_name',
@@ -173,14 +180,35 @@ function get_listar_jugadores_todos($id_equipo){
  
        if ($conn->query($sql) == TRUE) {		   
          // # Cogemos el identificador con que se ha guardado
-         $id=$conn->insert_id;	
-         echo  'MODIFICACION REALIZADA';
+        // $id=$conn->insert_id;	
+         if(set_agregar_relacion_equipo_evento($id,$jugador_equipo,$jugador_evento)){
+           echo  'MODIFICACION REALIZADA';
+         }else{
+           echo  'ERROR EN MODIFICACION';
+         }
+
+
      }   else {
       echo "Error Modificacion: " . $sql . "<br>" . $conn->error;
      }
  }
 
-
+function set_agregar_relacion_equipo_evento($jugador,$equipo,$evento){
+  $date = date('Y-m-d');
+  $validacion=TRUE;
+  $conn = conectar();
+           //   # Agregamos la LOS DATOS DE LA PERSONA a la base de datos
+    $sql="INSERT IGNORE  INTO relacion_equipo_jugador_evento (equipo,evento,jugador) 
+    VALUES ($equipo,$evento,$jugador)";
+   
+    if ($conn->query($sql) == TRUE) {	
+      //echo($jugador.$equipo.$evento);
+    }else{
+      $validacion=false;
+    }
+       $conn->close();
+       return $validacion;
+}
 
  function set_insert_usuario($usuario_names,$usuario_lastnames,$usuario_identificacion,$usuario_name_acces,$usuario_clave,$usuario_tipo,$url_img){
   $date = date('Y-m-d');
@@ -259,6 +287,47 @@ function get_jugadores($cedula,$equipo){
         echo json_encode($jugadores_array);
     }
       $conn->close();
+}
+
+function get_listar_eventos_jugador($equipo,$jugador){
+  $conn = conectar();
+  $date = date('Y-m-d');
+    // Check connection
+   if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+   }
+
+    $sql = "SELECT id,nombre,cantidad_equipos,cantidad_jugadores_equipo,descripcion,fecha_incio from eventos 
+    where (id,$equipo) in (select evento,equipo from relacion_equipo_evento) 
+    and (id,$equipo,$jugador) not in (select evento,equipo,jugador from relacion_equipo_jugador_evento)"; 
+    $result = $conn->query($sql);
+    $count=1;         
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc() ) {
+        
+       $nombre = $row["nombre"];				  
+       $cantidad_equipos = $row["cantidad_equipos"];
+       $cantidad_jugadores_equipo   = $row["cantidad_jugadores_equipo"];
+       $descripcion     = $row["descripcion"];
+       $fecha_incio      = $row["fecha_incio"];
+       $id      = $row["id"];
+
+
+       $diff = strtotime($fecha_incio) - strtotime($date);
+       $dias = $diff/(60*60*24);
+
+         if($dias>0){
+            $nombre        = $row["nombre"];				
+            $id            = $row["id"];
+            echo "<option value=".$id.">".$nombre."</option>";
+         }
+
+         echo "</tr> ";
+     }		 
+     
+    }
+  
+    $conn->close();
 }
 
 ?>

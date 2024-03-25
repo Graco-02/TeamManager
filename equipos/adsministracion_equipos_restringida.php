@@ -29,6 +29,8 @@
                 </div>
                 <div class="menu_administracion_principal">
                     <a href="../jugadores/administracion_jugadores.php?id_equipo=<?php echo $_SESSION['admin_id'];?>">jugadores</a> 
+                    <a href="../eventos/administracion_eventos.php?id_equipo=<?php echo $_SESSION['admin_id'];?>">Eventos</a> 
+                    <a href="../equipos/adsministracion_equipos_restringida.php">equipos</a> 
                 </div>
             </div>
         </header>
@@ -36,7 +38,7 @@
         <main>
             <div class="main_contenido">
                 <section class="formulario_entrada">
-                    <form id="form" action="javascript: set_insertar();" class="loging_formulario" enctype=" multipart/form-data">
+                <form id="form" action="javascript: set_insertar();" class="loging_formulario" enctype=" multipart/form-data">
                          <div class="flex_colum">
                              <img src="../imagenes/usuario1.png" alt="usuario" id="usuario_logo"/>
                              <br>
@@ -45,14 +47,67 @@
                         <fieldset>
                             <legend class="formulario_legend">Datos Equipo</legend>
 
-                            <label for="evento_name">Nombre</label>
+                            <label for="equipo_name">Nombre Del CLub o Liga</label>
                             <input type="text" placeholder="XXX" class="input_formulario" name="equipo_name" id="equipo_name" required/>
 
-                            <label for="evento_name">Municipio</label>
-                            <input type="text" placeholder="XXX" class="input_formulario" name="equipo_name" id="equipo_municipio" required/>
 
-                            <label for="evento_name">Sector</label>
-                            <input type="text" placeholder="XXX" class="input_formulario" name="equipo_name" id="equipo_sector" required/>
+                            <div class="flex">
+                                <div>                               
+                                     <label for="equipo_categoria">categoria</label>
+                                     <input type="text" placeholder="XXX" class="input_formulario" name="equipo_categoria" id="equipo_categoria" required/>
+                                </div>     
+
+                                 <div>  
+                                    <label for="equipo_circunscripcion">circunscripcion</label>
+                                     <input type="text" placeholder="XXX" class="input_formulario" name="equipo_circunscripcion" id="equipo_circunscripcion" required/>
+                                </div>
+                            </div>
+
+                            <div class="flex">
+                                <div>
+                                <label for="equipo_anio">Anio</label>
+                                <input type="text" placeholder="XXX" class="input_formulario" name="equipo_anio" id="equipo_anio" required/>
+                                </div>
+
+                                <div>
+                                <label for="equipo_rama">rama</label>
+                                <input type="text" placeholder="XXX" class="input_formulario" name="equipo_rama" id="equipo_rama" required/>
+                                </div>
+                            </div>
+
+
+
+                            <div class="flex">
+                                <div>
+                                <label for="equipo_entrenador">entrenador@</label>
+                                <input type="text" placeholder="XXX" class="input_formulario" name="equipo_entrenador" id="equipo_entrenador" required/>
+                                </div>
+
+                                <div>
+                                <label for="equipo_entrenador_tel">telefono</label>
+                                <input type="text" placeholder="9999999999" class="input_formulario" name="equipo_entrenador_tel" id="equipo_entrenador_tel" required/>
+                                </div>
+                            </div>
+
+
+                            <div class="flex">
+                                <div>
+                                <label for="equipo_delegado">delegad@&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                <input type="text" placeholder="XXX" class="input_formulario" name="equipo_delegado" id="equipo_delegado" required/>
+                                </div>
+                                <div>
+                                <label for="equipo_delegado_tel">telefono</label>
+                                <input type="text" placeholder="9999999999" class="input_formulario" name="equipo_delegado_tel" id="equipo_delegado_tel" required/>
+                                </div>    
+                            </div>    
+
+
+
+                            <label for="equipo_municipio">Municipio</label>
+                            <input type="text" placeholder="XXX" class="input_formulario" name="equipo_municipio" id="equipo_municipio" required/>
+
+                            <label for="equipo_sector">Sector</label>
+                            <input type="text" placeholder="XXX" class="input_formulario" name="equipo_sector" id="equipo_sector" required/>
 
                             <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
                         </fieldset>
