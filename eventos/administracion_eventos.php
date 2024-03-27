@@ -2,6 +2,13 @@
       require_once("../utilidades/conexion.php");
       require_once("../utilidades/alerta.php");
       require_once("ctrl/eventos.php");
+      session_start();
+      $user_type = $_SESSION['user_type'];
+      $equipo_seleccionado=0;
+
+      if(isset($_GET['id_equipo'])){
+        $equipo_seleccionado=$_GET['id_equipo'];
+      }
 ?>
 
 <!DOCTYPE html>
@@ -16,6 +23,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <script src="js/eventos.js"></script>
+    <script>user_type=<?php echo $user_type; ?></script>
 </head>
 <body>
         <header>
@@ -27,8 +35,14 @@
                     </div>
                 </div>
                 <div class="menu_administracion_principal">
-                    <a href="../equipos/administracion_equipos.php">equipos</a> 
-                    <a href="../jugadores/administracion_jugadores.php">jugadores</a> 
+                    <?php if( $user_type==0){?>
+                        <a href="../eventos/administracion_eventos.php">eventos</a> 
+                        <a href="../equipos/administracion_equipos.php">equipos</a> 
+                    <?php }else{?>
+                        <a href="../jugadores/administracion_jugadores.php?id_equipo=<?php echo $_SESSION['admin_id'];?>">jugadores</a> 
+                        <a href="../eventos/administracion_eventos.php?id_equipo=<?php echo $_SESSION['admin_id'];?>">Eventos</a> 
+                        <a href="../equipos/adsministracion_equipos_restringida.php">equipos</a> 
+                    <?php }?>     
                 </div>
             </div>
         </header>
@@ -54,7 +68,10 @@
                             <label for="evento_fecha_inicio">Fecha De Inicio</label>
                             <input type="date" placeholder="" class="input_formulario" name="evento_fecha_inicio" id="evento_fecha_inicio"/>
 
-                            <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
+                            <?php if( $user_type==0){?>
+                                <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
+                            <?php }?>
+
                         </fieldset>
                     </form>
                 </section>

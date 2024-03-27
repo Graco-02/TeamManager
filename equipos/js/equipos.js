@@ -2,6 +2,8 @@ let elento_seleccionado =0 ;
 let fichero_seleccionado ="" ;
 let id_seleccionado =0 ;
 let name_ant ="" ;
+let user_type = 0;
+let evento_seleccionado=0;
 
 function set_insertar(){
     var equipo_name                  = document.getElementById("equipo_name").value;
@@ -185,7 +187,10 @@ celda4.onclick = function() { set_sacar_jugador(id);};
     fila.appendChild(celda1);
     fila.appendChild(celda2);
     fila.appendChild(celda3);
-    fila.appendChild(celda4);
+    if(user_type==0){
+        fila.appendChild(celda4);
+    }
+
     tableRow.appendChild(fila);
 }
 
@@ -195,6 +200,7 @@ function set_relacion_equipo(){
         $.post("ctrl/equipos.php"
         ,{"equipo":id_seleccionado 
         ,"accion":accion 
+        ,"evento":evento_seleccionado 
         }
         ,function(respuesta){
             var json = $.parseJSON(respuesta);
@@ -221,5 +227,64 @@ function set_sacar_jugador(id){
     }
     ,function(respuesta){
         alert(respuesta); location.reload(); 
+    }); 
+}
+
+
+function set_seleccionar_view(equipo){
+    var accion = 2;//opcion para seleccionar los datos del usuario
+    elento_seleccionado =equipo ;
+    id_seleccionado =equipo; 
+
+    $.post("ctrl/equipos.php"
+    ,{"equipo":equipo 
+    ,"accion":accion 
+    }
+    ,function(respuesta){
+        var json = $.parseJSON(respuesta);
+        console.log(json);  
+
+        var equipo_name                  = document.getElementById("equipo_name");
+        var equipo_categoria             = document.getElementById("equipo_categoria");
+        var equipo_circunscripcion       = document.getElementById("equipo_circunscripcion");
+        var equipo_anio                  = document.getElementById("equipo_anio");
+        var equipo_rama                  = document.getElementById("equipo_rama");
+        var equipo_entrenador            = document.getElementById("equipo_entrenador");
+        var equipo_entrenador_tel        = document.getElementById("equipo_entrenador_tel");
+        var equipo_delegado              = document.getElementById("equipo_delegado");
+        var equipo_delegado_tel          = document.getElementById("equipo_delegado_tel");
+
+        var equipo_municipio       = document.getElementById("equipo_municipio");
+        var equipo_sector          = document.getElementById("equipo_sector");
+        var url_img                = document.getElementById("pic");
+        var usuario_logo            = document.getElementById("usuario_logo");
+
+        id_seleccionado        = json[0];
+        equipo_name.value      = json[1];
+        equipo_municipio.value = json[2];
+        equipo_sector.value    = json[3];
+        var equipo_estado      = json[5];
+
+        equipo_categoria.value             = json[6];
+        equipo_circunscripcion.value       = json[7];
+        equipo_anio.value                  = json[8];
+        equipo_rama.value                  = json[9];
+        equipo_entrenador.value            = json[10];
+        equipo_entrenador_tel.value        = json[11];
+        equipo_delegado.value              = json[12];
+        equipo_delegado_tel.value          = json[13];
+
+
+        fichero_seleccionado = json[4];
+
+        name_ant=json[1];
+
+        if(json[4]!=null && json[4].length>0){
+            usuario_logo.src = "../imagenes_subidas/"+json[4];
+        }else{
+            usuario_logo.src = "../imagenes/usuario1.png";
+        }
+
+        set_relacion_equipo();
     }); 
 }

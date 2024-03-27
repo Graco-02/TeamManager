@@ -186,7 +186,7 @@ function get_listar_equipos_no_linkados($evento){
          array_push($equipo_array,$row["url_logo"]);
          array_push($equipo_array,$row["estado"]);
          array_push($equipo_array,get_listar_equipos_linkados($evento,$row["id"]));
-         array_push($equipo_array,get_cantidad_jugadores($row["id"]));
+         array_push($equipo_array,get_cantidad_jugadores($row["id"],$evento));
          
          array_push($equipo_array_lista, $equipo_array);
      }		 
@@ -254,7 +254,7 @@ function set_eliminar_equipo_linkado($evento,$equipo){
 }
 
 
-function get_cantidad_jugadores($equipo ){
+function get_cantidad_jugadores($equipo,$evento){
   $conn = conectar();
   $date = date('Y-m-d');
     // Check connection
@@ -263,7 +263,7 @@ function get_cantidad_jugadores($equipo ){
    }
 
     $sql = "SELECT count(*) as total
-     from jugadores where equipo = ".$equipo; 
+     from jugadores where equipo = ".$equipo." and (equipo,$evento,id) in (select equipo,evento,jugador from relacion_equipo_jugador_evento)" ; 
 
     $result = $conn->query($sql);
     $count=1;    

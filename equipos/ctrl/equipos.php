@@ -46,7 +46,8 @@ if(count($_POST)>0){
         break; 
       case 4:
           $equipo        = $_POST['equipo'];
-          get_jugadores_equipo($equipo);
+          $evento        = $_POST['evento'];
+          get_jugadores_equipo($equipo,$evento);
         break ; 
       case 5:
           $equipo        = $_POST['equipo'];
@@ -229,15 +230,20 @@ function get_listar_equipos_todos(){
     }
 }
 
-function get_jugadores_equipo($equipo){
+function get_jugadores_equipo($equipo,$evento){
   $conn = conectar();
     // Check connection
    if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
    }
 
-   $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1 
-   from jugadores where  equipo =".$equipo ; 
+   if($evento==0){
+    $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1 
+    from jugadores where  equipo =".$equipo ; 
+   }else{
+    $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1 
+    from jugadores where  equipo =".$equipo." and (id,$equipo,$evento) in (select jugador,equipo,evento from relacion_equipo_jugador_evento)" ; 
+   }
 
     $result = $conn->query($sql);
     $count=1;         
@@ -283,14 +289,17 @@ function set_actualizar_usuario($usuario,$clave,$equipo_name_ant){
 function set_eliminar_jugador($equipo,$jugador_id){
   $conn = conectar();
  
-  $sql="DELETE FROM jugadores WHERE id =".$jugador_id." AND equipo =".$equipo;
+  $sql="DELETE FROM relacion_equipo_jugador_evento WHERE jugador =".$jugador_id." AND equipo =".$equipo;
 
   if ($conn->query($sql) == TRUE) {		   
     // # Cogemos el identificador con que se ha guardado
-    echo  'ELIMINACION REALIZADA';
-}   else {
+    $sql="DELETE FROM jugadores WHERE id =".$jugador_id." AND equipo =".$equipo;
+    if ($conn->query($sql) == TRUE) {	
+      echo  'ELIMINACION REALIZADA';
+    }
+  }   else {
     echo "Error Modificacion: " . $sql . "<br>" . $conn->error;
-}
+  }
 }
 
 ?>

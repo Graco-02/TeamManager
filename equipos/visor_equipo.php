@@ -4,6 +4,14 @@
       require_once("ctrl/equipos.php");
       session_start();
       $user_type = $_SESSION['user_type'];
+      $equipo = 0;
+      $evento = 0;
+
+      if(count($_GET)>0){
+        $equipo = $_GET['equipo'];
+        $evento = $_GET['evento'];
+       // alert("equipo seleccionado = ".$equipo." del evento = ".$evento );
+      }
 ?>
 
 <!DOCTYPE html>
@@ -111,22 +119,17 @@
                             <label for="equipo_sector">Sector</label>
                             <input type="text" placeholder="XXX" class="input_formulario" name="equipo_sector" id="equipo_sector" required/>
 
-                            <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
                         </fieldset>
                     </form>
                 </section>
 
-                <section id="listado_usuario">
-                 <h1>Equipos</h1>
-                    <table id="listado_usuarios" class="listado_usuarios_css">
-                        <tr>
-                          <th>Nombre</th>
-                          <th>Municipio</th>
-                          <th>Sector</th>
-                        </tr>
-                       <?php get_listar_equipos_restringido($_SESSION['admin_user']);?>
-                    </table>
+                <script>
+                    equipo_seleccionado = <?php echo $equipo;?>;
+                    evento_seleccionado = <?php echo $evento;?>;
+                    set_seleccionar_view(equipo_seleccionado);
+                </script>
 
+                <section id="listado_usuario">
                     <div id='equipos_div' class='display_none'>
                     <h1>Jugadores</h1>
                     <table id="listado_jugadores_equipo" class="listado_usuarios_css">

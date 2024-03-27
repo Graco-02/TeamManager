@@ -36,9 +36,13 @@
                 </div>
                 <div class="menu_administracion_principal">
                     <?php if( $user_type==0){?>
-                    <a href="../eventos/administracion_eventos.php">eventos</a> 
-                    <a href="../equipos/administracion_equipos.php">equipos</a> 
-                    <?php }?>
+                        <a href="../eventos/administracion_eventos.php">eventos</a> 
+                        <a href="../equipos/administracion_equipos.php">equipos</a> 
+                    <?php }else{?>
+                        <a href="../jugadores/administracion_jugadores.php?id_equipo=<?php echo $_SESSION['admin_id'];?>">jugadores</a> 
+                        <a href="../eventos/administracion_eventos.php?id_equipo=<?php echo $_SESSION['admin_id'];?>">Eventos</a> 
+                        <a href="../equipos/adsministracion_equipos_restringida.php">equipos</a> 
+                    <?php }?>    
                 </div>
             </div>
         </header>

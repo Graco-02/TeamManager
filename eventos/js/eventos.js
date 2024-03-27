@@ -1,5 +1,6 @@
 let elento_seleccionado =0 ;
 let elento_id_seleccionado =0 ;
+let user_type = 0;
 
 function set_insertar(){
     var evento_name              = document.getElementById("evento_name").value;
@@ -8,34 +9,38 @@ function set_insertar(){
     var evento_descripcion       = document.getElementById("evento_descripcion").value;
     var evento_fecha_inicio      = document.getElementById("evento_fecha_inicio").value;
     var accion = 1;
-
-    if(elento_seleccionado>0){
-        accion = 3;
-    }
+    if(user_type==0){
+        if(elento_seleccionado>0){
+            accion = 3;
+        }
+        
+        $.post("ctrl/eventos.php"
+        ,{"evento_name":evento_name 
+        ,"evento_num_equipos":evento_num_equipos 
+        ,"evento_num_jug_equipos":evento_num_jug_equipos 
+        ,"evento_descripcion":evento_descripcion 
+        ,"evento_fecha_inicio":evento_fecha_inicio 
+        ,"accion":accion 
+        ,"id":elento_seleccionado 
+        }
+        ,function(respuesta){
+            var resp = respuesta.trim();
+                if(resp == 'AGREGADO CORRECTO'){
+                    alert('AGREGADO CORRECTO');
+                  //  set_agregar_fila(evento_name,evento_fecha_inicio);
+                    location.reload();
+                }else if(resp == 'MODIFICACION REALIZADA'){
+                    alert('MODIFICACION REALIZADA');
+                    location.reload();
+                }else{
+                    alert('ERROR => '+respuesta);
+                }
     
-    $.post("ctrl/eventos.php"
-    ,{"evento_name":evento_name 
-    ,"evento_num_equipos":evento_num_equipos 
-    ,"evento_num_jug_equipos":evento_num_jug_equipos 
-    ,"evento_descripcion":evento_descripcion 
-    ,"evento_fecha_inicio":evento_fecha_inicio 
-    ,"accion":accion 
-    ,"id":elento_seleccionado 
+        }); 
+    }else{
+        alert("este tipo de usuario no tiene permitido cambiar o agregar datos a este modulo");
     }
-    ,function(respuesta){
-        var resp = respuesta.trim();
-            if(resp == 'AGREGADO CORRECTO'){
-                alert('AGREGADO CORRECTO');
-              //  set_agregar_fila(evento_name,evento_fecha_inicio);
-                location.reload();
-            }else if(resp == 'MODIFICACION REALIZADA'){
-                alert('MODIFICACION REALIZADA');
-                location.reload();
-            }else{
-                alert('ERROR => '+respuesta);
-            }
 
-    }); 
 }
 
 function set_seleccionar(evento){
@@ -75,29 +80,39 @@ function set_agregar_fila(evento_name,municipio,sector,id,validacion,cantidad_ju
     var celda1 = document.createElement("td");
     var celda2 = document.createElement("td");
     var celda3 = document.createElement("td");
-    var celda6 = document.createElement("td");
     var celda4 = document.createElement("button");
     var celda5 = document.createElement("button");
+    var celda6 = document.createElement("td");
+    var celda7 = document.createElement("button");
+    
+
     celda1.innerHTML = evento_name;
     celda2.innerHTML = municipio;
     celda3.innerHTML = sector;
     celda4.innerHTML = 'AGREGAR';
     celda5.innerHTML = 'SACAR';
+    celda7.innerHTML = 'VER';
     celda6.innerHTML = cantidad_jugadores+" / "+document.getElementById("evento_num_jug_equipos").value;
 
 
     celda4.onclick = function() { set_linkar(id,cantidad_jugadores);};
     celda5.onclick = function() { set_deslinkar(id);};
+    celda7.onclick = function() { location.href="../equipos/visor_equipo.php?evento="+elento_id_seleccionado+"&equipo="+id;};
+
     fila.appendChild(celda1);
     fila.appendChild(celda2);
     fila.appendChild(celda3);
     fila.appendChild(celda6);
 
-    if(validacion==0){
-        fila.appendChild(celda4);
-    }else{
-        fila.appendChild(celda5);
+    if( user_type == 0){//opcion solo para administradores (0-ADMIN-1-EQUIPO)
+        if(validacion==0){
+            fila.appendChild(celda4);
+        }else{
+            fila.appendChild(celda5);
+        }
     }
+
+    fila.appendChild(celda7);
 
     tableRow.appendChild(fila);
 }
