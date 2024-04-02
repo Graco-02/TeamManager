@@ -70,7 +70,7 @@ body{
     overflow-y: scroll;
 }
 
-#usuario_logo{
+#usuario_logo,#adjunto_visor{
     width: 15rem;
     height: 15rem;
 }

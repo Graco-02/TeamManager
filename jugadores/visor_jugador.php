@@ -2,10 +2,10 @@
       require_once("../utilidades/conexion.php");
       require_once("../utilidades/alerta.php");
       require_once("ctrl/jugadores.php");
-      $equipo=0;
+      $jugador=0;
       session_start();
       if(count($_GET)>0){
-         $equipo = $_GET['id_equipo'];
+         $jugador = $_GET['jugador'];
       }
 
       $user_type = $_SESSION['user_type'];
@@ -25,7 +25,7 @@
     <script src="js/jugadores.js"></script>
     <script>user_type=<?php echo $user_type; ?></script>
 </head>
-<body>
+<body >
         <header>
             <div id="header_contenido">
                 <div class="cabecera">
@@ -48,13 +48,13 @@
         </header>
 
         <main>
-            <div class="main_contenido">
+            <div style="display: flex;" class="main_contenido" >
                 <section class="formulario_entrada">
                     <form id="form" action="javascript: set_insertar();" class="loging_formulario" enctype=" multipart/form-data">
                          <div class="flex_colum">
                              <img src="../imagenes/usuario1.png" alt="usuario" id="usuario_logo"/>
                              <br>
-                             <input type="file" name="pic" id="pic" onchange="readURL(this.value)"/>
+                            <!-- <input type="file" name="pic" id="pic" onchange="readURL(this.value)"/> -->
                          </div>
                         <fieldset>
                             <legend class="formulario_legend">Datos Jugador</legend>
@@ -78,7 +78,6 @@
                             <label for="jugador_cedula">Identificacion</label>
                             <div class="flex">
                              <input type="text" placeholder="" class="input_formulario" name="jugador_cedula" id="jugador_cedula" required/>
-                             <img src="../imagenes/lupa.png" alt="usuario" class="lupa" onclick="set_filtrar_listado();"/>
                             </div>
 
 
@@ -108,12 +107,6 @@
                                 <?php get_listar_equipos_select($equipo);?>
                             </select>
 
-                            <label for="jugador_evento">Evento</label>
-                            <select class="input_formulario" onchange="" id="jugador_evento" name="jugador_evento">
-                                <?php get_listar_eventos_jugador($equipo,0);?>
-                            </select>
-
-                            <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
                         </fieldset>
 
                         <fieldset>
@@ -121,26 +114,13 @@
                              <label for="adjunto1" id="label_adjunto">Adjunto 1</label>
                              <a id="adjunto_href" href="http://"></a>
                              <img src="../imagenes/usuario1.png" alt="usuario" id="adjunto_1" hidden/>
-                             <input type="file" name="adjunto1" id="adjunto1" onchange="readURL2(this.value)"/>
+                          <!--   <input type="file" name="adjunto1" id="adjunto1" onchange="readURL2(this.value)"/> -->
                              <img src="../imagenes/usuario1.png" alt="adjunto_visor" id="adjunto_visor"/>
                         </fieldset>
                     </form>
                 </section>
 
-                <section id="listado_usuario">
-                    <table id="listado_usuarios" class="listado_usuarios_css">
-                        <thead>
-                            <tr>
-                              <th>Nombres</th>
-                              <th>Apellidos</th>
-                              <th>Identificacion</th>
-                            </tr>
-                        </thead>
-                        <tbody id="lista_jugadores">
-                             <?php get_listar_jugadores_todos($equipo);?>
-                        </tbody>
-                    </table>
-                </section>
+                <script> set_seleccionar_jugador(<?php echo $jugador;?>);</script>
 
             </div>
         </main>

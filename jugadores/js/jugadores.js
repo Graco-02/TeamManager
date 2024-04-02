@@ -110,9 +110,13 @@ function set_seleccionar(id_seleccionado){
         }
 
         if(json[8]!=null && json[8].length>0){
-            url_adjunto.innerHTML = json[8];
+            //url_adjunto.innerHTML = json[8];
+            adjunto_visor.src =  "../imagenes_subidas/"+json[8];
+            adjunto_href.setAttribute("href",  "../imagenes_subidas/"+json[8]);
+            adjunto_href.innerHTML= "../imagenes_subidas/"+json[8];
         }else{
             url_adjunto.innerHTML ="Adjunto 1";
+            adjunto_visor.src = "../imagenes/usuario1.png";
         }
     }); 
 }
@@ -142,7 +146,7 @@ function readURL2(input) {
         alert("ESTE USUARIO NO TIENE PERMISO DE CAMBIAR ESTE DATO UNA VEZ SUBIDO");
     }else{
         const $seleccionArchivos = document.querySelector("#adjunto1");
-        $imagenPrevisualizacion = document.querySelector("#adjunto_1");
+        $imagenPrevisualizacion = document.querySelector("#adjunto_visor");
     
         const archivos = $seleccionArchivos.files;
         // Si no hay archivos salimos de la función y quitamos la imagen
@@ -263,4 +267,66 @@ function set_listado_filtrado(jugador_cedula,jugador_equipo){
                 set_agregar_fila(json[i][1],json[i][2],json[i][3],json[i][0]);
             }
         }); 
+}
+
+
+function set_seleccionar_jugador(id_seleccionado){
+    var accion = 2;//opcion para seleccionar los datos del usuario
+
+    $.post("ctrl/jugadores.php"
+    ,{"jugador":id_seleccionado 
+    ,"accion":accion 
+    }
+    ,function(respuesta){
+        var json = $.parseJSON(respuesta);
+        console.log(json);
+
+        var jugador_id =0;
+        var jugadore_name              = document.getElementById("jugador_name");
+        var jugador_lastname           = document.getElementById("jugador_lastname");
+        var jugador_fecha_nacimiento   = document.getElementById("jugador_fecha_nacimiento") ;
+        var jugador_cedula             = document.getElementById("jugador_cedula") ;
+        var jugador_direccion          = document.getElementById("jugador_direccion") ;
+        var jugador_equipo             = document.getElementById("jugador_equipo") ;
+        var url_img                    = document.getElementById("pic");
+        var url_adjunto                = document.getElementById("label_adjunto");
+        var jugador_estatus            = document.getElementById("jugador_estatus");
+        var jugador_telefono           = document.getElementById("jugador_telefono");
+        var jugador_centro             = document.getElementById("jugador_centro");
+        var jugador_evento             = document.getElementById("jugador_evento") ;
+
+
+        //id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1
+
+        jugador_id                        = json[0];
+        jugadore_name.value               = json[1];
+        jugador_lastname.value            = json[2];
+        jugador_cedula.value              = json[3];
+        jugador_fecha_nacimiento.value    = json[4];
+        jugador_direccion.value           = json[5];
+        jugador_equipo.value              = json[6];
+
+        fichero_seleccionado = json[7];
+        fichero_seleccionado2 = json[8];
+
+        jugador_estatus.value              = json[9];
+        jugador_telefono.value              = json[10];
+        jugador_centro.value              = json[11];
+
+        if(json[7]!=null && json[7].length>0){
+            usuario_logo.src = "../imagenes_subidas/"+json[7];
+        }else{
+            usuario_logo.src = "../imagenes/usuario1.png";
+        }
+
+        if(json[8]!=null && json[8].length>0){
+            //url_adjunto.innerHTML = json[8];
+            adjunto_visor.src =  "../imagenes_subidas/"+json[8];
+            adjunto_href.setAttribute("href",  "../imagenes_subidas/"+json[8]);
+            adjunto_href.innerHTML= "../imagenes_subidas/"+json[8];
+        }else{
+            url_adjunto.innerHTML ="Adjunto 1";
+            adjunto_visor.src = "../imagenes/usuario1.png";
+        }
+    }); 
 }

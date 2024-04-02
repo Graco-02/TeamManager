@@ -176,21 +176,26 @@ function set_agregar_fila_jugador(jugador_name,jugador_lastname,jugador_identifi
     var celda1 = document.createElement("td");
     var celda2 = document.createElement("td");
     var celda3 = document.createElement("td");
-    var celda4 = document.createElement("button");
+    var celda4 = document.createElement("button");   
+    var celda5 = document.createElement("button");
+
 
     celda1.innerHTML = jugador_name;
     celda2.innerHTML = jugador_lastname;
     celda3.innerHTML = jugador_identificacion;
     celda4.innerHTML ="SACAR";
+    celda5.innerHTML ="VER";
 
-celda4.onclick = function() { set_sacar_jugador(id);};
+    celda4.onclick = function() { set_sacar_jugador(id);};
+    celda5.onclick = function() { location.href="../jugadores/visor_jugador.php?jugador="+id};
+
     fila.appendChild(celda1);
     fila.appendChild(celda2);
     fila.appendChild(celda3);
     if(user_type==0){
         fila.appendChild(celda4);
     }
-
+    fila.appendChild(celda5);
     tableRow.appendChild(fila);
 }
 

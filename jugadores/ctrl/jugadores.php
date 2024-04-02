@@ -297,9 +297,22 @@ function get_listar_eventos_jugador($equipo,$jugador){
         die("Connection failed: " . $conn->connect_error);
    }
 
+   $sql ="";
+   if($jugador!=0){
     $sql = "SELECT id,nombre,cantidad_equipos,cantidad_jugadores_equipo,descripcion,fecha_incio from eventos 
     where (id,$equipo) in (select evento,equipo from relacion_equipo_evento) 
     and (id,$equipo,$jugador) not in (select evento,equipo,jugador from relacion_equipo_jugador_evento)"; 
+   }else{
+    if($equipo!=0){
+      $sql = "SELECT id,nombre,cantidad_equipos,cantidad_jugadores_equipo,descripcion,fecha_incio from eventos 
+      where (id,$equipo) in (select evento,equipo from relacion_equipo_evento) "; 
+    }else{
+      $sql = "SELECT id,nombre,cantidad_equipos,cantidad_jugadores_equipo,descripcion,fecha_incio from eventos  ";  
+    }
+
+   }
+
+
     $result = $conn->query($sql);
     $count=1;         
     if ($result->num_rows > 0) {
