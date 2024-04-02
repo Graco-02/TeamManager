@@ -33,14 +33,14 @@
     <title>acceso_admin</title>
 </head>
 <body>
-    <header>
+ <!--   <header>
         <div class="cabecera">
             <img src="imagenes/imagen_logo1.jpg" alt="header_logo" id="header_logo"/>
             <div class="logo_name">
                 <p>Team Manager</p>
             </div>
         </div>
-    </header>
+    </header> -->
 
     <main>
         <div class="main_contenido">
