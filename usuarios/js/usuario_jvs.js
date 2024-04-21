@@ -1,3 +1,6 @@
+let regant_global='';
+let regnew_global='';
+
 function set_insertar(){
     var usuario_names           = document.getElementById("usuario_names").value;
     var usuario_lastnames       = document.getElementById("usuario_lastnames").value;
@@ -7,6 +10,16 @@ function set_insertar(){
     var usuario_tipo            = document.getElementById("usuario_tipo").value;
     var accion = 1;
     var url_img      = document.getElementById("pic").value;
+
+    regnew_global=
+    usuario_names          
+    +usuario_lastnames      
+    +usuario_identificacion 
+    +usuario_name_acces     
+    +usuario_clave          
+    +usuario_tipo  ;         
+
+
 
     if(usuario_names.length >= 4 && usuario_lastnames.length >= 4 && usuario_name_acces.length >= 4 && usuario_clave.length >= 4 && usuario_identificacion.length >=10){
                 var formData = new FormData();
@@ -33,9 +46,11 @@ function set_insertar(){
                             var resp = respuesta.trim();
                                 usuario_names_entero = usuario_names+' , '+usuario_lastnames;
                                 if(resp == 'AGREGADO CORRECTO'){
+                                    set_insertar_accion('','A','USUARIOS','','');
                                     alert('AGREGADO CORRECTO');
                                     set_agregar_fila(usuario_names_entero,usuario_identificacion);
                                 }else if(resp == 'MODIFICACION REALIZADA'){
+                                    set_insertar_accion('','M','USUARIOS','','');
                                     alert('MODIFICACION REALIZADA');
                                 }else{
                                     alert('ERROR => '+respuesta);
@@ -96,6 +111,14 @@ function set_seleccionar(usuario){
             usuario_logo.src = "../imagenes/usuario1.png";
         }
 
+        regant_global=
+        usuario_names.value           
+        +usuario_lastnames.value       
+        +usuario_identificacion.value  
+        +usuario_name_acces.value      
+        +usuario_clave.value           
+        +usuario_tipo.value   ;  
+
     }); 
 }
 
@@ -117,3 +140,22 @@ function readURL(input) {
     $imagenPrevisualizacion.src = objectURL;
 }
 
+function set_insertar_accion(usuario,accion_modulo,modulo,regant,regnew){
+    var accion = 1;
+    
+    $.post("../histlog/ctrl/histlog.php"
+    ,{"usuario":usuario 
+    ,"accion_modulo":accion_modulo 
+    ,"modulo":modulo 
+    ,"regant":regant_global 
+    ,"regnew":regnew_global 
+    ,"accion":accion 
+    }
+    ,function(respuesta){
+        var resp = respuesta.trim();
+        if(resp != 'AGREGADO CORRECTO'){
+            alert('ERROR AGREGANDO HISTORICO => '+respuesta);
+        }
+        location.reload();
+ });
+}

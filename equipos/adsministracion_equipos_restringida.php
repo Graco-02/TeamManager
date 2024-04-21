@@ -4,6 +4,7 @@
       require_once("ctrl/equipos.php");
       session_start();
       $user_type = $_SESSION['user_type'];
+      $usuario_logeado = $_SESSION['nombre_usuario'];
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +20,8 @@
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <script src="js/equipos.js"></script>
     <script>user_type=<?php echo $user_type; ?></script>
+    <script>usuario_logeado=<?php echo $usuario_logeado; ?></script>
+    <script>alert(user_type);</script>
 </head>
 <body>
         <header>

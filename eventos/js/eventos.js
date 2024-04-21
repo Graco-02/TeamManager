@@ -1,6 +1,8 @@
 let elento_seleccionado =0 ;
 let elento_id_seleccionado =0 ;
 let user_type = 0;
+let regant_global='';
+let regnew_global='';
 
 function set_insertar(){
     var evento_name              = document.getElementById("evento_name").value;
@@ -9,6 +11,14 @@ function set_insertar(){
     var evento_descripcion       = document.getElementById("evento_descripcion").value;
     var evento_fecha_inicio      = document.getElementById("evento_fecha_inicio").value;
     var accion = 1;
+
+    regnew_global=
+    evento_name
+   +evento_num_equipos
+   +evento_num_jug_equipos
+   +evento_descripcion
+   +evento_fecha_inicio;
+
     if(user_type==0){
         if(elento_seleccionado>0){
             accion = 3;
@@ -26,12 +36,11 @@ function set_insertar(){
         ,function(respuesta){
             var resp = respuesta.trim();
                 if(resp == 'AGREGADO CORRECTO'){
+                    set_insertar_accion('usuario','A','EVENTOS','regant','regnew');
                     alert('AGREGADO CORRECTO');
-                  //  set_agregar_fila(evento_name,evento_fecha_inicio);
-                    location.reload();
                 }else if(resp == 'MODIFICACION REALIZADA'){
+                    set_insertar_accion('usuario','M','EVENTOS','regant','regnew');
                     alert('MODIFICACION REALIZADA');
-                    location.reload();
                 }else{
                     alert('ERROR => '+respuesta);
                 }
@@ -68,6 +77,15 @@ function set_seleccionar(evento){
         evento_num_jug_equipos.value = json[3];
         evento_descripcion.value = json[4];
         evento_fecha_inicio.value = json[5];
+
+
+        regant_global=
+        evento_name.value
+       +evento_num_equipos.value 
+       +evento_num_jug_equipos.value
+       +evento_descripcion.value 
+       +evento_fecha_inicio.value;
+
 
         var tableRow = document.getElementById("lista_equipos_evento").innerHTML="";
         set_relacion_equipo();
@@ -179,4 +197,24 @@ function set_deslinkar(id_equipo){
                 alert(resp);
             }
     }); 
+}
+
+function set_insertar_accion(usuario,accion_modulo,modulo,regant,regnew){
+    var accion = 1;
+    
+    $.post("../histlog/ctrl/histlog.php"
+    ,{"usuario":usuario 
+    ,"accion_modulo":accion_modulo 
+    ,"modulo":modulo 
+    ,"regant":regant_global 
+    ,"regnew":regnew_global 
+    ,"accion":accion 
+    }
+    ,function(respuesta){
+        var resp = respuesta.trim();
+        if(resp != 'AGREGADO CORRECTO'){
+            alert('ERROR AGREGANDO HISTORICO => '+respuesta);
+        }
+        location.reload();
+ });
 }

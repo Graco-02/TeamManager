@@ -4,6 +4,10 @@ let id_seleccionado =0 ;
 let name_ant ="" ;
 let user_type = 0;
 let evento_seleccionado=0;
+let usuario_logeado_js='';
+let regant_global='';
+let regnew_global='';
+
 
 function set_insertar(){
     var equipo_name                  = document.getElementById("equipo_name").value;
@@ -25,6 +29,22 @@ function set_insertar(){
         accion = 3;
     }
     
+    
+    regnew_global="";
+
+    regnew_global=
+    +equipo_name             
+    +equipo_categoria        
+    +equipo_circunscripcion  
+    +equipo_anio             
+    +equipo_rama             
+    +equipo_entrenador       
+    +equipo_entrenador_tel  
+    +equipo_delegado         
+    +equipo_delegado_tel    
+    +equipo_municipio    
+    +equipo_sector   ;   
+
     if(equipo_name.length>=3){
         var formData = new FormData();
         var file_data = $('#pic').prop('files')[0];
@@ -64,13 +84,13 @@ function set_insertar(){
                 ,function(respuesta){
                     var resp = respuesta.trim();
                     if(resp == 'AGREGADO CORRECTO'){
+                        set_insertar_accion('','A','EQUIPOS',"","");
                         alert('AGREGADO CORRECTO');
-                        location.reload();
                     }else if(resp == 'MODIFICACION REALIZADA'){
+                        set_insertar_accion('','M','EQUIPOS',"","");
                         alert('MODIFICACION REALIZADA');
-                        location.reload();
                     }else{
-                        alert('ERROR => '+respuesta);
+                        alert('ERROR MANIPULANDO EQUIPOS => '+respuesta);
                     }
 
              }); 
@@ -83,6 +103,7 @@ function set_insertar(){
 function set_seleccionar(equipo){
     var accion = 2;//opcion para seleccionar los datos del usuario
     var equipo = event.srcElement.id;
+    regant_global="";
     elento_seleccionado =equipo ;
 
     $.post("ctrl/equipos.php"
@@ -133,6 +154,20 @@ function set_seleccionar(equipo){
         }else{
             usuario_logo.src = "../imagenes/usuario1.png";
         }
+
+
+        regant_global=
+        +equipo_name.value             
+        +equipo_categoria.value        
+        +equipo_circunscripcion.value  
+        +equipo_anio.value             
+        +equipo_rama.value             
+        +equipo_entrenador.value       
+        +equipo_entrenador_tel.value   
+        +equipo_delegado.value         
+        +equipo_delegado_tel.value     
+        +equipo_municipio.value    
+        +equipo_sector.value    ;   
 
         set_relacion_equipo();
     }); 
@@ -292,4 +327,25 @@ function set_seleccionar_view(equipo){
 
         set_relacion_equipo();
     }); 
+}
+
+
+function set_insertar_accion(usuario,accion_modulo,modulo,regant,regnew){
+    var accion = 1;
+    
+    $.post("../histlog/ctrl/histlog.php"
+    ,{"usuario":usuario 
+    ,"accion_modulo":accion_modulo 
+    ,"modulo":modulo 
+    ,"regant":regant_global 
+    ,"regnew":regnew_global 
+    ,"accion":accion 
+    }
+    ,function(respuesta){
+        var resp = respuesta.trim();
+        if(resp != 'AGREGADO CORRECTO'){
+            alert('ERROR AGREGANDO HISTORICO => '+respuesta);
+        }
+        location.reload();
+ });
 }

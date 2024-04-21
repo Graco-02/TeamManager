@@ -18,10 +18,11 @@ function set_validar_logging($user_name,$user_clave){
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                     if($hash_clave == $row["clave"] || $row["clave"] == $user_clave){
+                        $_SESSION['user_type'] = $row["tipo"];
+                        $_SESSION['usuario_logeado'] = $row["usuario"];
+
                         if($user_clave != $user_name){
                             $conn->close();
-                            $_SESSION['admin_user'] = $row["usuario"];
-                            $_SESSION['user_type'] = $row["tipo"];
                             get_equipo_validacion($_SESSION['admin_user']);
                             if($row["tipo"]==0){
                                 header("Location:administracion/administracion_admin_index.php");    

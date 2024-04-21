@@ -26,6 +26,7 @@
                     <a href="../eventos/administracion_eventos.php">eventos</a> 
                     <a href="../equipos/administracion_equipos.php">equipos</a> 
                     <a href="../jugadores/administracion_jugadores.php">jugadores</a> 
+                    <a href="../histlog/histlog.php">historico</a> 
                 </div>
             </div>
         </header>

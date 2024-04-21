@@ -2,6 +2,8 @@ let elento_seleccionado =0 ;
 let fichero_seleccionado ="" ;
 let fichero_seleccionado2 ="" ;
 let user_type = 0;
+let regant_global='';
+let regnew_global='';
 
 function set_insertar(){
     var jugadore_name              = document.getElementById("jugador_name").value;
@@ -24,6 +26,18 @@ function set_insertar(){
     if(elento_seleccionado>0){
         accion = 3;
     }
+
+    regnew_global=
+    jugadore_name            
+    +jugador_lastname        
+    +jugador_cedula         
+    +jugador_fecha_nacimiento
+    +jugador_direccion        
+    +jugador_equipo          
+    +jugador_estatus  
+    +jugador_telefono 
+    +jugador_centro  ;
+
     
     if(jugadore_name.length>=3 && jugador_lastname.length>=3 && jugador_cedula.length>=10 && jugador_fecha_nacimiento.length>=10){
         var formData = new FormData();
@@ -118,6 +132,20 @@ function set_seleccionar(id_seleccionado){
             url_adjunto.innerHTML ="Adjunto 1";
             adjunto_visor.src = "../imagenes/usuario1.png";
         }
+
+
+        regant_global=
+        jugadore_name.value            
+        +jugador_lastname.value         
+        +jugador_cedula.value           
+        +jugador_fecha_nacimiento.value 
+        +jugador_direccion.value        
+        +jugador_equipo.value           
+        +jugador_estatus.value  
+        +jugador_telefono.value 
+        +jugador_centro.value   ;
+
+
     }); 
 }
 
@@ -183,11 +211,11 @@ function set_agregar_datos_php(jugadore_name,jugador_lastname,jugador_fecha_naci
     ,function(respuesta){
         var resp = respuesta.trim();
         if(resp == 'AGREGADO CORRECTO'){
+            set_insertar_accion('','A','JUGADORES','','');
             alert('AGREGADO CORRECTO');
-            location.reload();
         }else if(resp == 'MODIFICACION REALIZADA'){
+            set_insertar_accion('','M','JUGADORES','','');
             alert('MODIFICACION REALIZADA');
-            location.reload();
         }else{
             alert('ERROR => '+respuesta);
         }
@@ -329,4 +357,24 @@ function set_seleccionar_jugador(id_seleccionado){
             adjunto_visor.src = "../imagenes/usuario1.png";
         }
     }); 
+}
+
+function set_insertar_accion(usuario,accion_modulo,modulo,regant,regnew){
+    var accion = 1;
+    
+    $.post("../histlog/ctrl/histlog.php"
+    ,{"usuario":usuario 
+    ,"accion_modulo":accion_modulo 
+    ,"modulo":modulo 
+    ,"regant":regant_global 
+    ,"regnew":regnew_global 
+    ,"accion":accion 
+    }
+    ,function(respuesta){
+        var resp = respuesta.trim();
+        if(resp != 'AGREGADO CORRECTO'){
+            alert('ERROR AGREGANDO HISTORICO => '+respuesta);
+        }
+        location.reload();
+ });
 }
