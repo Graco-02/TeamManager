@@ -10,6 +10,7 @@ body{
    background-image: url("../../imagenes/basquet-fondo5.jpg");
    background-repeat: no-repeat;
    background-size: cover;
+   background-position: center;
     display: grid;
     grid-template-rows: 1fr;
     position: relative;
@@ -49,17 +50,27 @@ main{
 }
 
 .main_contenido{
-    background-color: white;
+    background-color: rgba(254, 254, 254, 0.5);
     display: grid;
     justify-content: center;
     align-items: center;
     grid-template-rows: 1fr 2fr;
     text-transform: uppercase;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    box-shadow: 5px 5px #888888;
+    box-shadow: 5px 5px #0c0c0c;
+    border-radius: 25px;
     width: 50%;
     position: absolute;
     top: 10rem;
+}
+
+.main_contenido label{
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.main_contenido input{
+    border-radius: 25px;
 }
 
 .loging_formulario{
@@ -95,6 +106,8 @@ main{
 .buton_formulario:hover{
     background-color: rgb(20, 243, 57);
     color: aqua;
+    transition: 0.8s;
+    cursor: pointer;
 }
 
 #header_contenido{

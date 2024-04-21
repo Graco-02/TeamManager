@@ -116,7 +116,7 @@
                             <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
                         </fieldset>
 
-                        <fieldset>
+                        <fieldset  class="flex" style="flex-direction: column;">
                              <legend class="formulario_legend">Archivos Adjuntos</legend>
                              <label for="adjunto1" id="label_adjunto">Adjunto 1</label>
                              <a id="adjunto_href" href="http://"></a>
