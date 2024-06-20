@@ -33,15 +33,6 @@
     <title>acceso_admin</title>
 </head>
 <body>
- <!--   <header>
-        <div class="cabecera">
-            <img src="imagenes/imagen_logo1.jpg" alt="header_logo" id="header_logo"/>
-            <div class="logo_name">
-                <p>Team Manager</p>
-            </div>
-        </div>
-    </header> -->
-
     <main>
         <div class="main_contenido">
             <img src="imagenes/loging_3.png" alt="header_logo" id="login_img"/>  

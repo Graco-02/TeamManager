@@ -23,11 +23,11 @@ function set_validar_logging($user_name,$user_clave){
 
                         if($user_clave != $user_name){
                             $conn->close();
-                            get_equipo_validacion($_SESSION['admin_user']);
+                            get_equipo_validacion($_SESSION['usuario_logeado']);
                             if($row["tipo"]==0){
                                 header("Location:administracion/administracion_admin_index.php");    
                             }else{
-                                header("Location:Equipos/adsministracion_equipos_restringida.php");    
+                                header("Location:equipos/adsministracion_equipos_restringida.php");    
                             }
                         }else{
                             alert('el usuario y la clave son iguales deben ser cambiadas');

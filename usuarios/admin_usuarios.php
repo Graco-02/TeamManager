@@ -1,6 +1,6 @@
 <?php 
    session_start();
-   if(isset( $_SESSION['admin_user'])){
+   if(isset( $_SESSION['usuario_logeado'])){
       require_once("../utilidades/conexion.php");
       require_once("../utilidades/alerta.php");
       require_once("ctrl/usuarios_ctrl.php");
@@ -91,4 +91,4 @@
     </body>
     </html>
 <?php }else{
-    header("Location:../administracion/acceso_admin.php");}?>
+    header("Location:../index.php");}?>

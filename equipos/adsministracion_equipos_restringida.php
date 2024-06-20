@@ -4,7 +4,7 @@
       require_once("ctrl/equipos.php");
       session_start();
       $user_type = $_SESSION['user_type'];
-      $usuario_logeado = $_SESSION['nombre_usuario'];
+      $usuario_logeado = $_SESSION['usuario_logeado'];
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +21,6 @@
     <script src="js/equipos.js"></script>
     <script>user_type=<?php echo $user_type; ?></script>
     <script>usuario_logeado=<?php echo $usuario_logeado; ?></script>
-    <script>alert(user_type);</script>
 </head>
 <body>
         <header>
@@ -127,7 +126,7 @@
                           <th>Municipio</th>
                           <th>Sector</th>
                         </tr>
-                       <?php get_listar_equipos_restringido($_SESSION['admin_user']);?>
+                       <?php get_listar_equipos_restringido($_SESSION['usuario_logeado']);?>
                     </table>
 
                     <div id='equipos_div' class='display_none'>
