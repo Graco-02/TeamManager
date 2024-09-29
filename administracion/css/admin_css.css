@@ -2,26 +2,52 @@
     --color_primario:rgb(244, 241, 189);
     --color_primario_2:#eeebeb;
     --color_menu:#09accd;
+
+        /*colores por denito*/
+        --color_primario_d:#004542;
+        --color_secundario_d:#187E79;
+        --color_teciario_d:#1CBBB4;
+}
+
+
+@font-face {
+    font-family: 'Gothan ultra italic';
+    src: url('../../gotham-ultra-italic.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
 }
 
 body{
    /* background-color: var(--color_primario_2);
    */ 
-   background-image: url("../../imagenes/basquet-fondo5.jpg");
+   background-image: url("../../imagenes/fondo-app.png");
    background-repeat: no-repeat;
    background-size: cover;
    background-position: center;
    height: 100vh;
+   font-family: "Gothan ultra italic";
 }
 
 header{
-    background-color: rgb(240, 238, 238);
     width: 100%;
-    box-shadow: 5px 5px #0c0c0c;
-    border-radius: 15px;
-    align-items: center;
-    justify-content: center;
+    text-transform: uppercase;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color_secundario_d);
+    width: 100%;
 }
+
+header span{
+    margin-left: 33.5%;
+}
+
+#header_img{
+    width: 5rem;
+    height: 5 rem;
+}
+
+
 
 .cabecera{
     display: grid;
@@ -34,8 +60,8 @@ header{
 }
 
 #header_logo{
-    width: 25rem;
-    height: 10rem;
+    width: 5rem;
+    height: 5rem;
     border-radius: 50%;
 }
 
@@ -46,7 +72,7 @@ header{
 }
 
 .logo_name p{
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 main{
@@ -56,18 +82,18 @@ main{
 }
 
 .main_contenido{
-    background-color: rgba(254, 254, 254, 0.5);
+    background-color: var(--color_primario_d);
     display: grid;
     justify-content: center;
     align-items: center;
     grid-template-rows: 1fr 2fr;
     text-transform: uppercase;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     box-shadow: 5px 5px #0c0c0c;
     border-radius: 25px;
-    width: 50%;
+    width: auto;
+    height: auto;
     position: absolute;
-    top: 10rem;
+    top: 5rem;
 }
 
 .main_contenido label{
@@ -85,19 +111,17 @@ main{
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
-    width: 100%;
     text-align: center;
-    width: 100%;
 }
 
 #login_img{
-    width: 10rem;
-    height: 10rem;
-    margin-left: 35%;
+    width: 3.5rem;
+    height: 3.5 rem;
+    margin-left: 45%;
 }
 
 .input_formulario{
-    padding: 1rem;
+    padding: 0.5rem;
     margin-right: 1rem;
     margin-bottom: 1rem;
     text-align: center;
@@ -105,8 +129,8 @@ main{
 }
 
 .buton_formulario{
-    background-color: blue;
-    color: aqua;
+    background-color: var(--color_teciario_d);
+    color:white;
 }
 
 .buton_formulario:hover{
@@ -118,26 +142,27 @@ main{
 
 #header_contenido{
     display: flex;
-    padding: 3rem;
+    flex-direction: column;
+    
+    height: 10rem;
 }
 
 .menu_administracion_principal{
-    position: absolute;
-    width: 25%;
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(5,1fr);
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    left: 60%;
-    top: 0%;
-    color: #09accd;
+    color: white;
+    background-color: var(--color_primario_d);
+    height: 5rem;
 }
 
 .menu_administracion_principal a{
     text-decoration: none;
     cursor: pointer;
-    color: rgba(3, 12, 248, 0.864);
+    color: white;
     text-align: center;
     text-transform: uppercase;
     font-size: 1.2rem;
@@ -151,7 +176,7 @@ main{
 
 @media (max-width:600px) {
     #header_logo{
-        width: 10rem;
+        width: 5rem;
         height: 5rem;
     }
 
@@ -165,5 +190,9 @@ main{
 
     .menu_administracion_principal{
         left: 40%;
+    }
+
+    header span{
+        margin-left: 3%;
     }
 }

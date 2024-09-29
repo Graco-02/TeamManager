@@ -1,5 +1,20 @@
+:root{
+    --color_primario:rgb(244, 241, 189);
+    --color_primario_2:#eeebeb;
+    --color_menu:#09accd;
+
+
+            /*colores por denito*/
+            --color_primario_d:#004542;
+            --color_secundario_d:#187E79;
+            --color_teciario_d:#1CBBB4;
+}
+
+
 header{
-    background-color: white;
+    background-color: var(--color_teciario_d);
+    color: white;
+    text-transform: uppercase;
 }
 
 .cabecera{
@@ -9,8 +24,7 @@ header{
 }
 
 #header_logo{
-    width: 20rem;
-    height: 10rem;
+    width: 10rem;
 }
 
 .logo_name{

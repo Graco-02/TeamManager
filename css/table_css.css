@@ -1,3 +1,15 @@
+:root{
+  --color_primario:rgb(244, 241, 189);
+  --color_primario_2:#eeebeb;
+  --color_menu:#09accd;
+
+
+          /*colores por denito*/
+          --color_primario_d:#004542;
+          --color_secundario_d:#187E79;
+          --color_teciario_d:#1CBBB4;
+}
+
 #listado_usuario{
     background-color: white;
     overflow-y: scroll;
@@ -12,7 +24,7 @@ table {
   }
 
   th{
-    background-color: #09accd;
+    background-color: var(--color_secundario_d);
   }
   
   td,

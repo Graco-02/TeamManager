@@ -28,14 +28,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="administracion/css/admin_css.css">
+    <link rel="stylesheet" href="css/index.css">
     <title>acceso_admin</title>
 </head>
 <body>
+    <header>
+        <img src="imagenes/logo-abasado.png" alt="header_logo" id="header_img"/>  
+        <span>asociacion de baloncesto de santo domingo</span>
+    </header>
     <main>
         <div class="main_contenido">
-            <img src="imagenes/loging_3.png" alt="header_logo" id="login_img"/>  
+            <img src="imagenes/logo user.png" alt="header_logo" id="login_img"/>  
             <form action="" method="post" class="loging_formulario">
                      <label for="longin_name">usuario</label>
                      <input type="text" placeholder="FULANITO" class="input_formulario" name="longin_name" id="longin_name"/>

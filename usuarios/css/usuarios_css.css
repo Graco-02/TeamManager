@@ -73,7 +73,7 @@ main{
 
 .main_contenido{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
     gap: 1rem;
     justify-content: center;
 }
@@ -95,8 +95,6 @@ main{
     grid-template-columns: 1fr 2fr;
     justify-content: center;
     background-color: white;
-    box-shadow: 5px 5px #888888;
-    border-radius: 25px 25px 10px 10px;
     width: 100%;
 }
 

@@ -2,124 +2,194 @@
     --color_primario:rgb(244, 241, 189);
     --color_primario_2:#eeebeb;
     --color_menu:#09accd;
+
+        /*colores por denito*/
+        --color_primario_d:#004542;
+        --color_secundario_d:#187E79;
+        --color_teciario_d:#1CBBB4;
+}
+
+
+@font-face {
+    font-family: 'Gothan ultra italic';
+    src: url('../gotham-ultra-italic.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
 }
 
 body{
-    width: 100%;
-    background-color: var(--color_primario_2);
-    display: grid;
-    grid-template-rows: 1fr 2fr;
-    gap: 1rem;
+   /* background-color: var(--color_primario_2);
+   */ 
+   background-image: url("../imagenes/fondo-app.png");
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-position: center;
+   height: 100vh;
+   font-family: "Gothan ultra italic";
 }
 
 header{
-    background-color: rgb(179, 174, 174);
     width: 100%;
+    text-transform: uppercase;
+    color: white;
     display: flex;
     flex-direction: column;
 }
 
-#header_cabecera{
-    width: 100%;
-    display: flex;
+header span{
+    margin-left: 33.5%;
 }
 
-#header_menu{
-    width: 100%;
-    background-color: var(--color_menu);
+#header_img{
+    width: 3.5rem;
+    height: 3.5 rem;
 }
 
+
+
+.cabecera{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
 
 #header_logo{
-    width: 20rem;
-    height: 20rem;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
 }
 
-#header_logo2{
-    width: 100%;
-    height:  20rem;
+.logo_name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo_name p{
+    font-size: 2rem;
 }
 
 main{
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#contenido_main{
-    width: 100%;
+.main_contenido{
+    background-color: var(--color_primario_d);
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem; 
+    justify-content: center;
+    align-items: center;
+    grid-template-rows: 1fr 2fr;
+    text-transform: uppercase;
+    box-shadow: 5px 5px #0c0c0c;
+    border-radius: 25px;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 5rem;
 }
 
-.lista_datos{
-    background-color: white;
-    margin-right: 0.5rem;
+.main_contenido label{
+    text-transform: uppercase;
+    font-weight: 700;
 }
 
-.formulario{
-    background-color: white;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    box-shadow: 5px 5px #888888;
+.main_contenido input{
+    border-radius: 25px;
 }
 
-#usuario_logo{
-    width: 15rem;
-    height: 15rem;
+.loging_formulario{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+}
+
+#login_img{
+    width: 3.5rem;
+    height: 3.5 rem;
+    margin-left: 45%;
 }
 
 .input_formulario{
-    width: 100%;
-    height: 1.5rem;
-    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    width: 30rem;
 }
-
-.formulario_legend{
-    text-transform: uppercase;
-    font-size: 1.5rem;
-    font-weight: 700;
-}
-
-label{
-    text-transform: capitalize;
-    font-size: 1rem;
-    font-weight: 700;
-}
-
 
 .buton_formulario{
-    background-color: blue;
-    color: aqua;
-    width: 100%;
-    min-height: 2rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    background-color: var(--color_teciario_d);
+    color:white;
 }
 
 .buton_formulario:hover{
     background-color: rgb(20, 243, 57);
     color: aqua;
+    transition: 0.8s;
+    cursor: pointer;
+}
+
+#header_contenido{
+    display: flex;
+    padding: 3rem;
+}
+
+.menu_administracion_principal{
+    position: absolute;
+    width: 25%;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    left: 60%;
+    top: 0%;
+    color: #09accd;
+}
+
+.menu_administracion_principal a{
+    text-decoration: none;
+    cursor: pointer;
+    color: rgba(3, 12, 248, 0.864);
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.menu_administracion_principal a:hover{
+    color: rgb(248, 163, 6);
+    transition: 0.5s;
 }
 
 @media (max-width:600px) {
     #header_logo{
-        width: 10rem;
-        height: 20rem;
+        width: 5rem;
+        height: 5rem;
     }
 
-    #header_logo2{
+    .main_contenido{
         width: 100%;
-        height:  20rem;
     }
 
-    #contenido_main{
-        display: flex;
-        flex-direction: column;
+    .menu_administracion_principal a{
+        font-size: 0.8rem;
     }
 
-    body{
-        display: flex;
-        flex-direction: column;
+    .menu_administracion_principal{
+        left: 40%;
+    }
+
+    header span{
+        margin-left: 3%;
     }
 }
