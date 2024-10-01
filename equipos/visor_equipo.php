@@ -32,15 +32,29 @@
         <header>
             <div id="header_contenido">
                 <div class="cabecera">
-                    <img src="../imagenes/imagen_logo1.jpg" alt="header_logo" id="header_logo"/>
+                    <img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/>
                     <div class="logo_name">
-                        <p>Team Manager</p>
+                        <p>asociacion de baloncesto de santo domingo</p>
                     </div>
                 </div>
                 <div class="menu_administracion_principal">
-                    <a href="../jugadores/administracion_jugadores.php?id_equipo=<?php echo $_SESSION['admin_id'];?>">jugadores</a> 
-                    <a href="../eventos/administracion_eventos.php?id_equipo=<?php echo $_SESSION['admin_id'];?>">Eventos</a> 
-                    <a href="../equipos/adsministracion_equipos_restringida.php">equipos</a> 
+                    <?php
+                        if(isset( $_SESSION['admin_id'] )){
+                    ?>
+                    <a href="../jugadores/administracion_jugadores.php?id_equipo=<?php echo  $equipo ;?>">jugadores</a> 
+                    <a href="../eventos/administracion_eventos.php?id_equipo=<?php echo  $equipo ;?>">Eventos</a> 
+
+                    <a href="adsministracion_equipos_restringida.php">equipos</a> 
+                    <?php
+                       }else{;
+                    ?>
+
+                        <a href="administracion_equipos.php">equipos</a> 
+                        <a href="../jugadores/administracion_jugadores.php">jugadores</a> 
+                        <a href="../eventos/administracion_eventos.php">Eventos</a> 
+                    <?php
+                       };
+                    ?>
                 </div>
             </div>
         </header>

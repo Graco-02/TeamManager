@@ -12,7 +12,7 @@
 
 
 header{
-    background-color: var(--color_teciario_d);
+    background-color: var(--color_secundario_d);
     color: white;
     text-transform: uppercase;
 }
@@ -39,7 +39,7 @@ header{
 
 .menu_administracion_principal{
     width: 100%;
-    background-color: var(--color_menu);
+    background-color: var(--color_primario_d);
     display: grid;
     grid-template-columns: repeat(4,1fr);
     justify-content: center;
@@ -53,6 +53,7 @@ header{
     text-align: center;
     text-transform: uppercase;
     font-weight: 700;
+    color: white;
 }
 
 .menu_administracion_principal a:hover{

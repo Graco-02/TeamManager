@@ -2,6 +2,11 @@
     --color_primario:rgb(244, 241, 189);
     --color_primario_2:#eeebeb;
     --color_menu:#09accd;
+
+                    /*colores por denito*/
+                    --color_primario_d:#004542;
+                    --color_secundario_d:#187E79;
+                    --color_teciario_d:#1CBBB4;
 }
 
 
@@ -37,8 +42,8 @@ body{
 }
 
 .buton_formulario{
-    background-color: blue;
-    color: aqua;
+    background-color: var(--color_primario_d);
+    color: white;
     width: 100%;
     min-height: 2rem;
     padding-top: 1rem;

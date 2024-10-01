@@ -23,9 +23,9 @@
         <header>
             <div id="header_contenido">
                 <div class="cabecera">
-                    <img src="../imagenes/imagen_logo1.jpg" alt="header_logo" id="header_logo"/>
+                    <img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/>
                     <div class="logo_name">
-                        <p>Team Manager</p>
+                        <p>asociacion de baloncesto de santo domingo</p>
                     </div>
                 </div>
                 <div class="menu_administracion_principal">

@@ -2,6 +2,11 @@
     --color_primario:rgb(244, 241, 189);
     --color_primario_2:#eeebeb;
     --color_menu:#09accd;
+
+                /*colores por denito*/
+                --color_primario_d:#004542;
+                --color_secundario_d:#187E79;
+                --color_teciario_d:#1CBBB4;
 }
 
 body{
@@ -13,7 +18,7 @@ body{
 }
 
 header{
-    background-color: white;
+    background-color: var(--color_secundario_d);
     width: 100%;
 }
 
@@ -32,6 +37,8 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
+    text-transform: uppercase;
+    color: white;
 }
 
 .logo_name p{
@@ -50,7 +57,7 @@ main{
 
 .menu_administracion_principal{
     width: 100%;
-    background-color: var(--color_menu);
+    background-color: var(--color_primario_d);
     display: grid;
     grid-template-columns: repeat(2,1fr);
     justify-content: center;
@@ -64,6 +71,7 @@ main{
     text-align: center;
     text-transform: uppercase;
     font-weight: 700;
+    color: white;
 }
 
 .menu_administracion_principal a:hover{
@@ -108,8 +116,8 @@ main{
 }
 
 .buton_formulario{
-    background-color: blue;
-    color: aqua;
+    background-color: var(--color_primario_d);
+    color: white;
     width: 100%;
     min-height: 2rem;
     padding-top: 1rem;
