@@ -17,17 +17,6 @@
     font-weight: normal;
 }
 
-body{
-   /* background-color: var(--color_primario_2);
-   */ 
-   background-image: url("../../imagenes/fondo-app.png");
-   background-repeat: no-repeat;
-   background-size: cover;
-   background-position: center;
-   height: 100vh;
-   font-family: "Gothan ultra italic";
-}
-
 header{
     width: 100%;
     text-transform: uppercase;
@@ -38,13 +27,24 @@ header{
     width: 100%;
 }
 
+body{
+   /* background-color: var(--color_primario_2);
+   */ 
+   background-image: url("../../imagenes/fondo-app.png");
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-position: center;
+   height: 100vh;
+   /*font-family: "Gothan ultra italic";*/
+}
+
 header span{
     margin-left: 33.5%;
 }
 
 #header_img{
-    width: 5rem;
-    height: 5 rem;
+    width: 8rem;
+    height: 8rem;
 }
 
 
@@ -69,10 +69,12 @@ header span{
     display: flex;
     justify-content: center;
     align-items: center;
+    text-transform: uppercase;
+    color: white;
 }
 
 .logo_name p{
-    font-size: 1.5rem;
+    font-size: 2rem;
 }
 
 main{
@@ -175,7 +177,7 @@ main{
 }
 
 @media (max-width:600px) {
-    #header_logo{
+    #header_img{
         width: 5rem;
         height: 5rem;
     }

@@ -22,7 +22,7 @@ body{
     display: grid;
     grid-template-rows: 0.1fr 1fr;
     gap: 2rem;
-    font-family: "Gothan ultra italic";
+   /* font-family: "Gothan ultra italic";*/
 }
 
 
@@ -105,7 +105,10 @@ body{
 }
 
 thead{
-    background-color: var(--color_secundario_d);
+    background-color: var(--color_teciario_d);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: white;
 }
 
 @media (max-width:600px) {    

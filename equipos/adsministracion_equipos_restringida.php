@@ -113,7 +113,7 @@
                             <label for="equipo_sector">Sector</label>
                             <input type="text" placeholder="XXX" class="input_formulario" name="equipo_sector" id="equipo_sector" required/>
 
-                            <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
+                            <input type="submit" value="MODIFICAR" name="acceder_bt" class="buton_formulario" onclick="">
                         </fieldset>
                     </form>
                 </section>

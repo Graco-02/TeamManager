@@ -24,7 +24,9 @@ header{
 }
 
 #header_logo{
-    width: 10rem;
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
 }
 
 .logo_name{
@@ -69,7 +71,7 @@ header{
 
 @media (max-width:600px) {
     #header_logo{
-        width: 15rem;
-        height: 10rem;
+        width: 5rem;
+        height: 5rem;
     }
 }

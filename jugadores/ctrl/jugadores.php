@@ -181,12 +181,15 @@ function get_listar_jugadores_todos($id_equipo){
        if ($conn->query($sql) == TRUE) {		   
          // # Cogemos el identificador con que se ha guardado
         // $id=$conn->insert_id;	
-         if(set_agregar_relacion_equipo_evento($id,$jugador_equipo,$jugador_evento)){
-           echo  'MODIFICACION REALIZADA';
-         }else{
-           echo  'ERROR EN MODIFICACION';
-         }
-
+        if(strlen($jugador_evento) > 0){
+          if(set_agregar_relacion_equipo_evento($id,$jugador_equipo,$jugador_evento)){
+            echo  'MODIFICACION REALIZADA';
+          }else{
+            echo  'ERROR EN MODIFICACION';
+          }
+        }else{
+          echo  'MODIFICACION REALIZADA';
+        }
 
      }   else {
       echo "Error Modificacion: " . $sql . "<br>" . $conn->error;

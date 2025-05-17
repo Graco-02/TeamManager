@@ -23,10 +23,6 @@ function set_insertar(){
 
     var accion = 1;
 
-    if(elento_seleccionado>0){
-        accion = 3;
-    }
-
     regnew_global=
     jugadore_name            
     +jugador_lastname        
@@ -37,6 +33,11 @@ function set_insertar(){
     +jugador_estatus  
     +jugador_telefono 
     +jugador_centro  ;
+
+    
+    if(elento_seleccionado>0){
+        accion = 3;
+    }
 
     
     if(jugadore_name.length>=3 && jugador_lastname.length>=3 && jugador_cedula.length>=10 && jugador_fecha_nacimiento.length>=10){
@@ -254,9 +255,12 @@ function set_subir_adjunto1(jugadore_name,jugador_lastname,jugador_fecha_nacimie
 function set_filtrar_listado(){
     var jugador_cedula             = document.getElementById("jugador_cedula").value ;
     var jugador_equipo             = document.getElementById("jugador_equipo").value ;
+    var jugador_name               = document.getElementById("jugador_name").value;
     
     var listado_jugadores          = document.getElementById("lista_jugadores");
+
     listado_jugadores.innerHTML = '';
+
     set_listado_filtrado(jugador_cedula,jugador_equipo);
 }
 

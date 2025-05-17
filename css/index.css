@@ -32,17 +32,18 @@ header{
     width: 100%;
     text-transform: uppercase;
     color: white;
-    display: flex;
-    flex-direction: column;
 }
 
 header span{
     margin-left: 33.5%;
+    text-align: left;
+    float: center;
 }
 
 #header_img{
     width: 3.5rem;
     height: 3.5 rem;
+    float: left;
 }
 
 
@@ -172,13 +173,20 @@ main{
 }
 
 @media (max-width:600px) {
+
+    body{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     #header_logo{
         width: 5rem;
         height: 5rem;
     }
 
     .main_contenido{
-        width: 100%;
+        width: 90%;
     }
 
     .menu_administracion_principal a{
@@ -191,5 +199,12 @@ main{
 
     header span{
         margin-left: 3%;
+    }
+    .input_formulario{
+        padding: 0.5rem;
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+        text-align: center;
+        width: 15rem;
     }
 }
