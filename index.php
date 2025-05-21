@@ -34,19 +34,21 @@
 <body>
     <header>
         <img src="imagenes/logo-abasado.png" alt="header_logo" id="header_img"/>  
-        <span>asociacion de baloncesto de santo domingo</span>
     </header>
     <main>
-        <div class="main_contenido">
-            <img src="imagenes/logo user.png" alt="header_logo" id="login_img"/>  
-            <form action="" method="post" class="loging_formulario">
-                     <label for="longin_name">usuario</label>
-                     <input type="text" placeholder="FULANITO" class="input_formulario" name="longin_name" id="longin_name"/>
-                     <label for="longin_clave">clave</label>
-                     <input type="password" placeholder="CLAVE" class="input_formulario" name="longin_clave" id="longin_clave"/>
+        <div class="contenedor_centro">
+            <span id="header_formulario">asociacion de baloncesto de santo domingo</span>
+            <div class="main_contenido">
+                <img src="imagenes/logo user.png" alt="header_logo" id="login_img"/>  
+                <form action="" method="post" class="loging_formulario">
+                         <label for="longin_name">usuario</label>
+                         <input type="text" placeholder="FULANITO" class="input_formulario" name="longin_name" id="longin_name"/>
+                         <label for="longin_clave">clave</label>
+                         <input type="password" placeholder="CLAVE" class="input_formulario" name="longin_clave" id="longin_clave"/>
 
-                     <input type="submit" value="ACCEDER" name="acceder_bt" class="buton_formulario input_formulario">
-            </form>
+                         <input type="submit" value="ACCEDER" name="acceder_bt" class="buton_formulario input_formulario">
+                </form>
+            </div>
         </div>
     </main>
 </body>

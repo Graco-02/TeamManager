@@ -6,9 +6,11 @@ let regnew_global='';
 
 function set_insertar(){
     var evento_name              = document.getElementById("evento_name").value;
-    var evento_num_equipos       = document.getElementById("evento_num_equipos").value;
-    var evento_num_jug_equipos   = document.getElementById("evento_num_jug_equipos").value ;
+    var evento_num_equipos       = Number(document.getElementById("evento_num_equipos").value);
+    var evento_num_jug_equipos   = Number(document.getElementById("evento_num_jug_equipos").value) ;
     var evento_descripcion       = document.getElementById("evento_descripcion").value;
+    var evento_descripcion       = document.getElementById("evento_descripcion").value;
+    var check_estado_evento      = document.getElementById("check_estado_evento").value;
     var evento_fecha_inicio      = document.getElementById("evento_fecha_inicio").value;
     var accion = 1;
 
@@ -17,7 +19,8 @@ function set_insertar(){
    +evento_num_equipos
    +evento_num_jug_equipos
    +evento_descripcion
-   +evento_fecha_inicio;
+   +evento_fecha_inicio
+   +check_estado_evento;
 
     if(user_type==0){
         if(elento_seleccionado>0){
@@ -29,11 +32,12 @@ function set_insertar(){
         ,"evento_num_equipos":evento_num_equipos 
         ,"evento_num_jug_equipos":evento_num_jug_equipos 
         ,"evento_descripcion":evento_descripcion 
-        ,"evento_fecha_inicio":evento_fecha_inicio 
+        ,"evento_fecha_inicio":evento_fecha_inicio
+        ,"check_estado_evento":check_estado_evento 
         ,"accion":accion 
         ,"id":elento_seleccionado 
-        }
-        ,function(respuesta){
+        },function(respuesta){
+            console.log(respuesta);
             var resp = respuesta.trim();
                 if(resp == 'AGREGADO CORRECTO'){
                     set_insertar_accion('usuario','A','EVENTOS','regant','regnew');
@@ -46,6 +50,8 @@ function set_insertar(){
                 }
     
         }); 
+
+
     }else{
         alert("este tipo de usuario no tiene permitido cambiar o agregar datos a este modulo");
     }
@@ -70,6 +76,7 @@ function set_seleccionar(evento){
         var evento_num_jug_equipos   = document.getElementById("evento_num_jug_equipos") ;
         var evento_descripcion       = document.getElementById("evento_descripcion");
         var evento_fecha_inicio      = document.getElementById("evento_fecha_inicio");
+        var evento_estado            = document.getElementById("check_estado_evento");
         elento_id_seleccionado= json[0];
 
         evento_name.value = json[1];
@@ -77,6 +84,7 @@ function set_seleccionar(evento){
         evento_num_jug_equipos.value = json[3];
         evento_descripcion.value = json[4];
         evento_fecha_inicio.value = json[5];
+        evento_estado.value = json[6];
 
 
         regant_global=

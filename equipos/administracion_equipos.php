@@ -3,6 +3,9 @@
       require_once("../utilidades/alerta.php");
       require_once("ctrl/equipos.php");
       session_start();
+      session_start();
+      $user_type = $_SESSION['user_type'];
+      $equipo_seleccionado=0;
 ?>
 
 <!DOCTYPE html>
@@ -22,16 +25,20 @@
         <header>
             <div id="header_contenido">
                 <div class="cabecera">
-                <img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/>
+                    <?php if( $user_type==0){?>
+                        <a href="../administracion/administracion_admin_index.php"><img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/></a> 
+                    <?php }else{?>
+                        <a href="../equipos/adsministracion_equipos_restringida.php"><img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/></a> 
+                    <?php }?>  
                     <div class="logo_name">
                         <p>asociacion de baloncesto de santo domingo</p>
                     </div>
                 </div>
                 <div class="menu_administracion_principal">
-                    <a href="../usuarios/admin_usuarios.php">usuarios</a> 
-                    <a href="../eventos/administracion_eventos.php">eventos</a> 
-                    <a href="../equipos/administracion_equipos.php">equipos</a> 
-                    <a href="../jugadores/administracion_jugadores.php">jugadores</a> 
+                      <a href="../usuarios/admin_usuarios.php">usuarios</a> 
+                      <a href="../eventos/administracion_eventos.php">eventos</a> 
+                      <a href="../jugadores/administracion_jugadores.php">jugadores</a> 
+                      <a href="../histlog/histlog.php">historico</a> 
                 </div>
             </div>
         </header>

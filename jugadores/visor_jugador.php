@@ -29,15 +29,21 @@
         <header>
             <div id="header_contenido">
                 <div class="cabecera">
-                    <img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/>
+                    <?php if( $user_type==0){?>
+                        <a href="../administracion/administracion_admin_index.php"><img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/></a> 
+                    <?php }else{?>
+                        <a href="../equipos/adsministracion_equipos_restringida.php"><img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/></a> 
+                    <?php }?>  
                     <div class="logo_name">
                         <p>asociacion de baloncesto de santo domingo</p>
                     </div>
                 </div>
                 <div class="menu_administracion_principal">
                     <?php if( $user_type==0){?>
+                        <a href="../usuarios/admin_usuarios.php">usuarios</a> 
                         <a href="../eventos/administracion_eventos.php">eventos</a> 
-                        <a href="../equipos/administracion_equipos.php">equipos</a> 
+                        <a href="../equipos/administracion_equipos.php">equipos</a>  
+                        <a href="../histlog/histlog.php">historico</a> 
                     <?php }else{?>
                         <a href="../jugadores/administracion_jugadores.php?id_equipo=<?php echo $_SESSION['admin_id'];?>">jugadores</a> 
                         <a href="../eventos/administracion_eventos.php?id_equipo=<?php echo $_SESSION['admin_id'];?>">Eventos</a> 

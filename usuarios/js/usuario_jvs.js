@@ -42,21 +42,7 @@ function set_insertar(){
                         ,"accion":accion 
                         ,"url_img":response 
                         }
-                        ,function(respuesta){
-                            var resp = respuesta.trim();
-                                usuario_names_entero = usuario_names+' , '+usuario_lastnames;
-                                if(resp == 'AGREGADO CORRECTO'){
-                                    set_insertar_accion('','A','USUARIOS','','');
-                                    alert('AGREGADO CORRECTO');
-                                    set_agregar_fila(usuario_names_entero,usuario_identificacion);
-                                }else if(resp == 'MODIFICACION REALIZADA'){
-                                    set_insertar_accion('','M','USUARIOS','','');
-                                    alert('MODIFICACION REALIZADA');
-                                }else{
-                                    alert('ERROR => '+respuesta);
-                                }
-
-                     }); 
+                       
                     }
                 });
 

@@ -83,6 +83,17 @@ body{
     transition: 1s;
 }
 
+#histori_bt{
+    width: 2rem;
+    height: 2rem;
+}
+
+.flex_class{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 @media (max-width:600px) {    
     .main_contenido{
         display: flex;

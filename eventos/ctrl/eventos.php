@@ -4,7 +4,7 @@ if(count($_POST)>0){
     include_once("../../utilidades/conexion.php");
     include_once("../../utilidades/alerta.php");
     $accion        = $_POST['accion'];
-
+   //alert("PGP");
     switch ($accion) {
      case 1://opcion 1-agregar nuevo usuario
         $evento_name              = $_POST["evento_name"];
@@ -26,9 +26,10 @@ if(count($_POST)>0){
         $evento_num_jug_equipos   = $_POST["evento_num_jug_equipos"];
         $evento_descripcion       = $_POST["evento_descripcion"];
         $evento_fecha_inicio      = $_POST["evento_fecha_inicio"];
+        $check_estado_evento      = $_POST["check_estado_evento"];
         $date = date( "Y-m-d", strtotime($evento_fecha_inicio) );
         $id=$_POST["id"];
-        set_modificar($evento_name, $evento_num_equipos,$evento_num_jug_equipos,$evento_descripcion,$date,$id);
+        set_modificar($evento_name, $evento_num_equipos,$evento_num_jug_equipos,$evento_descripcion,$date,$id,$check_estado_evento);
         break; 
       case 4:
         $evento        = $_POST['evento'];
@@ -70,7 +71,7 @@ function get_listar_eventos_todos(){
           die("Connection failed: " . $conn->connect_error);
      }
  
-      $sql = "SELECT id,nombre,cantidad_equipos,cantidad_jugadores_equipo,descripcion,fecha_incio from eventos"; 
+      $sql = "SELECT id,nombre,cantidad_equipos,cantidad_jugadores_equipo,descripcion,fecha_incio,estado from eventos where estado = 0"; 
       $result = $conn->query($sql);
       $count=1;         
       if ($result->num_rows > 0) {
@@ -82,6 +83,7 @@ function get_listar_eventos_todos(){
          $descripcion     = $row["descripcion"];
          $fecha_incio      = $row["fecha_incio"];
          $id      = $row["id"];
+         $estado      = $row["estado"];
 
 
          $diff = strtotime($fecha_incio) - strtotime($date);
@@ -101,7 +103,11 @@ function get_listar_eventos_todos(){
             echo "<td >".'Ya ha Iniciado'."</td>";
            }
 
-           
+          if($estado>0){
+            echo "<td >".'Finalizado'."</td>";
+          }else{
+            echo "<td >".'En curso'."</td>";
+          }
            echo "</tr> ";
        }		 
        
@@ -111,6 +117,60 @@ function get_listar_eventos_todos(){
  }
 
 
+ function get_listar_eventos_finalizados(){
+  $conn = conectar();
+  $date = date('Y-m-d');
+    // Check connection
+   if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+   }
+
+    $sql = "SELECT id,nombre,cantidad_equipos,cantidad_jugadores_equipo,descripcion,fecha_incio,estado from eventos where estado = 0"; 
+    $result = $conn->query($sql);
+    $count=1;         
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc() ) {
+        
+       $nombre = $row["nombre"];				  
+       $cantidad_equipos = $row["cantidad_equipos"];
+       $cantidad_jugadores_equipo   = $row["cantidad_jugadores_equipo"];
+       $descripcion     = $row["descripcion"];
+       $fecha_incio      = $row["fecha_incio"];
+       $id      = $row["id"];
+       $estado      = $row["estado"];
+
+
+       $diff = strtotime($fecha_incio) - strtotime($date);
+       $dias = $diff/(60*60*24);
+
+         echo "<script> var usuario_js = '".$id."';</script>";
+         echo "<tr>";
+         echo "<td id='".$id."' name='fila'";
+         echo 'onclick="set_seleccionar(usuario_js);">';
+         echo $nombre;
+         echo "</td>";
+         echo "<td >$fecha_incio</td>";
+
+         if($dias>0){
+           echo "<td >$dias</td>";
+         }else{
+          echo "<td >".'Ya ha Iniciado'."</td>";
+         }
+
+        if($estado>0){
+          echo "<td >".'Finalizado'."</td>";
+        }else{
+          echo "<td >".'En curso'."</td>";
+        }
+         echo "</tr> ";
+     }		 
+     
+    }
+  
+    $conn->close();
+}
+
+
  function get_evento($evento){
     $conn = conectar();
       // Check connection
@@ -118,7 +178,7 @@ function get_listar_eventos_todos(){
           die("Connection failed: " . $conn->connect_error);
      }
  
-      $sql = "SELECT id,nombre,cantidad_equipos,cantidad_jugadores_equipo,descripcion,fecha_incio from eventos where id =$evento"; 
+      $sql = "SELECT id,nombre,cantidad_equipos,cantidad_jugadores_equipo,descripcion,fecha_incio,estado from eventos where id =$evento"; 
  
       $result = $conn->query($sql);
       $count=1;         
@@ -132,6 +192,7 @@ function get_listar_eventos_todos(){
          array_push($evento_array,$row["cantidad_jugadores_equipo"]);
          array_push($evento_array,$row["descripcion"]);
          array_push($evento_array,$row["fecha_incio"]);
+         array_push($evento_array,$row["estado"]);
 
          echo json_encode($evento_array);
        }		 
@@ -140,13 +201,14 @@ function get_listar_eventos_todos(){
         $conn->close();
  }
  
- function set_modificar($evento_name, $evento_num_equipos,$evento_num_jug_equipos,$evento_descripcion,$evento_fecha_inicio,$id){
+ function set_modificar($evento_name, $evento_num_equipos,$evento_num_jug_equipos,$evento_descripcion,$evento_fecha_inicio,$id,$check_estado_evento){
     $conn = conectar();
  
        $sql="UPDATE eventos SET nombre='$evento_name',
                                cantidad_equipos=$evento_num_equipos,
                                cantidad_jugadores_equipo=$evento_num_jug_equipos,
                                descripcion='$evento_descripcion',
+                               estado='$check_estado_evento',
                                fecha_incio='$evento_fecha_inicio'
            where id =$id";
  

@@ -29,15 +29,22 @@
         <header>
             <div id="header_contenido">
                 <div class="cabecera">
-                    <img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/>
+                    <?php if( $user_type==0){?>
+                        <a href="../administracion/administracion_admin_index.php"><img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/></a> 
+                    <?php }else{?>
+                        <a href="../equipos/adsministracion_equipos_restringida.php"><img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/></a> 
+                    <?php }?>  
+                    
                     <div class="logo_name">
                         <p>asociacion de baloncesto de santo domingo</p>
                     </div>
                 </div>
                 <div class="menu_administracion_principal">
                     <?php if( $user_type==0){?>
-                        <a href="../eventos/administracion_eventos.php">eventos</a> 
+                        <a href="../usuarios/admin_usuarios.php">usuarios</a> 
                         <a href="../equipos/administracion_equipos.php">equipos</a> 
+                        <a href="../jugadores/administracion_jugadores.php">jugadores</a> 
+                        <a href="../histlog/histlog.php">historico</a> 
                     <?php }else{?>
                         <a href="../jugadores/administracion_jugadores.php?id_equipo=<?php echo $_SESSION['admin_id'];?>">jugadores</a> 
                         <a href="../eventos/administracion_eventos.php?id_equipo=<?php echo $_SESSION['admin_id'];?>">Eventos</a> 
@@ -69,6 +76,12 @@
                             <input type="date" placeholder="" class="input_formulario" name="evento_fecha_inicio" id="evento_fecha_inicio"/>
 
                             <?php if( $user_type==0){?>
+                                <label for="check_estado_evento">Estado</label>
+                                <select name="check_estado_evento" id="check_estado_evento" class="input_formulario">
+                                    <option value="0">ABIERTO</option>
+                                    <option value="1">FINALIZADO</option>
+                                </select>
+
                                 <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
                             <?php }?>
 
@@ -77,12 +90,18 @@
                 </section>
 
                 <section id="listado_usuario">
-                    <h1>Eventos</h1>
+                    
+                    <div class="flex_class">
+                      <h1>Eventos</h1>
+                      <img src="../imagenes/historico.png" alt="header_logo" id="histori_bt" onclick="alert('historico')"/>
+                    </div>
+
                     <table id="listado_usuarios" class="listado_usuarios_css">
                         <tr>
                           <th>Nombre</th>
                           <th>Fecha De Inicio</th>
                           <th>Inicia en Dias</th>
+                          <th>Estado</th>
                         </tr>
                        <?php get_listar_eventos_todos();?>
                     </table>

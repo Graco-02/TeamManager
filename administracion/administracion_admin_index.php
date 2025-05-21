@@ -16,7 +16,7 @@
         <header>
             <div id="header_contenido">
               <div class="cabecera">
-                      <img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_img"/>  
+              <a href="../administracion/administracion_admin_index.php"><img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_img"/></a>  
                       <div class="logo_name">
                           <p>asociacion de baloncesto de santo domingo</p>
                       </div>

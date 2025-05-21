@@ -38,7 +38,11 @@
 <body>
     <header>
         <div class="cabecera">
-            <img src="../imagenes/imagen_logo1.jpg" alt="header_logo" id="header_logo"/>
+                    <?php if( $user_type==0){?>
+                        <a href="../administracion/administracion_admin_index.php"><img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/></a> 
+                    <?php }else{?>
+                        <a href="../equipos/adsministracion_equipos_restringida.php"><img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/></a> 
+                    <?php }?>  
             <div class="logo_name">
                 <p>Team Manager</p>
             </div>
