@@ -21,6 +21,7 @@
 header{
     background-color: var(--color_secundario_d);
     color: white;
+    gap: 1rem;
     text-transform: uppercase;
     font-family: "Gothan ultra italic";  
 }

@@ -20,7 +20,7 @@ function set_validar_logging($user_name,$user_clave){
                     if($hash_clave == $row["clave"] || $row["clave"] == $user_clave){
                         $_SESSION['user_type'] = $row["tipo"];
                         $_SESSION['usuario_logeado'] = $row["usuario"];
-                       // $_SESSION['admin_id'] = $row["id"];
+                        $_SESSION['admin_id'] = $row["id"];
 
                         if($user_clave != $user_name){
                             $conn->close();

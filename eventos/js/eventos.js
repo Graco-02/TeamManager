@@ -226,3 +226,7 @@ function set_insertar_accion(usuario,accion_modulo,modulo,regant,regnew){
         location.reload();
  });
 }
+
+function llamar_historico() {
+    
+}

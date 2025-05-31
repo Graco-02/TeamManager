@@ -93,7 +93,11 @@
                     
                     <div class="flex_class">
                       <h1>Eventos</h1>
-                      <img src="../imagenes/historico.png" alt="header_logo" id="histori_bt" onclick="alert('historico')"/>
+                     
+                      <a href="historico_eventos.php?usuario=<?php echo $_SESSION['usuario_logeado'];?>">
+                         <img src="../imagenes/historico.png" alt="header_logo" id="histori_bt" />
+                      </a> 
+
                     </div>
 
                     <table id="listado_usuarios" class="listado_usuarios_css">
