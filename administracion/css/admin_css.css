@@ -35,7 +35,7 @@ body{
    background-size: cover;
    background-position: center;
    height: 100vh;
-   /*font-family: "Gothan ultra italic";*/
+   font-family: "Gothan ultra italic";
 }
 
 header span{
@@ -51,7 +51,7 @@ header span{
 
 .cabecera{
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 0.5fr 4fr;
     align-items: center;
     justify-content: center;
     position: relative;
@@ -196,5 +196,9 @@ main{
 
     header span{
         margin-left: 3%;
+    }
+
+    .logo_name p{
+         font-size: 1rem;    
     }
 }

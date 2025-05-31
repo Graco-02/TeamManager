@@ -32,7 +32,11 @@
         <header>
             <div id="header_contenido">
                 <div class="cabecera">
-                    <img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/>
+                    <?php if( $user_type==0){?>
+                        <a href="../administracion/administracion_admin_index.php"><img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/></a> 
+                    <?php }else{?>
+                        <a href="adsministracion_equipos_restringida.php"><img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/></a> 
+                    <?php }?>  
                     <div class="logo_name">
                         <p>asociacion de baloncesto de santo domingo</p>
                     </div>

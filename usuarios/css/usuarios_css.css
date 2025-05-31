@@ -11,13 +11,12 @@
 
 @font-face {
     font-family: 'Gothan ultra italic';
-    src: url('../gotham-ultra-italic.ttf') format('truetype');
+    src: url('../../gotham-ultra-italic.ttf') format('truetype');
     font-style: normal;
     font-weight: normal;
 }
 
 body{
-    font-family: "Gothan ultra italic";
     background-color: var(--color_primario_2);
     display: grid;
     grid-template-rows: 0.1fr 1fr;
@@ -32,7 +31,7 @@ header{
 
 .cabecera{
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 0.5fr 4fr;
     gap: 1rem;
 }
 
@@ -60,7 +59,8 @@ main{
 #header_contenido{
     display: grid;
     grid-template-rows:1fr 0.5fr;
-    gap: 1rem;
+    font-family: "Gothan ultra italic";
+    font-weight: 700;
 }
 
 .menu_administracion_principal{

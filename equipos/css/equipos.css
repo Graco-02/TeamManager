@@ -9,6 +9,12 @@
                     --color_teciario_d:#1CBBB4;
 }
 
+@font-face {
+    font-family: 'Gothan ultra italic';
+    src: url('../../gotham-ultra-italic.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
 
 body{
     background-color: var(--color_primario_2);
@@ -16,6 +22,7 @@ body{
     grid-template-rows: 0.1fr 1fr;
     gap: 2rem;
     text-transform: uppercase;
+    font-family: "Gothan ultra italic";
 }
 
 

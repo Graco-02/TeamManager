@@ -10,16 +10,24 @@
             --color_teciario_d:#1CBBB4;
 }
 
+@font-face {
+    font-family: 'Gothan ultra italic';
+    src: url('../gotham-ultra-italic.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+
 
 header{
     background-color: var(--color_secundario_d);
     color: white;
     text-transform: uppercase;
+    font-family: "Gothan ultra italic";  
 }
 
 .cabecera{
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 0.5fr 4fr;
     gap: 1rem;
 }
 
@@ -37,6 +45,7 @@ header{
 
 .logo_name p{
     font-size: 2rem;
+    font-weight: 900;
 }
 
 .menu_administracion_principal{

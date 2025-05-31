@@ -3,7 +3,6 @@
       require_once("../utilidades/alerta.php");
       require_once("ctrl/equipos.php");
       session_start();
-      session_start();
       $user_type = $_SESSION['user_type'];
       $equipo_seleccionado=0;
 ?>
