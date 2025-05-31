@@ -256,12 +256,13 @@ function set_filtrar_listado(){
     var jugador_cedula             = document.getElementById("jugador_cedula").value ;
     var jugador_equipo             = document.getElementById("jugador_equipo").value ;
     var jugador_name               = document.getElementById("jugador_name").value;
+    var jugador_apellido           = document.getElementById("jugador_lastname").value;
     
     var listado_jugadores          = document.getElementById("lista_jugadores");
 
     listado_jugadores.innerHTML = '';
 
-    set_listado_filtrado(jugador_cedula,jugador_equipo);
+    set_listado_filtrado(jugador_cedula,jugador_equipo,jugador_name,jugador_apellido);
 }
 
 function set_agregar_fila(jugadore_name,jugador_lastname,identificacion,id){
@@ -282,11 +283,18 @@ function set_agregar_fila(jugadore_name,jugador_lastname,identificacion,id){
     tableRow.appendChild(fila);
 }
 
-function set_listado_filtrado(jugador_cedula,jugador_equipo){
+function set_listado_filtrado(jugador_cedula,jugador_equipo,jugador_name,jugador_apellido){
     var accion = 4;//opcion para seleccionar los datos del equipo
+    console.log('jugador_cedula'+jugador_cedula)
+    console.log('jugador_equipo'+jugador_equipo)
+    console.log('jugador_name'+jugador_name)
+    console.log('jugador_apellido'+jugador_apellido)
+
         $.post("ctrl/jugadores.php"
         ,{"identificacion":jugador_cedula 
         ,"jugador_equipo":jugador_equipo 
+        ,"jugador_nombre":jugador_name 
+        ,"jugador_apellido":jugador_apellido 
         ,"accion":accion 
         }
         ,function(respuesta){
@@ -295,7 +303,7 @@ function set_listado_filtrado(jugador_cedula,jugador_equipo){
             var json = $.parseJSON(respuesta);
             console.log(json);
             for(i=0;i<json.length;i++){
-                console.log(json[i]);                
+                //console.log(json[i]);                
                 set_agregar_fila(json[i][1],json[i][2],json[i][3],json[i][0]);
             }
         }); 

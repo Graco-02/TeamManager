@@ -46,9 +46,11 @@ if(count($_POST)>0){
         set_modificar_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$id,$jugador_estatus,$jugador_telefono,$jugador_centro,$jugador_evento);
         break; 
       case 4:
-        $cedula        = $_POST['identificacion'];
-        $equipo        = $_POST['jugador_equipo'];
-        get_jugadores($cedula,$equipo);
+        $cedula            = $_POST['identificacion'];
+        $equipo            = $_POST['jugador_equipo'];
+        $jugador_nombre    = $_POST['jugador_nombre'];
+        $jugador_apellido  = $_POST['jugador_apellido'];
+        get_jugadores($cedula,$equipo,$jugador_nombre,$jugador_apellido);
         break;  
     }
        
@@ -241,7 +243,8 @@ function get_listar_equipos_select($equipo){
     } 
     
     $result = $conn->query($sql);
-    $count=1;         
+    $count=1;        
+    echo "<option value="."0".">".'TODOS'."</option>"; 
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc() ) {
         
@@ -255,15 +258,48 @@ function get_listar_equipos_select($equipo){
     $conn->close();
 }
 
-function get_jugadores($cedula,$equipo){
+function get_jugadores($cedula,$equipo,$jugador_nombre,$jugador_apellido){
   $conn = conectar();
     // Check connection
    if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
    }
+    
+    if(strlen($cedula)==0){
+      $cedula = '  ';
+    }
 
-   $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro 
-   from jugadores where (identificacion like '%".$cedula."%' AND equipo = $equipo)  OR (equipo = $equipo)" ; 
+    if(strlen($jugador_nombre)==0){
+      $jugador_nombre = '  ';
+    }
+
+    if(strlen($jugador_apellido)==0){
+      $jugador_apellido = '  ';
+    }
+
+    if($jugador_nombre=='  ' && $cedula == '  ' &&  $jugador_apellido == '  ' && $equipo == 0){
+       $equipo = 2;
+    }
+
+    $sql = " " ; 
+    switch ($equipo) {
+      case '0':
+        $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro 
+                from jugadores where (identificacion like '%".$cedula."%') OR (equipo = $equipo) OR (nombres like '%".$jugador_nombre."%') 
+                OR  (apellidos like '%".$jugador_apellido."%') " ; 
+        break;
+      
+      case '2':
+        $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro 
+                from jugadores " ; 
+        break;
+
+      default:
+        $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro 
+                from jugadores where (identificacion like '%".$cedula."%' AND equipo = $equipo)  OR (equipo = $equipo)" ; 
+        break;
+    }
+
 
     $result = $conn->query($sql);
     $count=1;         
