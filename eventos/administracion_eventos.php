@@ -6,8 +6,8 @@
       $user_type = $_SESSION['user_type'];
       $equipo_seleccionado=0;
 
-      if(isset($_GET['id_equipo'])){
-        $equipo_seleccionado=$_GET['id_equipo'];
+      if(isset($_GET['admin_id']) && $user_type!=0){
+        $equipo_seleccionado=$_GET['admin_id'];
       }
 ?>
 
@@ -94,7 +94,7 @@
                     <div class="flex_class">
                       <h1>Eventos</h1>
                      
-                      <a href="historico_eventos.php?usuario=<?php echo $_SESSION['usuario_logeado'];?>">
+                      <a href="historico_eventos.php?id_equipo=<?php echo $equipo_seleccionado;?>">
                          <img src="../imagenes/historico.png" alt="header_logo" id="histori_bt" />
                       </a> 
 

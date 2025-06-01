@@ -227,6 +227,44 @@ function set_insertar_accion(usuario,accion_modulo,modulo,regant,regnew){
  });
 }
 
-function llamar_historico() {
+function set_llamar_historico() {
+    var accion = 7;//opcion para seleccionar los datos del usuario
+    var fecha_ini               = document.getElementById("fecha_accion_1").value;
+    var lista_acciones          = document.getElementById("lista_acciones");
+   
+    $.post("ctrl/eventos.php"
+    ,{"id":user_id 
+    ,"fecha_ini":fecha_ini 
+    ,"accion":accion 
+    }
+    ,function(respuesta){
+        try{
+         var json = $.parseJSON(respuesta);
+         lista_acciones.innerHTML = '';
+         for(i=0;i<json.length;i++){  
+             set_agregar_fila_historico(json[i][0],json[i][1],json[i][2],json[i][3]);
+         }    
+        }catch(e){
+        // console.log(respuesta); 
+         alert(respuesta);
+        }
+        
+    }); 
+}
+
+function set_agregar_fila_historico(id,nombre,fecha,estado){
+    var tableRow = document.getElementById("lista_acciones");
+    var fila = document.createElement("tr");
+    var celda1 = document.createElement("td");
+    var celda2 = document.createElement("td");
+    var celda3 = document.createElement("td");
+
+    celda1.innerHTML = nombre;
+    celda2.innerHTML = fecha;
+    celda3.innerHTML = estado;
     
+    fila.appendChild(celda1);
+    fila.appendChild(celda2);
+    fila.appendChild(celda3);
+    tableRow.appendChild(fila);
 }

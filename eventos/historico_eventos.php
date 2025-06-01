@@ -21,8 +21,9 @@
     <link rel="stylesheet" href="../histlog/css/histlog.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-    <script src="js/histlog.js"></script>
+    <script src="js/eventos.js"></script>
     <script>user_type=<?php echo $user_type; ?></script>
+    <script>user_id=<?php echo $equipo_seleccionado; ?></script>
 </head>
 <body>
         <header>
@@ -43,15 +44,13 @@
         <main>
             <div class="main_contenido">
                 <section class="formulario_entrada">
-                    <form id="form" action="javascript: set_buscar();" class="loging_formulario" enctype=" multipart/form-data">
+                    <form id="form" action="javascript: set_llamar_historico();" class="loging_formulario" enctype=" multipart/form-data">
                         <fieldset>
                             <legend class="formulario_legend">Historico</legend>
 
                             <label for="fecha_accion_1">Fecha inicio</label>
-                            <input type="date" placeholder="" class="input_formulario" name="fecha_accion_1" id="fecha_accion_1" />
+                            <input type="date" placeholder="" class="input_formulario" name="fecha_accion_1" id="fecha_accion_1" required/>
 
-                            <label for="fecha_accion_2">Fecha fin</label>
-                            <input type="date" placeholder="" class="input_formulario" name="fecha_accion_2" id="fecha_accion_2" />
 
                             <input type="submit" value="BUSCAR" name="acceder_bt" class="buton_formulario" onclick="">
                         </fieldset>
@@ -64,7 +63,6 @@
                             <tr>
                               <th>Evento</th>
                               <th>fecha inicio</th>
-                              <th>fecha fin</th>
                               <th>estado</th>
                             </tr>
                         </thead>

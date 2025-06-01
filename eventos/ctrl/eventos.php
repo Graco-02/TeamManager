@@ -44,7 +44,12 @@ if(count($_POST)>0){
             $evento        = $_POST['evento_id'];
             $equipo        = $_POST['equipo_id'];
             set_eliminar_equipo_linkado($evento, $equipo );
-            break;                
+            break;  
+      case 7:
+            $id               = $_POST['id'];
+            $fecha_ini        = $_POST['fecha_ini'];
+            get_listar_eventos_filtrados($id,$fecha_ini);
+            break;                               
     }
        
 }
@@ -117,7 +122,7 @@ function get_listar_eventos_todos(){
  }
 
 
- function get_listar_eventos_finalizados(){
+ function get_listar_eventos_filtrados($id,$fecha_ini){
   $conn = conectar();
   $date = date('Y-m-d');
     // Check connection
@@ -125,46 +130,46 @@ function get_listar_eventos_todos(){
         die("Connection failed: " . $conn->connect_error);
    }
 
-    $sql = "SELECT id,nombre,cantidad_equipos,cantidad_jugadores_equipo,descripcion,fecha_incio,estado from eventos where estado = 0"; 
+    $sql="";
+    if($id > 0){
+      $sql = 
+       "select eq.nombre,evq.evento as myevento_id,even.nombre as myevento_name,even.fecha_incio as myevento_fecha_ini,case even.estado when 0 then 'ACTIVO'  when 1 then 'FINALIZADO' end as estadox from equipos eq, relacion_equipo_evento evq, eventos even
+              where eq.id = evq.equipo
+              and even.id = evq.evento
+              and eq.id = ".$id." and even.fecha_incio ='".$fecha_ini."'"." group by evq.evento,even.nombre,even.fecha_incio";
+             ; 
+    }else{
+      $sql = "select eq.nombre,evq.evento as myevento_id,even.nombre as myevento_name,even.fecha_incio as myevento_fecha_ini,case even.estado when 0 then 'ACTIVO' when 1 then 'FINALIZADO' end as estadox
+              from equipos eq, relacion_equipo_evento evq, eventos even
+              where eq.id = evq.equipo
+              and even.id = evq.evento
+              and even.fecha_incio ='".$fecha_ini."'"." group by evq.evento,even.nombre,even.fecha_incio"
+            ; 
+    }
+
     $result = $conn->query($sql);
     $count=1;         
+    $eventos_lista = array();   
     if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc() ) {
+      while($row = $result->fetch_assoc() ) {
         
-       $nombre = $row["nombre"];				  
-       $cantidad_equipos = $row["cantidad_equipos"];
-       $cantidad_jugadores_equipo   = $row["cantidad_jugadores_equipo"];
-       $descripcion     = $row["descripcion"];
-       $fecha_incio      = $row["fecha_incio"];
-       $id      = $row["id"];
-       $estado      = $row["estado"];
+         $id          = $row["myevento_id"];				  
+         $nombre      = $row["myevento_name"];				  
+         $fecha_incio = $row["myevento_fecha_ini"];
+         $estado      = $row["estadox"];
 
+         $evento_array = array();    
+         array_push($evento_array,$id );
+         array_push($evento_array,$nombre );
+         array_push($evento_array,$fecha_incio );
+         array_push($evento_array,$estado );
 
-       $diff = strtotime($fecha_incio) - strtotime($date);
-       $dias = $diff/(60*60*24);
+         array_push($eventos_lista,$evento_array );
 
-         echo "<script> var usuario_js = '".$id."';</script>";
-         echo "<tr>";
-         echo "<td id='".$id."' name='fila'";
-         echo 'onclick="set_seleccionar(usuario_js);">';
-         echo $nombre;
-         echo "</td>";
-         echo "<td >$fecha_incio</td>";
-
-         if($dias>0){
-           echo "<td >$dias</td>";
-         }else{
-          echo "<td >".'Ya ha Iniciado'."</td>";
-         }
-
-        if($estado>0){
-          echo "<td >".'Finalizado'."</td>";
-        }else{
-          echo "<td >".'En curso'."</td>";
-        }
-         echo "</tr> ";
-     }		 
-     
+      }		
+         echo json_encode($eventos_lista);
+    }else{
+      echo 'no se encontraron datos '.$id." - ".$fecha_ini;
     }
   
     $conn->close();
