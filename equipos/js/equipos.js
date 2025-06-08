@@ -8,7 +8,6 @@ let usuario_logeado_js='';
 let regant_global='';
 let regnew_global='';
 
-
 function set_insertar(){
     var equipo_name                  = document.getElementById("equipo_name").value;
     var equipo_categoria             = document.getElementById("equipo_categoria").value;
@@ -350,4 +349,14 @@ function set_insertar_accion(usuario,accion_modulo,modulo,regant,regnew){
         }
         location.reload();
  });
+}
+
+
+function set_cerrar_mensaje_oculto(){
+    var caja = document.getElementById("contenedor_mensajes");
+    if (caja.style.display === "none") {
+        caja.style.display = "block";
+    } else {
+        caja.style.display = "none";
+    }
 }

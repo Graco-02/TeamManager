@@ -22,9 +22,37 @@ body{
     grid-template-rows: 0.1fr 1fr;
     gap: 2rem;
     text-transform: uppercase;
+    position: relative;
    /* font-family: "Gothan ultra italic";*/
 }
 
+.bloque_oculto{
+    position: absolute;
+    width: 50%;
+    top: 25%;
+    left: 20%;
+    padding: 1.5rem;
+    background-color: var(--color_primario_d);
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--color_teciario_d);
+    display: none;
+}
+
+#contenedor_mensajes{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+#mensaje{
+    color: white;
+}
+
+.ocultar_mensaje{
+    display: none;
+}
 
 .main_contenido{
     display: grid;

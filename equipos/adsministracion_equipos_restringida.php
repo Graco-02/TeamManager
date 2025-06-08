@@ -157,6 +157,9 @@
             </div>
         </main>
 
-
+     <div id="contenedor_mensajes" class="bloque_oculto">
+        <span id="mensaje">ESTIMADO CLIENTE RECUERDE HACER SU PAGO ANTES DE</span>
+        <section id="opciones" onclick="set_cerrar_mensaje_oculto();"> cerrar </section>
+     </div>
 </body>
 </html>
