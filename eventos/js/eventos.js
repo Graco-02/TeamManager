@@ -3,6 +3,8 @@ let elento_id_seleccionado =0 ;
 let user_type = 0;
 let regant_global='';
 let regnew_global='';
+let numero_jugadores_equipo_evento = 0;
+let event_status = 0;
 
 function set_insertar(){
     var evento_name              = document.getElementById("evento_name").value;
@@ -60,8 +62,14 @@ function set_insertar(){
 
 function set_seleccionar(evento){
     var accion = 2;//opcion para seleccionar los datos del usuario
+    
+
     var evento = event.srcElement.id;
     elento_seleccionado =evento ;
+    console.log("evento = "+evento);
+    
+    numero_jugadores_equipo_evento = 0;
+    event_status = 0;
 
     $.post("ctrl/eventos.php"
     ,{"evento":evento 
@@ -69,34 +77,44 @@ function set_seleccionar(evento){
     }
     ,function(respuesta){
         var json = $.parseJSON(respuesta);
+        try{
         console.log(json);
+        try{
+           var evento_name              = document.getElementById("evento_name");
+           var evento_num_equipos       = document.getElementById("evento_num_equipos");
+           var evento_num_jug_equipos   = document.getElementById("evento_num_jug_equipos") ;
+           var evento_descripcion       = document.getElementById("evento_descripcion");
+           var evento_fecha_inicio      = document.getElementById("evento_fecha_inicio");
+           var evento_estado            = document.getElementById("check_estado_evento");
+           elento_id_seleccionado= json[0];
+   
+           evento_name.value = json[1];
+           evento_num_equipos.value = json[2];
+           evento_num_jug_equipos.value = json[3];
+           evento_descripcion.value = json[4];
+           evento_fecha_inicio.value = json[5];
+           evento_estado.value = json[6];
+           event_status = json[6];
+   
+   
+           regant_global=
+           evento_name.value
+          +evento_num_equipos.value 
+          +evento_num_jug_equipos.value
+          +evento_descripcion.value 
+          +evento_fecha_inicio.value;
+        }catch(a){
+           //console.log(a);
+           numero_jugadores_equipo_evento = json[3];
+           event_status = json[6];
+        }
 
-        var evento_name              = document.getElementById("evento_name");
-        var evento_num_equipos       = document.getElementById("evento_num_equipos");
-        var evento_num_jug_equipos   = document.getElementById("evento_num_jug_equipos") ;
-        var evento_descripcion       = document.getElementById("evento_descripcion");
-        var evento_fecha_inicio      = document.getElementById("evento_fecha_inicio");
-        var evento_estado            = document.getElementById("check_estado_evento");
-        elento_id_seleccionado= json[0];
-
-        evento_name.value = json[1];
-        evento_num_equipos.value = json[2];
-        evento_num_jug_equipos.value = json[3];
-        evento_descripcion.value = json[4];
-        evento_fecha_inicio.value = json[5];
-        evento_estado.value = json[6];
-
-
-        regant_global=
-        evento_name.value
-       +evento_num_equipos.value 
-       +evento_num_jug_equipos.value
-       +evento_descripcion.value 
-       +evento_fecha_inicio.value;
-
-
-        var tableRow = document.getElementById("lista_equipos_evento").innerHTML="";
-        set_relacion_equipo();
+             var tableRow = document.getElementById("lista_equipos_evento").innerHTML="";
+             set_relacion_equipo();
+        }catch(e){
+            alert("sin datos para mostrar");
+            console.log(e);
+        }
     }); 
 }
 
@@ -118,19 +136,24 @@ function set_agregar_fila(evento_name,municipio,sector,id,validacion,cantidad_ju
     celda4.innerHTML = 'AGREGAR';
     celda5.innerHTML = 'SACAR';
     celda7.innerHTML = 'VER';
-    celda6.innerHTML = cantidad_jugadores+" / "+document.getElementById("evento_num_jug_equipos").value;
 
+    try{
+        celda6.innerHTML = cantidad_jugadores+" / "+document.getElementById("evento_num_jug_equipos").value;
+    }catch(e){
+        celda6.innerHTML = cantidad_jugadores+" / "+numero_jugadores_equipo_evento;
+    }
 
     celda4.onclick = function() { set_linkar(id,cantidad_jugadores);};
     celda5.onclick = function() { set_deslinkar(id);};
-    celda7.onclick = function() { location.href="../equipos/visor_equipo.php?evento="+elento_id_seleccionado+"&equipo="+id;};
+    
 
+    celda7.onclick = function() { location.href="../equipos/visor_equipo.php?evento="+elento_id_seleccionado+"&equipo="+id;};
     fila.appendChild(celda1);
     fila.appendChild(celda2);
     fila.appendChild(celda3);
     fila.appendChild(celda6);
 
-    if( user_type == 0){//opcion solo para administradores (0-ADMIN-1-EQUIPO)
+    if( user_type == 0 && event_status == 0){//opcion solo para administradores (0-ADMIN-1-EQUIPO)
         if(validacion==0){
             fila.appendChild(celda4);
         }else{
@@ -245,7 +268,6 @@ function set_llamar_historico() {
              set_agregar_fila_historico(json[i][0],json[i][1],json[i][2],json[i][3]);
          }    
         }catch(e){
-        // console.log(respuesta); 
          alert(respuesta);
         }
         
@@ -258,7 +280,12 @@ function set_agregar_fila_historico(id,nombre,fecha,estado){
     var celda1 = document.createElement("td");
     var celda2 = document.createElement("td");
     var celda3 = document.createElement("td");
-
+    celda1.id = id;
+    celda1.onclick = function() { 
+                                  console.log("id_evento = "+id);
+                                  set_seleccionar(id);
+                                };
+    
     celda1.innerHTML = nombre;
     celda2.innerHTML = fecha;
     celda3.innerHTML = estado;

@@ -70,6 +70,23 @@
                              
                         </tbody>
                     </table>
+
+                <div id='equipos_div'>
+                    <h1>Equipos</h1>
+                    <table id="listado_equipos" class="listado_usuarios_css">
+                        <thead>
+                        <tr>
+                          <th>Nombre</th>
+                          <th>Municipio</th>
+                          <th>Sector</th>
+                          <th>Jugadores</th>
+                          <th>Accion</th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="lista_equipos_evento"></tbody>
+                    </table>
+                    </div>
                 </section>
 
             </div>

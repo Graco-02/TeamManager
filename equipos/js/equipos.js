@@ -243,14 +243,16 @@ function set_relacion_equipo(){
         ,"evento":evento_seleccionado 
         }
         ,function(respuesta){
-            var json = $.parseJSON(respuesta);
-                
             var tableRow = document.getElementById("jugadores");
             tableRow.innerHTML="";
-
+            try{
+            var json = $.parseJSON(respuesta);
             for(i=0;i<json.length;i++){              
                 set_agregar_fila_jugador(json[i][1],json[i][2],json[i][3],json[i][0]);
             }
+           }catch(e){
+            //console.log(e);
+           }
         }); 
     }else{
         alert('DEBE SELECCIONAR UN EVENTO PRIMERO');

@@ -7,7 +7,6 @@
       if(count($_GET)>0){
          $equipo = $_GET['id_equipo'];
       }
-
       $user_type = $_SESSION['user_type'];
 ?>
 
@@ -116,10 +115,10 @@
                             <select class="input_formulario" onchange="" id="jugador_equipo" name="jugador_equipo">
                                 <?php get_listar_equipos_select($equipo);?>
                             </select>
-
-                            <label for="jugador_evento">Evento</label>
-                            <select class="input_formulario" onchange="" id="jugador_evento" name="jugador_evento">
-                                <?php get_listar_eventos_jugador($equipo,0);?>
+                            
+                            <label for="jugador_evento" >Eventos</label>
+                            <select class="input_formulario" onchange="" id="jugador_evento" name="jugador_evento" >
+                                <?php if($equipo>0){get_listar_eventos_jugador($equipo,0);}else{echo "<option value=".'0'.">".'NO HAY EVENTOS DISPONIBLES'."</option>";}?>
                             </select>
 
                             <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">

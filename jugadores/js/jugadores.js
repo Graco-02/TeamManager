@@ -126,12 +126,12 @@ function set_seleccionar(id_seleccionado){
 
         if(json[8]!=null && json[8].length>0){
             //url_adjunto.innerHTML = json[8];
-            adjunto_visor.src =  "../imagenes_subidas/"+json[8];
-            adjunto_href.setAttribute("href",  "../imagenes_subidas/"+json[8]);
-            adjunto_href.innerHTML= "../imagenes_subidas/"+json[8];
+            adjunto_visor.src =  "../archivos_subidos/"+json[8];
+            adjunto_href.setAttribute("href",  "../archivos_subidos/"+json[8]);
+            adjunto_href.innerHTML= "../archivos_subidos/"+json[8];
         }else{
             url_adjunto.innerHTML ="Adjunto 1";
-            adjunto_visor.src = "../imagenes/usuario1.png";
+            adjunto_visor.src = "../archivos_subidos/usuario1.png";
         }
 
 
@@ -361,12 +361,12 @@ function set_seleccionar_jugador(id_seleccionado){
 
         if(json[8]!=null && json[8].length>0){
             //url_adjunto.innerHTML = json[8];
-            adjunto_visor.src =  "../imagenes_subidas/"+json[8];
-            adjunto_href.setAttribute("href",  "../imagenes_subidas/"+json[8]);
-            adjunto_href.innerHTML= "../imagenes_subidas/"+json[8];
+            adjunto_visor.src =  "../archivos_subidos/"+json[8];
+            adjunto_href.setAttribute("href",  "../archivos_subidos/"+json[8]);
+            adjunto_href.innerHTML= "../archivos_subidos/"+json[8];
         }else{
             url_adjunto.innerHTML ="Adjunto 1";
-            adjunto_visor.src = "../imagenes/usuario1.png";
+            adjunto_visor.src = "../archivos_subidos/usuario1.png";
         }
     }); 
 }

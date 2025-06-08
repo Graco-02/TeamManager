@@ -68,6 +68,14 @@ function set_buscar(){
     var fecha_accion_1               = document.getElementById("fecha_accion_1").value;
     var fecha_accion_2               = document.getElementById("fecha_accion_2").value;
 
+    console.log('datos de busqueda ');
+    console.log('usuario_historico '+usuario_historico);
+    console.log('fecha_accion_1 '+fecha_accion_1);
+    console.log('fecha_accion_2 '+fecha_accion_2);
+
+    //cambio _ por espacios
+    usuario_historico = reemplazarEspaciosPorGuiones(usuario_historico);
+
     var accion = 2;
     $.post("ctrl/histlog.php"
     ,{"usuario":usuario_historico 
@@ -94,10 +102,20 @@ function set_buscar(){
         }catch{
             alert("NO HAY COINCIDENCIAS");
         }
-     });
-
-    
+     });  
 }
+
+
+  function pruebas(){
+    console.log(String(usuario_historico.value));
+    console.log(String(usuario_historico.value).length);
+    console.log(reemplazarEspaciosPorGuiones(String(usuario_historico.value)));
+  } 
+
+  function reemplazarEspaciosPorGuiones(cadena) {
+ //   return cadena.replace("a", "-");
+    return cadena.split("_").join(" ");
+  }
 
 
 

@@ -20,7 +20,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <script src="js/equipos.js"></script>
     <script>user_type=<?php echo $user_type; ?></script>
-    <script>usuario_logeado=<?php echo $usuario_logeado; ?></script>
+    <!--<script>usuario_logeado=<?php echo $usuario_logeado; ?></script>-->
 </head>
 <body>
         <header>

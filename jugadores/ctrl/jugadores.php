@@ -201,9 +201,10 @@ function get_listar_jugadores_todos($id_equipo){
 function set_agregar_relacion_equipo_evento($jugador,$equipo,$evento){
   $date = date('Y-m-d');
   $validacion=TRUE;
+  if($evento!=0){
   $conn = conectar();
            //   # Agregamos la LOS DATOS DE LA PERSONA a la base de datos
-    $sql="INSERT IGNORE  INTO relacion_equipo_jugador_evento (equipo,evento,jugador) 
+    $sql="INSERT IGNORE INTO relacion_equipo_jugador_evento (equipo,evento,jugador) 
     VALUES ($equipo,$evento,$jugador)";
    
     if ($conn->query($sql) == TRUE) {	
@@ -212,6 +213,7 @@ function set_agregar_relacion_equipo_evento($jugador,$equipo,$evento){
       $validacion=false;
     }
        $conn->close();
+  }
        return $validacion;
 }
 
@@ -336,24 +338,24 @@ function get_listar_eventos_jugador($equipo,$jugador){
         die("Connection failed: " . $conn->connect_error);
    }
 
-   $sql ="";
-   if($jugador!=0){
+  // $sql ="";
+   if($jugador>0){
     $sql = "SELECT id,nombre,cantidad_equipos,cantidad_jugadores_equipo,descripcion,fecha_incio from eventos 
     where (id,$equipo) in (select evento,equipo from relacion_equipo_evento) 
-    and (id,$equipo,$jugador) not in (select evento,equipo,jugador from relacion_equipo_jugador_evento)"; 
+    and (id,$equipo,$jugador) not in (select evento,equipo,jugador from relacion_equipo_jugador_evento) and estado = 1"; 
    }else{
     if($equipo!=0){
       $sql = "SELECT id,nombre,cantidad_equipos,cantidad_jugadores_equipo,descripcion,fecha_incio from eventos 
-      where (id,$equipo) in (select evento,equipo from relacion_equipo_evento) "; 
+      where (id,$equipo) in (select evento,equipo from relacion_equipo_evento) and estado = 0"; 
     }else{
-      $sql = "SELECT id,nombre,cantidad_equipos,cantidad_jugadores_equipo,descripcion,fecha_incio from eventos  ";  
+      $sql = "SELECT id,nombre,cantidad_equipos,cantidad_jugadores_equipo,descripcion,fecha_incio from eventos  and estado = 0";  
     }
 
    }
 
-
+    
     $result = $conn->query($sql);
-    $count=1;         
+    $count=0;         
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc() ) {
         
@@ -372,9 +374,13 @@ function get_listar_eventos_jugador($equipo,$jugador){
             $nombre        = $row["nombre"];				
             $id            = $row["id"];
             echo "<option value=".$id.">".$nombre."</option>";
+            $count++;
          }
 
-         echo "</tr> ";
+        // echo "</tr> ";
+     }
+     if($count==0){
+        echo "<option value=".'0'.">".'NO HAY EVENTOS DISPONIBLES'."</option>"; 
      }		 
      
     }

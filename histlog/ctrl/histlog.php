@@ -61,7 +61,9 @@ function get_listar_usuarios_historico(){
     $count=1;         
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc() ) {
-          $nombre = $row["usuario"];				  
+        //  $nombre = $row["usuario"];		
+         //por algun motivo que desconozco el espacio corta el mensaje en el combo		
+          $nombre = str_replace(" ", "_", $row["usuario"]);  
           echo "<option value=".$nombre.">".$nombre."</option>";
         }		 
     }

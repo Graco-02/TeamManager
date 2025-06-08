@@ -113,6 +113,13 @@
                                 <?php get_listar_equipos_select($equipo);?>
                             </select>
 
+                            <label for="jugador_evento" hidden>Eventos</label>
+                            <select class="input_formulario" onchange="" id="jugador_evento" name="jugador_evento" hidden>
+                                <?php //alert('$equipo'.$equipo);
+                                      get_listar_eventos_jugador(0,$jugador);
+                                      ?>
+                            </select>
+
                         </fieldset>
 
                         <fieldset class="flex" style="flex-direction: column;">

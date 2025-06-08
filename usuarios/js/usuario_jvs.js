@@ -41,8 +41,19 @@ function set_insertar(){
                         ,"usuario_tipo":usuario_tipo 
                         ,"accion":accion 
                         ,"url_img":response 
-                        }
-                       
+                        },function(respuesta){
+                             var resp = respuesta.trim();
+                             if(resp == 'AGREGADO CORRECTO'){
+                                 set_insertar_accion('','A','USUARIOS','','');
+                                 alert('AGREGADO CORRECTO');
+                             }else if(resp == 'MODIFICACION REALIZADA'){
+                                 set_insertar_accion('','M','USUARIOS','','');
+                                 alert('MODIFICACION REALIZADA');
+                             }else{
+                                 alert('ERROR => '+respuesta);
+                             }
+
+                        });
                     }
                 });
 

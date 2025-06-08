@@ -133,17 +133,16 @@ function get_listar_eventos_todos(){
     $sql="";
     if($id > 0){
       $sql = 
-       "select eq.nombre,evq.evento as myevento_id,even.nombre as myevento_name,even.fecha_incio as myevento_fecha_ini,case even.estado when 0 then 'ACTIVO'  when 1 then 'FINALIZADO' end as estadox from equipos eq, relacion_equipo_evento evq, eventos even
+       "select eq.nombre,evq.evento as myevento_id,even.nombre as myevento_name,even.fecha_incio as myevento_fecha_ini,case even.estado when 0 then 'ACTIVO'  when 1 then 'FINALIZADO' end as estadox 
+       from equipos eq, relacion_equipo_evento evq, eventos even
               where eq.id = evq.equipo
               and even.id = evq.evento
               and eq.id = ".$id." and even.fecha_incio ='".$fecha_ini."'"." group by evq.evento,even.nombre,even.fecha_incio";
              ; 
     }else{
-      $sql = "select eq.nombre,evq.evento as myevento_id,even.nombre as myevento_name,even.fecha_incio as myevento_fecha_ini,case even.estado when 0 then 'ACTIVO' when 1 then 'FINALIZADO' end as estadox
-              from equipos eq, relacion_equipo_evento evq, eventos even
-              where eq.id = evq.equipo
-              and even.id = evq.evento
-              and even.fecha_incio ='".$fecha_ini."'"." group by evq.evento,even.nombre,even.fecha_incio"
+      $sql = "select even.id as myevento_id,even.nombre as myevento_name,even.fecha_incio as myevento_fecha_ini,case even.estado when 0 then 'ACTIVO' when 1 then 'FINALIZADO' end as estadox
+              from  eventos even
+              where even.fecha_incio ='".$fecha_ini."'"." group by even.nombre,even.fecha_incio"
             ; 
     }
 

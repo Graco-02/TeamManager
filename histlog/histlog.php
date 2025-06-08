@@ -46,7 +46,7 @@
                             <legend class="formulario_legend">Historico</legend>
 
                             <label for="usuario_historico">Usuario</label>
-                            <select class="input_formulario" onchange="" id="usuario_historico" name="usuario_historico">
+                            <select class="input_formulario" onchange="//pruebas();" id="usuario_historico" name="usuario_historico">
                               <?php get_listar_usuarios_historico()?>
                             </select>
 
