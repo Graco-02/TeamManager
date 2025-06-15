@@ -38,19 +38,16 @@
 <body>
     <header>
         <div class="cabecera">
-                    <?php if( $user_type==0){?>
-                        <a href="../administracion/administracion_admin_index.php"><img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/></a> 
-                    <?php }else{?>
-                        <a href="../equipos/adsministracion_equipos_restringida.php"><img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/></a> 
-                    <?php }?>  
-            <div class="logo_name">
-                <p>Team Manager</p>
-            </div>
+              <a href="../index.php"><img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_img"/></a>  
+                      <div class="logo_name">
+                          <p>asociacion de baloncesto de santo domingo</p>
+                      </div>
+              </div>
         </div>
     </header>
 
     <main>
-        <div class="main_contenido">
+        <div class="main_contenido_2">
             <h1>cambio de credenciales</h1>
             <form action="" method="post" class="loging_formulario">
                      <label for="longin_name">usuario</label>

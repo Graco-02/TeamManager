@@ -98,6 +98,23 @@ main{
     top: 5rem;
 }
 
+
+.main_contenido_2{
+    background-color: var(--color_primario_d);
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-rows: 1fr 2fr;
+    text-transform: uppercase;
+    box-shadow: 5px 5px #0c0c0c;
+    border-radius: 25px;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 20rem;
+    padding: 3rem;
+}
+
 .main_contenido label{
     text-transform: uppercase;
     font-weight: 700;
