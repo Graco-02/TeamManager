@@ -49,7 +49,18 @@ if(count($_POST)>0){
             $id               = $_POST['id'];
             $fecha_ini        = $_POST['fecha_ini'];
             get_listar_eventos_filtrados($id,$fecha_ini);
-            break;                               
+            break;  
+      case 8:
+            $evento        = $_POST['evento_id'];
+            $equipo        = $_POST['equipo_id'];
+            get_estaus_pago_evento($evento,$equipo);
+            break;   
+      case 9:
+            $evento        = $_POST['evento_id'];
+            $equipo        = $_POST['equipo_id'];
+            $ruta          = $_POST['ruta'];
+            set_modificar_indicador_pago_evento($evento,$equipo,$ruta);
+            break;                                                         
     }
        
 }
@@ -285,6 +296,64 @@ function get_listar_equipos_linkados($evento,$equipo){
     return $existe;
 }
 
+function get_estaus_pago_evento($evento,$equipo){
+  $conn = conectar();
+  $date = date('Y-m-d');
+    // Check connection
+   if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+   }
+
+    $sql = "SELECT indpago,ruta_volante from relacion_equipo_evento where evento =".$evento." AND equipo = ".$equipo; 
+
+    $result = $conn->query($sql);
+    $count=1; 
+    $existe = 0;    
+    $datos_evento = array();    
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc() ) {  
+          $existe=1;
+          array_push($datos_evento,$row["indpago"]);
+          array_push($datos_evento,$row["ruta_volante"]);
+        }		 
+    }
+    $conn->close();
+    switch ($existe) {
+      case 1:
+        echo json_encode($datos_evento);
+        break;
+      
+      default:
+        echo $existe;
+        break;
+    }
+
+   // echo "Prueba";
+}
+
+
+function get_estaus_pago_evento_2($evento,$equipo){
+  $conn = conectar();
+  $date = date('Y-m-d');
+    // Check connection
+   if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+   }
+
+    $sql = "SELECT indpago from relacion_equipo_evento where evento =".$evento." AND equipo = ".$equipo; 
+
+    $result = $conn->query($sql);
+    $count=1; 
+    $existe = 0;    
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc() ) {  
+          $existe=$row["indpago"];
+        }		 
+    }
+    $conn->close();
+    return $existe;
+}
+
 
 function set_insert_relacion_equipo($evento_id, $equipo_id ){
   $conn = conectar();
@@ -299,7 +368,6 @@ function set_insert_relacion_equipo($evento_id, $equipo_id ){
       echo 'AGREGADO INCORRECTO';
   }
 }
-
 
 function set_eliminar_equipo_linkado($evento,$equipo){
   $conn = conectar();
@@ -341,4 +409,19 @@ function get_cantidad_jugadores($equipo,$evento){
     $conn->close();
     return $count;
 }
+
+function set_modificar_indicador_pago_evento($evento,$equipo,$ruta){
+      $conn = conectar();
+ 
+       $sql="UPDATE relacion_equipo_evento SET indpago=1,ruta_volante="."'".$ruta."'"." WHERE evento =".$evento." AND equipo = ".$equipo;
+ 
+       if ($conn->query($sql) == TRUE) {		   
+         // # Cogemos el identificador con que se ha guardado
+         $id=$conn->insert_id;	
+         echo  'MODIFICACION REALIZADA';
+      }   else {
+         echo "Error Modificacion: " . $sql . "<br>" . $conn->error;
+      }
+}
+
 ?>

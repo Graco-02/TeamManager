@@ -1,0 +1,4 @@
+cambios en el historico, cambiar letras de los header de la  tabla a blanco,
+corregir Loggin
+verificar colores en header y unificarlos tomar como base el del historico,
+una vez iniciado un evento no listarlo, que se pueda consultar

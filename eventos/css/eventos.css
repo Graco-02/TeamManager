@@ -15,6 +15,7 @@ body{
     display: grid;
     grid-template-rows: 0.1fr 1fr;
     gap: 2rem;
+    position: relative;
 }
 
 
@@ -92,6 +93,22 @@ body{
     display: flex;
     align-items: center;
     gap: 1rem;
+}
+
+#caja_pago{
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    padding: 2rem;
+    background-color: var(--color_teciario_d);
+}
+
+.no_visible{
+    display: none;
+}
+
+#adjunto_visor{
+    width: 5rem;
 }
 
 @media (max-width:600px) {    

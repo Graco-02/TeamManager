@@ -5,6 +5,9 @@ let regant_global='';
 let regnew_global='';
 let numero_jugadores_equipo_evento = 0;
 let event_status = 0;
+let volante_seleccionado=false;
+let fichero_seleccionado ="" ;
+let id_equipo_seleccionado=0;
 
 function set_insertar(){
     var evento_name              = document.getElementById("evento_name").value;
@@ -65,7 +68,7 @@ function set_seleccionar(evento){
     
 
     var evento = event.srcElement.id;
-    elento_seleccionado =evento ;
+    elento_seleccionado = evento ;
     console.log("evento = "+evento);
     
     numero_jugadores_equipo_evento = 0;
@@ -136,6 +139,8 @@ function set_agregar_fila(evento_name,municipio,sector,id,validacion,cantidad_ju
     celda4.innerHTML = 'AGREGAR';
     celda5.innerHTML = 'SACAR';
     celda7.innerHTML = 'VER';
+
+    celda1.onclick = function() { id_equipo_seleccionado = id; get_status_equipos_evento(id,elento_seleccionado);};
 
     try{
         celda6.innerHTML = cantidad_jugadores+" / "+document.getElementById("evento_num_jug_equipos").value;
@@ -294,4 +299,120 @@ function set_agregar_fila_historico(id,nombre,fecha,estado){
     fila.appendChild(celda2);
     fila.appendChild(celda3);
     tableRow.appendChild(fila);
+}
+
+function get_status_equipos_evento(id_equipo,id_evento){
+    var accion = 8;//opcion para seleccionar el estatus del equipo en el evento 0-no pago 1-pago
+
+    console.log("valdiando equipo = "+id_equipo+" en evento = "+id_evento);
+    $.post("ctrl/eventos.php"
+    ,{"evento_id":id_evento 
+    ,"equipo_id":id_equipo 
+    ,"accion":accion 
+    }
+    ,function(respuesta){
+        console.log("el estatus del equipo en este evento es = "+respuesta);
+
+        switch (respuesta) {
+            case '0':
+                console.log("equipo no esta linkado");
+                alert("DEBE AGREGAR EL EQUIPO AL EVENTO PRIMERO");
+                break;
+            default:
+                var json_datos_pago_evento = $.parseJSON(respuesta);
+                var status = json_datos_pago_evento[0];
+                var ruta_volante = json_datos_pago_evento[1];
+                var url_adjunto                = document.getElementById("label_adjunto");
+                
+                fichero_seleccionado = ruta_volante;
+                console.log(json_datos_pago_evento); 
+
+                adjunto_visor.src =  "../volantes/"+ruta_volante;
+                adjunto_href.setAttribute("href",  "../volantes/"+ruta_volante);
+                adjunto_href.innerHTML= "../volantes/"+ruta_volante;
+
+                set_abrir_cerrar_formulario_pago();
+                break;
+        }
+    }); 
+}
+
+function set_abrir_cerrar_formulario_pago(){
+    var formulario_pago = document.getElementById("caja_pago");
+    formulario_pago.classList.toggle("no_visible");
+}
+
+function readURL2(input) {
+
+        const $seleccionArchivos = document.querySelector("#adjunto1");
+        $imagenPrevisualizacion = document.querySelector("#adjunto_visor");
+    
+        const archivos = $seleccionArchivos.files;
+        // Si no hay archivos salimos de la función y quitamos la imagen
+        if (!archivos || !archivos.length) {
+          $imagenPrevisualizacion.src = "";
+          return;
+        }
+        // Ahora tomamos el primer archivo, el cual vamos a previsualizar
+        const primerArchivo = archivos[0];
+        // Lo convertimos a un objeto de tipo objectURL
+        const objectURL = URL.createObjectURL(primerArchivo);
+        // Y a la fuente de la imagen le ponemos el objectURL
+        $imagenPrevisualizacion.src = objectURL;
+        volante_seleccionado=true;
+}
+
+function set_agregar_volante(){
+
+    if(volante_seleccionado){
+            var formData = new FormData();
+            var file_data = $('#adjunto1').prop('files')[0];
+            formData.append('file',file_data);
+
+            $.ajax({
+            url: '../utilidades/uploadvolante.php',
+            type: 'post',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                var ruta ='';
+                if(file_data!=null){
+                    ruta=response;
+                   // alert("VOLANTE SUBIDO");
+                }else{
+                    ruta = fichero_seleccionado;
+                }
+
+                console.log("datos para modificacion");
+                console.log("id evento = "+elento_seleccionado);
+                console.log("id equipo = "+id_equipo_seleccionado);
+                console.log("ruta volante = "+ruta);
+                set_estatus_pago_evento(id_equipo_seleccionado,elento_seleccionado,ruta)
+            }
+        });
+    }else{
+        alert("DEBE SELECCIONAR UN ARCHIVO COMO EVIDENCIA");
+    }
+
+}
+
+
+function set_estatus_pago_evento(id_equipo,id_evento,ruta){
+    var accion = 9;//opcion para seleccionar el estatus del equipo en el evento 0-no pago 1-pago
+
+    console.log("valdiando equipo = "+id_equipo+" en evento = "+id_evento);
+    $.post("ctrl/eventos.php"
+    ,{"evento_id":id_evento 
+    ,"equipo_id":id_equipo 
+    ,"ruta":ruta 
+    ,"accion":accion 
+    }
+    ,function(respuesta){
+        console.log("el estatus del equipo en este evento es = "+respuesta);
+        if(respuesta=="MODIFICACION REALIZADA"){
+            alert('MODIFICACION REALIZADA');
+            set_abrir_cerrar_formulario_pago();
+        }
+    }); 
 }

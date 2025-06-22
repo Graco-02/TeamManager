@@ -132,5 +132,28 @@
         </main>
 
 
+       <div id="caja_pago" class="no_visible">
+            <section>
+                    <form id="form" action="javascript: set_agregar_volante();" class="loging_formulario" enctype=" multipart/form-data">
+                        <fieldset  class="flex" style="flex-direction: column;">
+                             <legend class="formulario_legend">Volante de Pago</legend>
+                             <label for="adjunto1" id="label_adjunto">Adjunto 1</label>
+                             <a id="adjunto_href" href="http://"></a>
+                             <br><br>
+                             <img src="../imagenes/usuario1.png" alt="usuario" id="adjunto_1" hidden/>
+                             <img src="../imagenes/usuario1.png" alt="adjunto_visor" id="adjunto_visor"/>
+                             <br><br>
+                             <input type="file" name="adjunto1" id="adjunto1" onchange="readURL2(this.value)"/>
+                             
+                        </fieldset>
+
+                        <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
+                        
+                    </form>
+                    <button class="buton_formulario" onclick="set_abrir_cerrar_formulario_pago();" value="cerrar">CERRAR
+            </section>
+       </div>
+
+
 </body>
 </html>
