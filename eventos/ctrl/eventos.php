@@ -264,6 +264,7 @@ function get_listar_equipos_no_linkados($evento){
          array_push($equipo_array,$row["estado"]);
          array_push($equipo_array,get_listar_equipos_linkados($evento,$row["id"]));
          array_push($equipo_array,get_cantidad_jugadores($row["id"],$evento));
+         array_push($equipo_array,get_estaus_pago_evento_2($evento,$row["id"]));
          
          array_push($equipo_array_lista, $equipo_array);
      }		 

@@ -23,6 +23,7 @@ body{
     grid-template-rows: 0.1fr 1fr;
     gap: 2rem;
    /* font-family: "Gothan ultra italic";*/
+   position: relative;
 }
 
 
@@ -109,6 +110,23 @@ thead{
     font-weight: 700;
     text-transform: uppercase;
     color: white;
+}
+
+#caja_pago{
+    position: absolute;
+    top: 10%;
+    left: 30%;
+    padding: 1rem;
+    background-color: var(--color_teciario_d);
+}
+
+.no_visible{
+    display: none;
+}
+
+#adjunto_visor{
+    width: 5rem;
+    height: 5rem;
 }
 
 @media (max-width:600px) {    

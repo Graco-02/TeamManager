@@ -133,7 +133,7 @@
 
 
        <div id="caja_pago" class="no_visible">
-            <section>
+            <section id="contenido_caja_pago">
                     <form id="form" action="javascript: set_agregar_volante();" class="loging_formulario" enctype=" multipart/form-data">
                         <fieldset  class="flex" style="flex-direction: column;">
                              <legend class="formulario_legend">Volante de Pago</legend>
@@ -148,9 +148,8 @@
                         </fieldset>
 
                         <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
-                        
                     </form>
-                    <button class="buton_formulario" onclick="set_abrir_cerrar_formulario_pago();" value="cerrar">CERRAR
+                    <button class="buton_formulario" onclick="set_abrir_cerrar_formulario_pago();" value="cerrar">CERRAR</button>  
             </section>
        </div>
 

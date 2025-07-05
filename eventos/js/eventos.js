@@ -121,7 +121,7 @@ function set_seleccionar(evento){
     }); 
 }
 
-function set_agregar_fila(evento_name,municipio,sector,id,validacion,cantidad_jugadores){
+function set_agregar_fila(evento_name,municipio,sector,id,validacion,cantidad_jugadores,estaus){
     var tableRow = document.getElementById("lista_equipos_evento");
     var fila = document.createElement("tr");
     var celda1 = document.createElement("td");
@@ -184,7 +184,7 @@ function set_relacion_equipo(){
             console.log(json_equipos);
 
             for(i=0;i<json_equipos.length;i++){            
-                set_agregar_fila(json_equipos[i][1],json_equipos[i][2],json_equipos[i][3],json_equipos[i][0],json_equipos[i][6],json_equipos[i][7]);
+                set_agregar_fila(json_equipos[i][1],json_equipos[i][2],json_equipos[i][3],json_equipos[i][0],json_equipos[i][6],json_equipos[i][7],json_equipos[i][8]);
             }
         }); 
     }else{

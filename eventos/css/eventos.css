@@ -111,6 +111,17 @@ body{
     width: 5rem;
 }
 
+.link_pago{
+    background-color: var(--color_primario_d);
+}
+
+
+#contenido_caja_pago{
+    position: relative;
+}
+
+
+
 @media (max-width:600px) {    
     .main_contenido{
         display: flex;
