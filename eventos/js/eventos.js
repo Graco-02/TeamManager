@@ -140,8 +140,10 @@ function set_agregar_fila(evento_name,municipio,sector,id,validacion,cantidad_ju
     celda5.innerHTML = 'SACAR';
     celda7.innerHTML = 'VER';
 
-    celda1.onclick = function() { id_equipo_seleccionado = id; get_status_equipos_evento(id,elento_seleccionado);};
-
+     if( user_type == 0 ){
+        celda1.onclick = function() { id_equipo_seleccionado = id; get_status_equipos_evento(id,elento_seleccionado);};
+     }
+     
     try{
         celda6.innerHTML = cantidad_jugadores+" / "+document.getElementById("evento_num_jug_equipos").value;
     }catch(e){
@@ -286,6 +288,7 @@ function set_agregar_fila_historico(id,nombre,fecha,estado){
     var celda2 = document.createElement("td");
     var celda3 = document.createElement("td");
     celda1.id = id;
+    
     celda1.onclick = function() { 
                                   console.log("id_evento = "+id);
                                   set_seleccionar(id);
@@ -364,7 +367,7 @@ function readURL2(input) {
 
 function set_agregar_volante(){
 
-    if(volante_seleccionado){
+    if(volante_seleccionado &&  user_type==0){//opcion solo para administradores (0-ADMIN-1-EQUIPO)
             var formData = new FormData();
             var file_data = $('#adjunto1').prop('files')[0];
             formData.append('file',file_data);

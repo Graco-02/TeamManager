@@ -103,6 +103,11 @@ body{
     background-color: var(--color_teciario_d);
 }
 
+.marca_no_pago{
+    background-color: red;
+}
+
+
 .no_visible{
     display: none;
 }
