@@ -19,6 +19,8 @@ function set_insertar(){
     var jugador_estatus               = document.getElementById("jugador_estatus").value;
     var jugador_telefono              = document.getElementById("jugador_telefono").value;
     var jugador_centro                = document.getElementById("jugador_centro").value;
+    var jugador_id_centro             = document.getElementById("jugador_id_centro").value;
+    var jugador_sistem_estatus        = 0;
 
 
     var accion = 1;
@@ -32,11 +34,14 @@ function set_insertar(){
     +jugador_equipo          
     +jugador_estatus  
     +jugador_telefono 
+    +jugador_id_centro 
+    +jugador_sistem_estatus 
     +jugador_centro  ;
 
     
     if(elento_seleccionado>0){
         accion = 3;
+        jugador_sistem_estatus        = document.getElementById("jugador_sistem_estatus").value;
     }
 
     
@@ -59,7 +64,21 @@ function set_insertar(){
                 }else{
                      ruta = fichero_seleccionado;
                 }
-                set_subir_adjunto1(jugadore_name,jugador_lastname,jugador_fecha_nacimiento,jugador_cedula,jugador_direccion,jugador_equipo,accion,ruta,jugador_estatus,jugador_telefono,jugador_centro,jugador_evento);
+                set_subir_adjunto1(jugadore_name,
+                                   jugador_lastname,
+                                   jugador_fecha_nacimiento,
+                                   jugador_cedula,
+                                   jugador_direccion,
+                                   jugador_equipo,
+                                   accion,
+                                   ruta,
+                                   jugador_estatus,
+                                   jugador_telefono,
+                                   jugador_centro,
+                                   jugador_evento,
+                                   jugador_id_centro,
+                                   jugador_sistem_estatus
+                                );
             }
         });
     }else{
@@ -99,6 +118,8 @@ function set_seleccionar(id_seleccionado){
         var jugador_telefono           = document.getElementById("jugador_telefono");
         var jugador_centro             = document.getElementById("jugador_centro");
         var jugador_evento             = document.getElementById("jugador_evento") ;
+        var jugador_sistem_estatus     = document.getElementById("jugador_sistem_estatus") ;
+        var jugador_id_centro          = document.getElementById("jugador_id_centro") ;
 
 
         //id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1
@@ -114,9 +135,16 @@ function set_seleccionar(id_seleccionado){
         fichero_seleccionado = json[7];
         fichero_seleccionado2 = json[8];
 
-        jugador_estatus.value              = json[9];
+        jugador_estatus.value               = json[9];
         jugador_telefono.value              = json[10];
-        jugador_centro.value              = json[11];
+        jugador_centro.value                = json[11];
+        jugador_id_centro.value             = json[12];
+        jugador_sistem_estatus.value        = json[13];
+
+
+        if(json[13]==1 && user_type==1){
+              jugador_sistem_estatus.innerHTML = "VALIDADO"; 
+        }
 
         if(json[7]!=null && json[7].length>0){
             usuario_logo.src = "../imagenes_subidas/"+json[7];
@@ -192,7 +220,7 @@ function readURL2(input) {
     }
 }
 
-function set_agregar_datos_php(jugadore_name,jugador_lastname,jugador_fecha_nacimiento,identificacion,jugador_direccion,jugador_equipo,accion,ruta,ruta2,jugador_estatus,jugador_telefono,jugador_centro,jugador_evento){
+function set_agregar_datos_php(jugadore_name,jugador_lastname,jugador_fecha_nacimiento,identificacion,jugador_direccion,jugador_equipo,accion,ruta,ruta2,jugador_estatus,jugador_telefono,jugador_centro,jugador_evento,jugador_id_centro,jugador_sistem_estatus){
     $.post("ctrl/jugadores.php"
     ,{"jugadore_name":jugadore_name 
     ,"jugador_lastname":jugador_lastname 
@@ -208,6 +236,8 @@ function set_agregar_datos_php(jugadore_name,jugador_lastname,jugador_fecha_naci
     ,"jugador_telefono":jugador_telefono 
     ,"jugador_centro":jugador_centro 
     ,"jugador_evento":jugador_evento
+    ,"jugador_id_centro":jugador_id_centro
+    ,"jugador_sistem_estatus":jugador_sistem_estatus
     }
     ,function(respuesta){
         var resp = respuesta.trim();
@@ -224,7 +254,7 @@ function set_agregar_datos_php(jugadore_name,jugador_lastname,jugador_fecha_naci
  });
 }
 
-function set_subir_adjunto1(jugadore_name,jugador_lastname,jugador_fecha_nacimiento,identificacion,jugador_direccion,jugador_equipo,accion,ruta,jugador_estatus,jugador_telefono,jugador_centro,jugador_evento){
+function set_subir_adjunto1(jugadore_name,jugador_lastname,jugador_fecha_nacimiento,identificacion,jugador_direccion,jugador_equipo,accion,ruta,jugador_estatus,jugador_telefono,jugador_centro,jugador_evento,jugador_id_centro,jugador_sistem_estatus){
     var formData = new FormData();
     var file_data = $('#adjunto1').prop('files')[0];
     formData.append('file',file_data);
@@ -247,7 +277,7 @@ function set_subir_adjunto1(jugadore_name,jugador_lastname,jugador_fecha_nacimie
                 ruta2 = fichero_seleccionado2;
             }
             
-            set_agregar_datos_php(jugadore_name,jugador_lastname,jugador_fecha_nacimiento,identificacion,jugador_direccion,jugador_equipo,accion,ruta,ruta2,jugador_estatus,jugador_telefono,jugador_centro,jugador_evento);
+            set_agregar_datos_php(jugadore_name,jugador_lastname,jugador_fecha_nacimiento,identificacion,jugador_direccion,jugador_equipo,accion,ruta,ruta2,jugador_estatus,jugador_telefono,jugador_centro,jugador_evento,jugador_id_centro,jugador_sistem_estatus);
         }
     });
 }
@@ -334,6 +364,8 @@ function set_seleccionar_jugador(id_seleccionado){
         var jugador_telefono           = document.getElementById("jugador_telefono");
         var jugador_centro             = document.getElementById("jugador_centro");
         var jugador_evento             = document.getElementById("jugador_evento") ;
+        var jugador_sistem_estatus     = document.getElementById("jugador_sistem_estatus") ;
+        var jugador_id_centro          = document.getElementById("jugador_id_centro") ;
 
 
         //id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1
@@ -350,13 +382,20 @@ function set_seleccionar_jugador(id_seleccionado){
         fichero_seleccionado2 = json[8];
 
         jugador_estatus.value              = json[9];
-        jugador_telefono.value              = json[10];
-        jugador_centro.value              = json[11];
+        jugador_telefono.value             = json[10];
+        jugador_centro.value               = json[11];
+        jugador_id_centro.value            = json[12];
 
         if(json[7]!=null && json[7].length>0){
             usuario_logo.src = "../imagenes_subidas/"+json[7];
         }else{
             usuario_logo.src = "../imagenes/usuario1.png";
+        }
+
+        if(json[13]==1 && user_type==1){
+              jugador_sistem_estatus.innerHTML = "VALIDADO"; 
+        }else{
+            jugador_sistem_estatus.value = json[13];
         }
 
         if(json[8]!=null && json[8].length>0){

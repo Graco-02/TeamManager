@@ -102,11 +102,11 @@
                             <input type="text" placeholder="" class="input_formulario" name="jugador_direccion" id="jugador_direccion" required/>
 
 
-                            <label for="jugador_centro">Centro</label>
+                            <label for="jugador_centro">Centro De Estudio</label>
                             <input type="text" placeholder="" class="input_formulario" name="jugador_centro" id="jugador_centro" required/>
 
-
-
+                            <label for="jugador_id_centro">Id De Estudiante</label>
+                            <input type="text" placeholder="" class="input_formulario" name="jugador_id_centro" id="jugador_id_centro" maxlength="50"/>
 
                             <label for="jugador_equipo">Equipo</label>
                             <select class="input_formulario" onchange="" id="jugador_equipo" name="jugador_equipo">
@@ -119,6 +119,20 @@
                                       get_listar_eventos_jugador(0,$jugador);
                                       ?>
                             </select>
+
+
+                            <label for="jugador_sistem_estatus" >Estado Sistema</label>
+                            <?php if( $user_type==0){?>
+                            <select class="input_formulario" onchange="" id="jugador_sistem_estatus" name="jugador_sistem_estatus" >
+                                <option value="0">SIN VALIDAR</option>
+                                <option value="1">VALIDADO</option>
+                            </select>
+                            <?php }else{?>
+                                    <span class="input_formulario" id="jugador_sistem_estatus">EN REVISION</span>
+                                    <br><br>
+                            <?php }?>    
+ 
+
 
                         </fieldset>
 

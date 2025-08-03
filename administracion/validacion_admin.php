@@ -20,10 +20,9 @@ function set_validar_logging($user_name,$user_clave){
                     if($hash_clave == $row["clave"] || $row["clave"] == $user_clave){
                         $_SESSION['user_type'] = $row["tipo"];
                         $_SESSION['usuario_logeado'] = $row["usuario"];
-                       // $_SESSION['admin_id'] = $row["id"];
+                      //  $_SESSION['admin_id'] = $row["id"];
 
                         if($user_clave != $user_name){
-                            $conn->close();
                             get_equipo_validacion($_SESSION['usuario_logeado']);
                             if($row["tipo"]==0){
                                 header("Location:administracion/administracion_admin_index.php");    
@@ -89,6 +88,7 @@ function set_modificar_clave($usuario_names,$usuario_clave){
 
 
 function get_equipo_validacion($equipo){
+   //alert($equipo);
     $conn = conectar();
       // Check connection
      if ($conn->connect_error) {
@@ -100,9 +100,12 @@ function get_equipo_validacion($equipo){
       $result = $conn->query($sql);
       $count=1;         
       if ($result->num_rows > 0) {
-          while($row = $result->fetch_assoc() ) {  
+          while($row = $result->fetch_assoc() ) { 
+           //  alert('ENCONTRE .:'.$row["id"]); 
              $_SESSION['admin_id'] = $row["id"];
           }		   
+      }else{
+         //  alert('ERRRO BBDD');
       }
         $conn->close();
  }

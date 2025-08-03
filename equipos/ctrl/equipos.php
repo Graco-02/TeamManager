@@ -238,10 +238,10 @@ function get_jugadores_equipo($equipo,$evento){
    }
 
    if($evento==0){
-    $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1 
+    $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,idescolar,estado_sistema 
     from jugadores where  equipo =".$equipo ; 
    }else{
-    $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1 
+    $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,idescolar,estado_sistema
     from jugadores where  equipo =".$equipo." and (id,$equipo,$evento) in (select jugador,equipo,evento from relacion_equipo_jugador_evento)" ; 
    }
 
@@ -261,6 +261,8 @@ function get_jugadores_equipo($equipo,$evento){
        array_push($jugador_array,$row["equipo"]);
        array_push($jugador_array,$row["url_img"]);
        array_push($jugador_array,$row["url_adjunto1"]);
+       array_push($jugador_array,$row["idescolar"]);
+       array_push($jugador_array,$row["estado_sistema"]);
 
        array_push($jugadores_array,$jugador_array);
      }		 
