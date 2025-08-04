@@ -429,3 +429,20 @@ function set_insertar_accion(usuario,accion_modulo,modulo,regant,regnew){
         location.reload();
  });
 }
+
+function set_eliminar_jugador(id_jugador){
+    //alert('eliminado jugado..: '+id_jugador);
+    var accion = 5;//opcion para seleccionar los datos del usuario
+
+    $.post("ctrl/jugadores.php"
+    ,{"jugador":id_jugador 
+    ,"accion":accion 
+    }
+    ,function(respuesta){
+        console.log(respuesta);
+        if (respuesta=='CORRECTO') {
+            Location.reload();
+        }
+
+    }); 
+}

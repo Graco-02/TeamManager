@@ -84,7 +84,10 @@ if(count($_POST)>0){
         $jugador_nombre    = $_POST['jugador_nombre'];
         $jugador_apellido  = $_POST['jugador_apellido'];
         get_jugadores($cedula,$equipo,$jugador_nombre,$jugador_apellido);
-        break;  
+        break; 
+      case 5:
+        $jugador        = $_POST['jugador'];
+        get_eliminar_jugador($jugador); 
     }
        
 }
@@ -157,6 +160,12 @@ function get_listar_jugadores_todos($id_equipo){
            echo "</td>";
            echo "<td >$apellidos</td>";
            echo "<td >$identificacion</td>";
+
+
+           if($_SESSION['user_type']==0){
+             echo "<td> <button id='bt_eliminar' "."onClick='set_eliminar_jugador(usuario_js)' >Eliminar</button></td>"; 
+           }
+           
            echo "</tr> ";
        }		 
        
@@ -434,5 +443,28 @@ function get_listar_eventos_jugador($equipo,$jugador){
   
     $conn->close();
 }
+
+ function get_eliminar_jugador($jugador){
+    $conn = conectar();
+      // Check connection
+     if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+     }
+ 
+
+     //PRIMERO SE ELIMINAN LOS REGISTROS DE EVENTOS DEL JUGADOR LUEGO LO DEMAS
+     $sql = "DELETE from relacion_equipo_jugador_evento where jugador=$jugador"; 
+ 
+      $result = $conn->query($sql);
+       
+      if ($conn->query($sql) == TRUE) {		   
+         $sql = "DELETE from jugadores where id=$jugador"; 
+              $result = $conn->query($sql);      
+         if ($conn->query($sql) == TRUE) {	
+           echo 'CORRECTO';
+         }
+      }
+        $conn->close();
+ }
 
 ?>

@@ -156,6 +156,7 @@
                               <th>Nombres</th>
                               <th>Apellidos</th>
                               <th>Identificacion</th>
+                              <th></th>
                             </tr>
                         </thead>
                         <tbody id="lista_jugadores">
