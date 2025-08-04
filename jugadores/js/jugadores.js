@@ -441,7 +441,7 @@ function set_eliminar_jugador(id_jugador){
     ,function(respuesta){
         console.log(respuesta);
         if (respuesta=='CORRECTO') {
-            Location.reload();
+           set_insertar_accion('','B','JUGADORES','','');
         }
 
     }); 
