@@ -131,6 +131,7 @@
                           <th>Nombre</th>
                           <th>Municipio</th>
                           <th>Sector</th>
+                          <th>*</th>
                         </tr>
                        <?php get_listar_equipos_restringido($_SESSION['usuario_logeado']);?>
                     </table>

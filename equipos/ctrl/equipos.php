@@ -105,7 +105,7 @@ function get_listar_equipos_todos(){
            echo "</td>";
            echo "<td >$municipio</td>";
            echo "<td >$sector</td>";
-
+           echo "<td><button type='button' id='".$id."' onclick='set_ver_plantilla(usuario_js);'>PLANTILLA</button></td>";
            echo "</tr> ";
        }		 
        
@@ -144,7 +144,7 @@ function get_listar_equipos_todos(){
          echo "</td>";
          echo "<td >$municipio</td>";
          echo "<td >$sector</td>";
-
+         echo "<td><button type='button' id='".$id."' onclick='set_ver_plantilla(usuario_js);'>PLANTILLA</button></td>";
          echo "</tr> ";
      }		 
      
@@ -302,6 +302,101 @@ function set_eliminar_jugador($equipo,$jugador_id){
   }   else {
     echo "Error Modificacion: " . $sql . "<br>" . $conn->error;
   }
+}
+
+
+function get_planilla_jugadores($equipo){
+
+      $equipo_array_jugadores = array();    
+      $equipo_array_jugadores = get_jugadores_equipo_solo_lista($equipo) ;
+      foreach ($equipo_array_jugadores as $jugador) {
+       # code...
+           echo '<div class="plantilla_jugadores_datos_jugador">';
+           echo "<img src='../imagenes_subidas/".$jugador[7]."' alt='usuario' id='plantilla_jugadores_datos_jugador_img'/>";
+           echo "<div id='plantilla_jugadores_datos_jugador_datos'>";
+           echo "<span class='plantilla_jugadores_datos_jugador_headers' id='plantilla_jugadores_datos_jugador_nombre'>"
+           .$jugador[1]." , ".$jugador[2]."</span>";
+           echo "<span class='plantilla_jugadores_datos_jugador_headers' id='plantilla_jugadores_datos_jugador_fecnac'>".$jugador[4]."</span>";
+           echo "<span class='plantilla_jugadores_datos_jugador_headers' id='plantilla_jugadores_datos_jugador_identificaion'>".$jugador[3]."</span>";
+           echo "<span class='plantilla_jugadores_datos_jugador_headers' id='plantilla_jugadores_datos_jugador_centro'>".$jugador[9]."</span>";
+           echo "<span class='plantilla_jugadores_datos_jugador_headers' id='plantilla_jugadores_datos_jugador_centro_id'>".$jugador[10]."</span>";
+           echo "</div>";
+           echo "</div>";   
+      }
+
+  /*    $conn = conectar();
+      // Check connection
+     if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+     }
+ 
+      $sql = "SELECT id,nombre,municipio,sector,url_logo,estado,categoria,circunscripcion,anio,rama,entrenador,entrenador_tel,delegado,delegado_tel
+       from equipos where id=$equipo"; 
+ 
+      $result = $conn->query($sql);
+      $count=1;         
+      if ($result->num_rows > 0) {
+          while($row = $result->fetch_assoc() ) {
+        
+         array_push($equipo_array,$row["id"]);
+         array_push($equipo_array,$row["nombre"]);
+         array_push($equipo_array,$row["municipio"]);
+         array_push($equipo_array,$row["sector"]);
+         array_push($equipo_array,$row["url_logo"]);
+         array_push($equipo_array,$row["estado"]);
+         array_push($equipo_array,$row["categoria"]);
+         array_push($equipo_array,$row["circunscripcion"]);
+         array_push($equipo_array,$row["anio"]);
+         array_push($equipo_array,$row["rama"]);
+         array_push($equipo_array,$row["entrenador"]);
+         array_push($equipo_array,$row["entrenador_tel"]);
+         array_push($equipo_array,$row["delegado"]);
+         array_push($equipo_array,$row["delegado_tel"]);
+
+       }		 
+       
+      }
+        $conn->close();*/
+}
+
+
+function get_jugadores_equipo_solo_lista($equipo){
+  $conn = conectar();
+    // Check connection
+   if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+   }
+
+    $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,centro,idescolar,estado_sistema 
+    from jugadores where  equipo =".$equipo ; 
+   
+
+    $result = $conn->query($sql);
+    $count=1;         
+    $jugadores_array = array();   
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc() ) {
+        
+       $jugador_array = array();    
+       array_push($jugador_array,$row["id"]);
+       array_push($jugador_array,$row["nombres"]);
+       array_push($jugador_array,$row["apellidos"]);
+       array_push($jugador_array,$row["identificacion"]);
+       array_push($jugador_array,$row["fecha_nacimiento"]);
+       array_push($jugador_array,$row["direccion"]);
+       array_push($jugador_array,$row["equipo"]);
+       array_push($jugador_array,$row["url_img"]);
+       array_push($jugador_array,$row["url_adjunto1"]);
+       array_push($jugador_array,$row["centro"]);
+       array_push($jugador_array,$row["idescolar"]);
+       array_push($jugador_array,$row["estado_sistema"]);
+
+       array_push($jugadores_array,$jugador_array);
+     }		 
+    }
+      $conn->close();
+
+      return $jugadores_array;
 }
 
 ?>

@@ -360,3 +360,24 @@ function set_cerrar_mensaje_oculto(){
         caja.style.display = "none";
     }
 }
+
+function set_ver_plantilla(id_equipo){
+    location.href="plantilla_equipo.php?id_equipo="+id_equipo;
+   // location.href = "https://www.w3schools.com";
+}
+
+
+function set_seleccionar_2(equipo){
+    var accion = 2;//opcion para seleccionar los datos del usuario
+    $.post("ctrl/equipos.php"
+    ,{"equipo":equipo 
+    ,"accion":accion 
+    }
+    ,function(respuesta){
+        var json = $.parseJSON(respuesta);
+        console.log(json);  
+
+        var equipo_name                  = document.getElementById("equipo_name_span");
+        equipo_name.innerHTML=json[1];
+    }); 
+}

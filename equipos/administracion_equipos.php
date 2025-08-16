@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>administracion de eventos</title>
+    <title>administracion de equipos</title>
     <link rel="stylesheet" href="css/equipos.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/table_css.css">
@@ -128,6 +128,7 @@
                           <th>Nombre</th>
                           <th>Municipio</th>
                           <th>Sector</th>
+                          <th>*</th>
                         </tr>
                        <?php get_listar_equipos_todos();?>
                     </table>

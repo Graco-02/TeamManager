@@ -155,3 +155,38 @@ body{
     align-items: center;
     gap: 1rem;
 }
+
+
+#equipo_name_span{
+    font-size: 3rem;
+    font-style: 700;
+}
+
+
+.plantilla_jugadores_datos_jugador{
+   display: flex;
+   gap: 0.5rem;
+   margin-left: 1rem;
+}
+
+#plantilla_jugadores_datos_jugador_img{
+    width: 5rem;
+    border-radius: 25px;
+}
+
+.plantilla_jugadores_datos_jugador_headers{
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+#plantilla_jugadores_datos_jugador_datos{
+    display: flex;
+    flex-direction: column;
+}
+
+#contenedor_jugadores{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 1rem;
+}
