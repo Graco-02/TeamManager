@@ -147,6 +147,10 @@ body{
         margin-bottom: 0.1rem;
     }
 
+    #contenedor_jugadores{
+        grid-template-columns: repeat(2,1fr);
+    }
+
 }
 
 .flex{
@@ -165,8 +169,14 @@ body{
 
 .plantilla_jugadores_datos_jugador{
    display: flex;
-   gap: 0.5rem;
+   gap: 2rem;
    margin-left: 1rem;
+   padding: 1rem;
+   border-radius: 25px;
+   justify-content: center;
+   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+   -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+   -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);     
 }
 
 #plantilla_jugadores_datos_jugador_img{
@@ -182,8 +192,10 @@ body{
 
 #plantilla_jugadores_datos_jugador_datos{
     display: flex;
-    flex-direction: column;
+    flex-direction: column;  
 }
+
+
 
 #contenedor_jugadores{
     display: grid;
