@@ -39,6 +39,7 @@
                     <a href="../jugadores/administracion_jugadores.php?id_equipo=<?php echo $_SESSION['admin_id'];?>">jugadores</a> 
                     <a href="../eventos/administracion_eventos.php?id_equipo=<?php echo $_SESSION['admin_id'];?>">Eventos</a> 
                     <a href="../equipos/adsministracion_equipos_restringida.php">equipos</a> 
+                    <a href="../utilidades/logout.php">SALIR</a>                    
                 </div>
             </div>
         </header>
