@@ -19,6 +19,10 @@
           $usuario    = $_POST['usuario'];
           get_usuario($usuario);
          break;
+        case 3:
+          $usuario    = $_POST['usuario'];
+          get_eliminar_usuario($usuario);
+         break;         
        }
           
    }
@@ -68,14 +72,13 @@ function get_listar_usuarios_todos(){
         $fecalta   = $row["fecalta"];
         $estado    = $row["estado"];
           echo "<script> var usuario_js = '".$usuario."';</script>";
-
-
           echo "<tr>";
           echo "<td id='".$usuario."' name='fila'";
           echo 'onclick="set_seleccionar(usuario_js);">';
           echo $nombres_c;
           echo "</td>";
           echo "<td >$identificacion</td>";
+          echo "<td><button type='button' id='".$usuario."' onclick='set_eliminar_usuario(usuario_js);'>ELIMINAR</button></td>";
           echo "</tr> ";
       }		 
       
@@ -167,6 +170,89 @@ function get_validar_existencia($usuario){
    
      $conn->close();
      return $validacion;
+}
+
+ function get_eliminar_usuario($usuario){
+
+    //recupero los datos necesario para hacer el borrado de dicho usuario
+    $user_data = get_usuario_a_eliminar($usuario);
+     
+    $conn = conectar();
+      // Check connection
+     if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+     }
+ 
+     //PRIMERO SE ELIMINAN LOS REGISTROS DE EVENTOS DEL JUGADOR LUEGO LO DEMAS
+    $sql = "DELETE from relacion_equipo_evento where equipo=$user_data[1]"; 
+ 
+      $result = $conn->query($sql);
+       
+      if ($conn->query($sql) == TRUE) {		   
+         $sql = "DELETE from relacion_equipo_jugador_evento where equipo=$user_data[1]"; 
+              $result = $conn->query($sql);      
+         if ($conn->query($sql) == TRUE) {	
+
+            $sql = "DELETE from jugadores where equipo=$user_data[1]"; 
+            $result = $conn->query($sql);      
+            if ($conn->query($sql) == TRUE) {	
+                $sql = "DELETE from equipos where id=$user_data[1]"; 
+                $result = $conn->query($sql);     
+                if ($conn->query($sql) == TRUE) {	
+                  $sql = "DELETE from histori_log where usuario='".$user_data[0]."'"; 
+                  $result = $conn->query($sql);  
+                  if ($conn->query($sql) == TRUE) {	
+                    $sql = "DELETE from usu001 where usuario='".$user_data[0]."'"; 
+                    $result = $conn->query($sql);      
+                    if ($conn->query($sql) == TRUE) {	
+                       echo 'CORRECTO';
+                    }else{
+                       echo "Error Eliminacion tabla usuarios: " . $sql . "<br>" . $conn->error;
+                    }
+                  }
+                }
+            }
+         }
+      }
+        $conn->close();
+ }
+
+
+ function get_usuario_a_eliminar($usuario){
+   $conn = conectar();
+     // Check connection
+    if ($conn->connect_error) {
+         die("Connection failed: " . $conn->connect_error);
+    }
+
+     $sql_usuario = "SELECT usuario 
+     from usu001 
+     where usuario ='$usuario'"; 
+
+     $sql_equipo = "SELECT id 
+             FROM equipos 
+             WHERE nombre ='$usuario'"; 
+
+     $result = $conn->query($sql_usuario);
+     $count=1;   
+     $usuario_array = array();          
+     if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc() ) {
+         array_push($usuario_array,$row["usuario"]);
+         $result = $conn->query($sql_equipo);
+         if ($result->num_rows > 0) {
+             while($row = $result->fetch_assoc() ) {
+               array_push($usuario_array,$row["id"]);
+             }		 
+         }else{
+          array_push($usuario_array,0);
+         }
+        }		 
+     }
+   
+     $conn->close();
+     return $usuario_array; 
+     //echo json_encode($usuario_array);
 }
 
 ?>

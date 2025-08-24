@@ -94,6 +94,7 @@
                         <tr>
                           <th>Nombre</th>
                           <th>Identificacion</th>
+                          <th>X</th>
                         </tr>
                         <tr class="table-group-divider">
                         </tr>

@@ -156,3 +156,26 @@ function set_insertar_accion(usuario,accion_modulo,modulo,regant,regnew){
         location.reload();
  });
 }
+
+
+function set_eliminar_usuario(usuario){
+   var usuario_v = event.srcElement.id;
+   //alert(usuario_v);
+    var accion = 3;//opcion para seleccionar los datos del usuario
+        console.log('Usuario a eliminar = '+usuario_v);
+    $.post("ctrl/usuarios_ctrl.php"
+    ,{"usuario":usuario_v 
+    ,"accion":accion 
+    }
+    ,function(respuesta){
+       /* var json = $.parseJSON(respuesta);
+        console.log(json);*/
+         var resp = respuesta.trim();
+         if(resp=='CORRECTO'){
+              location.reload();
+              alert('A SIDO ELIMINADO EL USUARIO '+usuario_v);
+         }else{
+            alert(respuesta);
+         }
+    }); 
+}

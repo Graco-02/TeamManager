@@ -1,11 +1,21 @@
 <?php
 function conectar(){
    //local
+   
     $servername = "localhost";
     $username = "root";
     $password = "0287";
     $dbname = "teammanager";
   
+
+  //ONLINE
+/*
+    $servername = "localhost";
+    $username = "ifhuoccf_fferrer";
+    $password = "02Octubre**";
+    $dbname = "ifhuoccf_abasados";
+  */
+
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
     // Check connection
