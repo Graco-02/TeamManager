@@ -58,10 +58,10 @@
                        <fieldset>
                         <legend class="formulario_legend">Datos Personales</legend>
                             <label for="usuario_names" >Nombres</label>
-                             <input type="text" placeholder="FULANITO" class="input_formulario" name="usuario_names" id="usuario_names" required/>
+                             <input type="text" placeholder="Nombres" class="input_formulario" name="usuario_names" id="usuario_names" required/>
 
                             <label for="usuario_lastnames">Apellidos</label>
-                            <input type="text" placeholder="De Tal" class="input_formulario" name="usuario_lastnames" id="usuario_lastnames" required/>
+                            <input type="text" placeholder="Apellidos" class="input_formulario" name="usuario_lastnames" id="usuario_lastnames" required/>
 
                             <label for="usuario_identificacion">Identificacion</label>
                             <input type="text" placeholder="000-0000000-0" class="input_formulario" name="usuario_identificacion" id="usuario_identificacion"/>
@@ -70,10 +70,10 @@
                        <fieldset>
                          <legend class="formulario_legend">Datos Acceso</legend>
                          <label for="usuario_name_acces">Usuario</label>
-                         <input type="text" placeholder="FULANITO" class="input_formulario" name="usuario_name_acces" id="usuario_name_acces" required/>
+                         <input type="text" placeholder="Nombre de Usuario" class="input_formulario" name="usuario_name_acces" id="usuario_name_acces" required/>
 
                          <label for="usuario_clave">Clave</label>
-                         <input type="password" placeholder="De Tal" class="input_formulario" name="usuario_clave" id="usuario_clave" required/>
+                         <input type="password" placeholder="****" class="input_formulario" name="usuario_clave" id="usuario_clave" required/>
 
 
                          <label for="usuario_tipo" class="input_formulario">Tipo Acceso</label>

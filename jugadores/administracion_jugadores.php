@@ -70,12 +70,12 @@
                             <div class="flex">
                                 <div>
                                     <label for="jugador_name">Nombres</label>
-                                    <input type="text" placeholder="XXX" class="input_formulario" name="jugador_name" id="jugador_name" required/>
+                                    <input type="text" placeholder="Nombres" class="input_formulario" name="jugador_name" id="jugador_name" required/>
                                 </div>
 
                                 <div>
                                      <label for="jugador_lastname">Apellidos</label>
-                                      <input type="text" placeholder="XXX" class="input_formulario" name="jugador_lastname" id="jugador_lastname" required/>  
+                                      <input type="text" placeholder="Apellidos" class="input_formulario" name="jugador_lastname" id="jugador_lastname" required/>  
                                 </div>
                             </div>
 
@@ -85,7 +85,7 @@
 
                             <label for="jugador_cedula">Identificacion</label>
                             <div class="flex">
-                             <input type="text" placeholder="" class="input_formulario" name="jugador_cedula" id="jugador_cedula" required/>
+                             <input type="text" placeholder="000-0000000-0" class="input_formulario" name="jugador_cedula" id="jugador_cedula" required/>
                              <img src="../imagenes/lupa.png" alt="usuario" class="lupa" onclick="set_filtrar_listado();"/>
                             </div>
 
@@ -97,7 +97,7 @@
                                 </div>
                                 <div>
                                    <label for="jugador_telefono">Tel</label>
-                                      <input type="text" placeholder="XXX" class="input_formulario" name="jugador_telefono" id="jugador_telefono" required/>  
+                                      <input type="text" placeholder="809-000-0000" class="input_formulario" name="jugador_telefono" id="jugador_telefono" required/>  
                                 </div>
                             </div>
 
@@ -139,8 +139,8 @@
                         </fieldset>
 
                         <fieldset  class="flex" style="flex-direction: column;">
-                             <legend class="formulario_legend">Archivos Adjuntos</legend>
-                             <label for="adjunto1" id="label_adjunto">Adjunto 1</label>
+                             <legend class="formulario_legend">Certificado De Nacimiento</legend>
+                             <label for="adjunto1" id="label_adjunto">Certificado De Nacimiento</label>
                              <a id="adjunto_href" href="http://"></a>
                              <img src="../imagenes/usuario1.png" alt="usuario" id="adjunto_1" hidden/>
                              <input type="file" name="adjunto1" id="adjunto1" onchange="readURL2(this.value)"/>
