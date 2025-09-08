@@ -1,8 +1,12 @@
  <?php
+ 
+ 
+
    if(count($_POST)>0){
        include_once("../../utilidades/conexion.php");
        include_once("../../utilidades/alerta.php");
        $accion                           = $_POST['accion'];
+
 
        switch ($accion) {
         case 1://opcion 1-agregar nuevo usuario
@@ -47,6 +51,7 @@ function set_insert_usuario($usuario_names,$usuario_lastnames,$usuario_identific
 
 function get_listar_usuarios_todos(){
    $conn = conectar();
+   $user_type = $_SESSION['user_type'];
      // Check connection
     if ($conn->connect_error) {
          die("Connection failed: " . $conn->connect_error);
@@ -78,7 +83,11 @@ function get_listar_usuarios_todos(){
           echo $nombres_c;
           echo "</td>";
           echo "<td >$identificacion</td>";
-          echo "<td><button type='button' id='".$usuario."' onclick='set_eliminar_usuario(usuario_js);'>ELIMINAR</button></td>";
+
+          if ($user_type ==0){
+            echo "<td><button type='button' id='".$usuario."' onclick='set_eliminar_usuario(usuario_js);'>ELIMINAR</button></td>";
+          }
+
           echo "</tr> ";
       }		 
       

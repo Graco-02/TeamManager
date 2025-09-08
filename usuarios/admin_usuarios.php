@@ -26,7 +26,7 @@
         <header>
             <div id="header_contenido">
                 <div class="cabecera">
-                    <?php if( $user_type==0){?>
+                    <?php if( $user_type==0 || $user_type==2){?>
                         <a href="../administracion/administracion_admin_index.php"><img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/></a> 
                     <?php }else{?>
                         <a href="../equipos/adsministracion_equipos_restringida.php"><img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/></a> 
@@ -79,12 +79,14 @@
                          <label for="usuario_tipo" class="input_formulario">Tipo Acceso</label>
                          <select id="usuario_tipo" class="input_formulario" name="usuario_tipo">
                              <option value="0">Administrador</option>
+                             <option value="2">Director Tecnico</option>
                              <option value="1">Presidente del Club</option>
                          </select>
 
                        </fieldset>
-
-                       <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
+                        <?php if( $user_type==0 ){?>
+                           <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
+                        <?php }?>  
                        </div>
                 </section>
                 </form>

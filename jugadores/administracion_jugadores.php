@@ -30,7 +30,7 @@
                 <div class="cabecera">
 
 
-                    <?php if( $user_type==0){?>
+                    <?php if( $user_type==0 || $user_type==2){?>
                         <a href="../administracion/administracion_admin_index.php"><img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/></a> 
                     <?php }else{?>
                         <a href="../equipos/adsministracion_equipos_restringida.php"><img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/></a> 
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="menu_administracion_principal">
-                    <?php if( $user_type==0){?>
+                    <?php if( $user_type==0 || $user_type==2){?>
                         <a href="../usuarios/admin_usuarios.php">usuarios</a> 
                         <a href="../eventos/administracion_eventos.php">eventos</a> 
                         <a href="../equipos/administracion_equipos.php">equipos</a>  
@@ -135,7 +135,10 @@
                             <?php }?>    
 
 
-                            <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
+                             <?php if( $user_type==0 ){?>
+                                <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
+                             <?php }?>  
+
                         </fieldset>
 
                         <fieldset  class="flex" style="flex-direction: column;">

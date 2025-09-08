@@ -26,7 +26,7 @@
         <header>
             <div id="header_contenido">
                 <div class="cabecera">
-                    <?php if( $user_type==0){?>
+                    <?php if( $user_type==0 || $user_type==2){?>
                         <a href="../administracion/administracion_admin_index.php"><img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/></a> 
                     <?php }else{?>
                         <a href="../equipos/adsministracion_equipos_restringida.php"><img src="../imagenes/logo-abasado.png" alt="header_logo" id="header_logo"/></a> 

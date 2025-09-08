@@ -24,7 +24,7 @@ function set_validar_logging($user_name,$user_clave){
 
                         if($user_clave != $user_name){
                             get_equipo_validacion($_SESSION['usuario_logeado']);
-                            if($row["tipo"]==0){
+                            if($row["tipo"]==0 || $row["tipo"]==2){
                                 header("Location:administracion/administracion_admin_index.php");    
                             }else{
                                 header("Location:equipos/adsministracion_equipos_restringida.php");    

@@ -42,7 +42,7 @@
                 <img src="imagenes/logo user.png" alt="header_logo" id="login_img"/>  
                 <form action="" method="post" class="loging_formulario">
                          <label for="longin_name">usuario</label>
-                         <input type="text" placeholder="FULANITO" class="input_formulario" name="longin_name" id="longin_name"/>
+                         <input type="text" placeholder="USUARIO" class="input_formulario" name="longin_name" id="longin_name"/>
                          <label for="longin_clave">clave</label>
                          <input type="password" placeholder="CLAVE" class="input_formulario" name="longin_clave" id="longin_clave"/>
 
