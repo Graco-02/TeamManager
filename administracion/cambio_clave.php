@@ -4,12 +4,34 @@
     require_once("validacion_admin.php");
 
     session_start();
+    if(isset($_SESSION['usuario_logeado'])){
+    $usuario  = $_SESSION['usuario_logeado'];
+
+       
+     // Unset all of the session variables.
+     $_SESSION = array();
+     
+     // If it's desired to kill the session, also delete the session cookie.
+     // Note: This will destroy the session, and not just the session data!
+     if (ini_get("session.use_cookies")) {
+         $params = session_get_cookie_params();
+         setcookie(session_name(), '', time() - 42000,
+             $params["path"], $params["domain"],
+             $params["secure"], $params["httponly"]
+         );
+     }
+     
+     // Finally, destroy the session.
+     session_destroy();
+
 
     if(count($_POST)>0){
-        if (isset($_POST['longin_name']) && strlen($_POST['longin_name']) >= 5) {
-            if (isset($_POST['longin_clave']) && strlen($_POST['longin_clave']) >= 4) {
-                if(set_validar_caracteres($_POST['longin_name'],$_POST['longin_clave'])  && ($_POST['longin_clave'] != $_POST['longin_name'])){
-                    if(set_modificar_clave($_POST['longin_name'],$_POST['longin_clave'])){
+        if (isset($usuario) ) {
+            if (isset($_POST['longin_clave']) && strlen($_POST['longin_clave']) >= 4) {   
+              if (isset($_POST['longin_clave_c']) && strlen($_POST['longin_clave_c']) >= 4 
+              && $_POST['longin_clave_c'] == $_POST['longin_clave'] ) {     
+                if(set_validar_caracteres($usuario,$_POST['longin_clave'])  && ($_POST['longin_clave'] != $usuario)){
+                    if(set_modificar_clave($usuario,$_POST['longin_clave'])){
                         alert("Modificacion realizada");
                         header("Location:../index.php");    
                     }else{
@@ -18,6 +40,9 @@
                 }else{
                     alert("no se permiten caracteres ilegales, ademas de que la clave y el usuario no pueden ser iguales");
                 }
+              }else{
+                alert("las claves no son iguales");
+              }
             }else{
                 alert("la clave de usuario debe tener al menos 4 caracteres");
             }
@@ -50,14 +75,15 @@
         <div class="main_contenido_2">
             <h1>cambio de credenciales</h1>
             <form action="" method="post" class="loging_formulario">
-                     <label for="longin_name">usuario</label>
-                     <input type="text" placeholder="FULANITO" class="input_formulario" name="longin_name" id="longin_name"/>
                      <label for="longin_clave">clave</label>
                      <input type="password" placeholder="CLAVE" class="input_formulario" name="longin_clave" id="longin_clave"/>
-
+                     <label for="longin_clave_c">confirmar clave</label>
+                     <input type="password" placeholder="CLAVE" class="input_formulario" name="longin_clave_c" id="longin_clave_c"/>
                      <input type="submit" value="CAMBIAR" name="acceder_bt" class="buton_formulario input_formulario">
             </form>
         </div>
     </main>
 </body>
 </html>
+
+<?php } ?>
