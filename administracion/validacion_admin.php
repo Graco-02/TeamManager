@@ -30,9 +30,9 @@ function set_validar_logging($user_name,$user_clave){
                                 header("Location:equipos/adsministracion_equipos_restringida.php");    
                             }
                         }else{
-                            alert('el usuario y la clave son iguales deben ser cambiadas');
+                           // alert('el usuario y la clave son iguales deben ser cambiadas');
                             header("Location:administracion/cambio_clave.php");    
-                            $validacion=TRUE; 
+                           // $validacion=TRUE; 
                         }
                     } else {
                         $validacion=FALSE; 

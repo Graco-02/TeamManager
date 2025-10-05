@@ -135,7 +135,7 @@
                             <?php }?>    
 
 
-                             <?php if( $user_type==0 ){?>
+                             <?php if( $user_type==0 || $user_type==1){?>
                                 <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
                              <?php }?>  
 

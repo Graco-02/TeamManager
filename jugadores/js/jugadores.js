@@ -4,6 +4,7 @@ let fichero_seleccionado2 ="" ;
 let user_type = 0;
 let regant_global='';
 let regnew_global='';
+let estado_jugador=false;
 
 function set_insertar(){
     var jugadore_name              = document.getElementById("jugador_name").value;
@@ -44,45 +45,48 @@ function set_insertar(){
         jugador_sistem_estatus        = document.getElementById("jugador_sistem_estatus").value;
     }
 
-    
-    if(jugadore_name.length>=3 && jugador_lastname.length>=3 && jugador_cedula.length>=10 && jugador_fecha_nacimiento.length>=10){
-        var formData = new FormData();
-        var file_data = $('#pic').prop('files')[0];
-        formData.append('file',file_data);
-
-        $.ajax({
-            url: '../utilidades/upload.php',
-            type: 'post',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                var ruta ='';
-                if(file_data!=null){
-                    ruta=response;
-
-                }else{
-                     ruta = fichero_seleccionado;
+    if(estado_jugador == false || user_type==0){
+        if(jugadore_name.length>=3 && jugador_lastname.length>=3 && jugador_cedula.length>=10 && jugador_fecha_nacimiento.length>=10){
+            var formData = new FormData();
+            var file_data = $('#pic').prop('files')[0];
+            formData.append('file',file_data);
+        
+            $.ajax({
+                url: '../utilidades/upload.php',
+                type: 'post',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    var ruta ='';
+                    if(file_data!=null){
+                        ruta=response;
+                    
+                    }else{
+                         ruta = fichero_seleccionado;
+                    }
+                    set_subir_adjunto1(jugadore_name,
+                                       jugador_lastname,
+                                       jugador_fecha_nacimiento,
+                                       jugador_cedula,
+                                       jugador_direccion,
+                                       jugador_equipo,
+                                       accion,
+                                       ruta,
+                                       jugador_estatus,
+                                       jugador_telefono,
+                                       jugador_centro,
+                                       jugador_evento,
+                                       jugador_id_centro,
+                                       jugador_sistem_estatus
+                                    );
                 }
-                set_subir_adjunto1(jugadore_name,
-                                   jugador_lastname,
-                                   jugador_fecha_nacimiento,
-                                   jugador_cedula,
-                                   jugador_direccion,
-                                   jugador_equipo,
-                                   accion,
-                                   ruta,
-                                   jugador_estatus,
-                                   jugador_telefono,
-                                   jugador_centro,
-                                   jugador_evento,
-                                   jugador_id_centro,
-                                   jugador_sistem_estatus
-                                );
-            }
-        });
+            });
+        }else{
+            alert("los campos nombres,apellidos deben tener al menos 3 caractesres, el campo identifficacion minimo 10 al igual que debe selecionar una fecha de nacimiento formato YYYY-MM-DD");
+        }
     }else{
-        alert("los campos nombres,apellidos deben tener al menos 3 caractesres, el campo identifficacion minimo 10 al igual que debe selecionar una fecha de nacimiento formato YYYY-MM-DD");
+          alert("El jugador ya ha sido validado, no pueden realizar cambios!!, contacte con el administrador");
     }
     
 }
@@ -142,8 +146,11 @@ function set_seleccionar(id_seleccionado){
         jugador_sistem_estatus.value        = json[13];
 
 
-        if(json[13]==1 && user_type==1){
+        if(json[13]==1){
               jugador_sistem_estatus.innerHTML = "VALIDADO"; 
+              estado_jugador=true;
+        }else{
+            estado_jugador=false;
         }
 
         if(json[7]!=null && json[7].length>0){
@@ -276,7 +283,7 @@ function set_subir_adjunto1(jugadore_name,jugador_lastname,jugador_fecha_nacimie
             if((fichero_seleccionado2!=null && fichero_seleccionado2.length>0) && user_type==1){
                 ruta2 = fichero_seleccionado2;
             }
-            
+            console.log('archivos subidos ahora intento agregar');
             set_agregar_datos_php(jugadore_name,jugador_lastname,jugador_fecha_nacimiento,identificacion,jugador_direccion,jugador_equipo,accion,ruta,ruta2,jugador_estatus,jugador_telefono,jugador_centro,jugador_evento,jugador_id_centro,jugador_sistem_estatus);
         }
     });
