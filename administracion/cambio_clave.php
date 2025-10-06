@@ -8,23 +8,6 @@
     $usuario  = $_SESSION['usuario_logeado'];
 
        
-     // Unset all of the session variables.
-     $_SESSION = array();
-     
-     // If it's desired to kill the session, also delete the session cookie.
-     // Note: This will destroy the session, and not just the session data!
-     if (ini_get("session.use_cookies")) {
-         $params = session_get_cookie_params();
-         setcookie(session_name(), '', time() - 42000,
-             $params["path"], $params["domain"],
-             $params["secure"], $params["httponly"]
-         );
-     }
-     
-     // Finally, destroy the session.
-     session_destroy();
-
-
     if(count($_POST)>0){
         if (isset($usuario) ) {
             if (isset($_POST['longin_clave']) && strlen($_POST['longin_clave']) >= 4) {   
@@ -33,6 +16,23 @@
                 if(set_validar_caracteres($usuario,$_POST['longin_clave'])  && ($_POST['longin_clave'] != $usuario)){
                     if(set_modificar_clave($usuario,$_POST['longin_clave'])){
                         alert("Modificacion realizada");
+
+                        // Unset all of the session variables.
+                        $_SESSION = array();
+                        
+                        // If it's desired to kill the session, also delete the session cookie.
+                        // Note: This will destroy the session, and not just the session data!
+                        if (ini_get("session.use_cookies")) {
+                            $params = session_get_cookie_params();
+                            setcookie(session_name(), '', time() - 42000,
+                                $params["path"], $params["domain"],
+                                $params["secure"], $params["httponly"]
+                            );
+                        }
+                        
+                        // Finally, destroy the session.
+                        session_destroy();
+
                         header("Location:../index.php");    
                     }else{
                         alert("no se pudo realizar la modificacion");
@@ -50,6 +50,8 @@
             alert("el nombre de usuario debe tener al menos 5 caracteres");
         }
     }
+
+    
 ?>
 
 <!DOCTYPE html>
