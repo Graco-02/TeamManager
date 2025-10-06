@@ -101,7 +101,7 @@ function set_insert_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_naci
     if ($conn->query($sql) == TRUE) {
       $id=$conn->insert_id;		
 
-      if($jugador_evento > 0 && $jugador_sistem_estatus==1){
+      if($jugador_evento > 0){
         if(set_agregar_relacion_equipo_evento($id,$jugador_equipo,$jugador_evento)){
           echo  'AGREGADO CORRECTO';
         }else{
@@ -236,7 +236,7 @@ function get_listar_jugadores_todos($id_equipo){
          // # Cogemos el identificador con que se ha guardado
         // $id=$conn->insert_id;	
         if(strlen($jugador_evento) > 0){
-          if($jugador_evento > 0 && $jugador_sistem_estatus==1){
+          if($jugador_evento > 0 ){
              if(set_agregar_relacion_equipo_evento($id,$jugador_equipo,$jugador_evento)){
                echo  'MODIFICACION REALIZADA';
              }else{

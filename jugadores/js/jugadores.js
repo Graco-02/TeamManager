@@ -144,14 +144,27 @@ function set_seleccionar(id_seleccionado){
         jugador_centro.value                = json[11];
         jugador_id_centro.value             = json[12];
         jugador_sistem_estatus.value        = json[13];
+        //console.log('jugador estatus = '+json[13]);
 
-
-        if(json[13]==1){
-              jugador_sistem_estatus.innerHTML = "VALIDADO"; 
-              estado_jugador=true;
+        if(user_type==0){
+           if(json[13]=='1'){
+           //    jugador_sistem_estatus.innerHTML = "VALIDADO"; 
+               estado_jugador=true;
+              // console.log('estatus validado');
+           }else{
+               estado_jugador=false;
+            //   jugador_sistem_estatus.innerHTML = "SIN VALIDAR"; 
+           }
         }else{
-            estado_jugador=false;
+           if(json[13]=='1'){
+               jugador_sistem_estatus.innerHTML = "VALIDADO"; 
+               estado_jugador=true;
+           }else{
+               estado_jugador=false;
+               jugador_sistem_estatus.innerHTML = "SIN VALIDAR"; 
+           }
         }
+
 
         if(json[7]!=null && json[7].length>0){
             usuario_logo.src = "../imagenes_subidas/"+json[7];
