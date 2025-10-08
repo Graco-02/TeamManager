@@ -86,7 +86,8 @@ function set_insertar(){
             alert("los campos nombres,apellidos deben tener al menos 3 caractesres, el campo identifficacion minimo 10 al igual que debe selecionar una fecha de nacimiento formato YYYY-MM-DD");
         }
     }else{
-          alert("El jugador ya ha sido validado, no pueden realizar cambios!!, contacte con el administrador");
+         // alert("El jugador ya ha sido validado, no pueden realizar cambios!!, contacte con el administrador");
+         set_modficacion_restringida();
     }
     
 }
@@ -462,6 +463,39 @@ function set_eliminar_jugador(id_jugador){
         console.log(respuesta);
         if (respuesta=='CORRECTO') {
            set_insertar_accion('','B','JUGADORES','','');
+        }
+
+    }); 
+}
+
+function set_modficacion_restringida(){
+    var accion = 0;//opcion para seleccionar los datos del usuario
+    var jugador_equipo             = document.getElementById("jugador_equipo").value ;
+    var jugador_evento             = document.getElementById("jugador_evento").value ;
+
+
+    if(jugador_evento!='x' && jugador_evento!='0'){
+       // alert('modificacion restringida '+elento_seleccionado+' '+jugador_equipo+' '+ jugador_evento);
+        accion = 6;
+    }else{
+       // alert('elimina eventos '+elento_seleccionado+' '+jugador_equipo+' '+ jugador_evento);
+        accion = 7;
+    }
+    
+
+    $.post("ctrl/jugadores.php"
+    ,{"id":elento_seleccionado 
+    ,"jugador_equipo":jugador_equipo 
+    ,"jugador_evento":jugador_evento 
+    ,"accion":accion 
+    }
+    ,function(respuesta){
+        console.log(respuesta);
+        if (respuesta=='CORRECTO') {
+           set_insertar_accion('','M','JUGADORES','','');
+           alert('Modificacion realziada');
+        }else{
+            alert(respuesta);
         }
 
     }); 

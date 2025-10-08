@@ -7,8 +7,8 @@
 
     $randomString = generateRandomString(15); 
 
-    move_uploaded_file($_FILES['file']['tmp_name'], '../imagenes_subidas/'. $_FILES['file']['name'].$randomString);
-    echo $_FILES['file']['name'].$randomString;
+    move_uploaded_file($_FILES['file']['tmp_name'], '../imagenes_subidas/'.$randomString.$_FILES['file']['name']);
+    echo $randomString.$_FILES['file']['name'];
 
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

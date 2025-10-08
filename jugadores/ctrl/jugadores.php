@@ -88,6 +88,19 @@ if(count($_POST)>0){
       case 5:
         $jugador        = $_POST['jugador'];
         get_eliminar_jugador($jugador); 
+        break;
+      case 6:
+        $id                         = $_POST["id"];
+        $jugador_equipo             = $_POST["jugador_equipo"];
+        $jugador_evento             = $_POST["jugador_evento"];
+        set_modificar_jugador_restringido($id,$jugador_equipo,$jugador_evento);    
+        break;     
+      case 7:
+        $id                         = $_POST["id"];
+        $jugador_equipo             = $_POST["jugador_equipo"];
+        $jugador_evento             = $_POST["jugador_evento"];
+        set_sacar_de_evento($jugador_equipo,$id,$jugador_evento);     
+        break;            
     }
        
 }
@@ -212,7 +225,9 @@ function get_listar_jugadores_todos($id_equipo){
         $conn->close();
  }
  
- function set_modificar_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,$jugador_direccion,$jugador_equipo,$ruta,$ruta2,$id,$jugador_estatus,$jugador_telefono,$jugador_centro,$jugador_evento,$jugador_id_centro,$jugador_sistem_estatus){
+ function set_modificar_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,
+ $jugador_direccion,$jugador_equipo,$ruta,$ruta2,$id,$jugador_estatus,$jugador_telefono,
+ $jugador_centro,$jugador_evento,$jugador_id_centro,$jugador_sistem_estatus){
     $conn = conectar();
  
        $sql="UPDATE jugadores SET nombres='$jugadore_name',
@@ -237,11 +252,15 @@ function get_listar_jugadores_todos($id_equipo){
         // $id=$conn->insert_id;	
         if(strlen($jugador_evento) > 0){
           if($jugador_evento > 0 ){
-             if(set_agregar_relacion_equipo_evento($id,$jugador_equipo,$jugador_evento)){
-               echo  'MODIFICACION REALIZADA';
+             if($jugador_evento=='x'){
+               set_sacar_de_evento($jugador_equipo,$id,$jugador_evento);
              }else{
-               echo  'ERROR EN MODIFICACION';
-             }
+               if(set_agregar_relacion_equipo_evento($id,$jugador_equipo,$jugador_evento)){
+                 echo  'MODIFICACION REALIZADA';
+               }else{
+                 echo  'ERROR EN MODIFICACION';
+               }
+            }
             }else{
               echo  'MODIFICACION REALIZADA';
             }   
@@ -435,9 +454,12 @@ function get_listar_eventos_jugador($equipo,$jugador){
 
         // echo "</tr> ";
      }
+
      if($count==0){
         echo "<option value=".'0'.">".'NO HAY EVENTOS DISPONIBLES'."</option>"; 
-     }		 
+     }else{
+            echo "<option value=".'x'.">".'SACAR DE EVENTOS'."</option>"; 
+     }
      
     }
   
@@ -466,5 +488,29 @@ function get_listar_eventos_jugador($equipo,$jugador){
       }
         $conn->close();
  }
+
+ function set_modificar_jugador_restringido($id,$jugador_equipo,$jugador_evento){
+
+  if(set_agregar_relacion_equipo_evento($id,$jugador_equipo,$jugador_evento)){
+    echo  'MODIFICACION REALIZADA';
+  }else{
+    echo  'ERROR EN MODIFICACION';
+  }
+ }
+
+
+ function set_sacar_de_evento($equipo,$jugador,$evento){
+    $conn = conectar();
+ 
+  $sql="DELETE FROM relacion_equipo_jugador_evento WHERE jugador =".$jugador." AND equipo =".$equipo;
+
+  if ($conn->query($sql) == TRUE) {		   
+      echo  'MODIFICACION REALIZADA';
+  }   else {
+    echo "Error Modificacion: " . $sql . "<br>" . $conn->error;
+  }
+}
+
+
 
 ?>
