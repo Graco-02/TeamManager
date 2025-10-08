@@ -221,6 +221,7 @@ function set_agregar_fila_jugador(jugador_name,jugador_lastname,jugador_identifi
     celda5.innerHTML ="VER";
 
     celda4.onclick = function() { set_sacar_jugador(id);};
+    //celda4.onclick = function() { alert("se va a asar el id = "+id);};
     celda5.onclick = function() { location.href="../jugadores/visor_jugador.php?jugador="+id};
 
     fila.appendChild(celda1);
@@ -259,11 +260,12 @@ function set_relacion_equipo(){
 }
 
 function set_sacar_jugador(id){
-    var accion = 5;//opcion para eliminar jugador
+    var accion = 6;//opcion para eliminar jugador
 
     $.post("ctrl/equipos.php"
     ,{"equipo":id_seleccionado 
     ,"jugador":id 
+    ,"evento":evento_seleccionado
     ,"accion":accion 
     }
     ,function(respuesta){

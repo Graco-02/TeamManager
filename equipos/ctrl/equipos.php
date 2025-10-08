@@ -53,7 +53,13 @@ if(count($_POST)>0){
           $equipo        = $_POST['equipo'];
           $jugador       = $_POST['jugador'];
           set_eliminar_jugador($equipo,$jugador);
-        break ;         
+        break ;       
+      case 6:
+          $equipo        = $_POST['equipo'];
+          $jugador       = $_POST['jugador'];
+          $evento       = $_POST['evento'];
+          set_sacar_de_evento($equipo,$jugador,$evento);
+        break ;            
     }
        
 }
@@ -299,6 +305,18 @@ function set_eliminar_jugador($equipo,$jugador_id){
     if ($conn->query($sql) == TRUE) {	
       echo  'ELIMINACION REALIZADA';
     }
+  }   else {
+    echo "Error Modificacion: " . $sql . "<br>" . $conn->error;
+  }
+}
+
+function set_sacar_de_evento($equipo,$jugador,$evento){
+    $conn = conectar();
+ 
+  $sql="DELETE FROM relacion_equipo_jugador_evento WHERE jugador =".$jugador." AND equipo =".$equipo." AND evento=".$evento;
+
+  if ($conn->query($sql) == TRUE) {		   
+      echo  'ELIMINACION REALIZADA';
   }   else {
     echo "Error Modificacion: " . $sql . "<br>" . $conn->error;
   }
