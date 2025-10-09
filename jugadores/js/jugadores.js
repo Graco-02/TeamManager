@@ -5,6 +5,9 @@ let user_type = 0;
 let regant_global='';
 let regnew_global='';
 let estado_jugador=false;
+let id_equipo=0;
+let desde=0;
+let paginacion=15;
 
 function set_insertar(){
     var jugadore_name              = document.getElementById("jugador_name").value;
@@ -430,6 +433,37 @@ function set_seleccionar_jugador(id_seleccionado){
         }
     }); 
 }
+
+function set_lista_jugadores_paginable(){
+    var accion = 8;//opcion para seleccionar los datos del usuario
+    //console.log("id_equipo "+id_equipo,"desde "+desde,"paginacion "+paginacion);
+    $.post("ctrl/jugadores.php"
+    ,{"id_equipo":id_equipo 
+    ,"desde":desde 
+    ,"paginacion":paginacion 
+    ,"accion":accion 
+    }
+    ,function(respuesta){
+            var listado_jugadores          = document.getElementById("lista_jugadores");
+            //console.log(respuesta);
+            if(desde>=0){
+                listado_jugadores.innerHTML = respuesta;
+            }
+    }); 
+}
+
+function set_paginar_adelante(){
+    desde+=paginacion;
+   // desde+=1;
+    set_lista_jugadores_paginable();
+}
+
+function set_paginar_atras(){
+    desde-=paginacion;
+   // desde-=1;
+    set_lista_jugadores_paginable();
+}
+
 
 function set_insertar_accion(usuario,accion_modulo,modulo,regant,regnew){
     var accion = 1;

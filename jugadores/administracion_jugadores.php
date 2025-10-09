@@ -23,6 +23,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <script src="js/jugadores.js"></script>
     <script>user_type=<?php echo $user_type; ?></script>
+    <script>id_equipo=<?php echo $equipo; ?></script>
 </head>
 <body>
         <header>
@@ -159,13 +160,20 @@
                               <th>Nombres</th>
                               <th>Apellidos</th>
                               <th>Identificacion</th>
+                              <th>Equipo</th>
                               <th></th>
                             </tr>
                         </thead>
                         <tbody id="lista_jugadores">
-                             <?php get_listar_jugadores_todos($equipo);?>
+                            <!--<script>set_lista_jugadores_paginable();</script> -->
+                            <?php get_listar_jugadores_todos($equipo);?>
                         </tbody>
                     </table>
+                    <!-- 
+                    <div class='flex'>
+                        <input type='button' class='input_formulario_paginables' onclick='set_paginar_atras()' value='<<<'>
+                         <input type='button' class='input_formulario_paginables' onclick='set_paginar_adelante()' value='>>>'>
+                    </div> -->
                 </section>
 
             </div>

@@ -91,6 +91,10 @@ body{
     display: flex;
 }
 
+.input_formulario_paginables{
+    width: 100%;
+}
+
 @media (max-width:600px) {    
     .main_contenido{
         display: flex;
