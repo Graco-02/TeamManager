@@ -198,8 +198,8 @@ function set_relacion_equipo(){
 function set_linkar(id_equipo,cantidad_jugadores){
     var accion = 5;
 
-    if(cantidad_jugadores>document.getElementById("evento_num_jug_equipos").value){
-        alert("Este equipo excede el limite de jugadores no se permite agregar al evento");
+    if(Number(cantidad_jugadores)>=Number(document.getElementById("evento_num_jug_equipos").value)){
+        alert("Este equipo excede el limite de jugadores no se permite agregar al evento ahora mismo tiene "+cantidad_jugadores);
     }else{
         $.post("ctrl/eventos.php"
         ,{"evento_id":elento_id_seleccionado 

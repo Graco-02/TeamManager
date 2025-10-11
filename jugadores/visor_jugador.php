@@ -4,6 +4,7 @@
       require_once("ctrl/jugadores.php");
       $jugador=0;
       session_start();
+      if(isset($_SESSION['user_type'])){
       if(count($_GET)>0){
          $jugador = $_GET['jugador'];
       }
@@ -155,3 +156,4 @@
 
 </body>
 </html>
+<?php }?>

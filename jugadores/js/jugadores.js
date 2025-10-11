@@ -460,7 +460,9 @@ function set_paginar_adelante(){
 
 function set_paginar_atras(){
     desde-=paginacion;
-   // desde-=1;
+   if(desde<0){
+    desde=0;
+   }
     set_lista_jugadores_paginable();
 }
 

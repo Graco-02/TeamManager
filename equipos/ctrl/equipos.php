@@ -111,7 +111,7 @@ function get_listar_equipos_todos(){
            echo "</td>";
            echo "<td >$municipio</td>";
            echo "<td >$sector</td>";
-           echo "<td><button type='button' id='".$id."' onclick='set_ver_plantilla(usuario_js);'>PLANTILLA</button></td>";
+           echo "<td><button type='button' onclick='set_ver_plantilla(".$id.");'>PLANTILLA</button></td>";
            echo "</tr> ";
        }		 
        

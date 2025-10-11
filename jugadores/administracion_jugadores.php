@@ -4,6 +4,7 @@
       require_once("ctrl/jugadores.php");
       $equipo=0;
       session_start();
+      if(isset($_SESSION['user_type'])){
       if(count($_GET)>0){
          $equipo = $_GET['id_equipo'];
       }
@@ -165,15 +166,15 @@
                             </tr>
                         </thead>
                         <tbody id="lista_jugadores">
-                            <!--<script>set_lista_jugadores_paginable();</script> -->
-                            <?php get_listar_jugadores_todos($equipo);?>
+                            <script>set_lista_jugadores_paginable();</script>
+                          <!--   <?php get_listar_jugadores_todos($equipo);?> -->
                         </tbody>
                     </table>
-                    <!-- 
+                    
                     <div class='flex'>
                         <input type='button' class='input_formulario_paginables' onclick='set_paginar_atras()' value='<<<'>
                          <input type='button' class='input_formulario_paginables' onclick='set_paginar_adelante()' value='>>>'>
-                    </div> -->
+                    </div>
                 </section>
 
             </div>
@@ -182,3 +183,4 @@
 
 </body>
 </html>
+<?php }?>

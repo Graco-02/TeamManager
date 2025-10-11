@@ -3,6 +3,7 @@
       require_once("../utilidades/alerta.php");
       require_once("ctrl/equipos.php");
       session_start();
+      if(isset($_SESSION['user_type'])){
       $user_type = $_SESSION['user_type'];
       $usuario_logeado = $_SESSION['usuario_logeado'];
 ?>
@@ -160,3 +161,4 @@
         </main>
 </body>
 </html>
+<?php } ?>

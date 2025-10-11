@@ -3,6 +3,7 @@
       require_once("../utilidades/alerta.php");
       //require_once("ctrl/histlog.php");
       session_start();
+      if(isset($_SESSION['user_type'])){
       $user_type = $_SESSION['user_type'];
 
       if(isset($_GET['id_equipo'])){
@@ -116,3 +117,4 @@
 
 </body>
 </html>
+<?php }?>

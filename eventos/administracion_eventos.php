@@ -3,12 +3,18 @@
       require_once("../utilidades/alerta.php");
       require_once("ctrl/eventos.php");
       session_start();
+
+      if(isset($_SESSION['user_type'])){
       $user_type = $_SESSION['user_type'];
       $equipo_seleccionado=0;
+
+
 
       if(isset($_GET['admin_id']) && $user_type!=0){
         $equipo_seleccionado=$_GET['admin_id'];
       }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -159,3 +165,5 @@
 
 </body>
 </html>
+
+<?php }?>

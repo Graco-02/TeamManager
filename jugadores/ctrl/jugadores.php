@@ -179,7 +179,7 @@ function get_listar_jugadores_todos_paginable($id_equipo,$desde,$total_paginacio
            $datos = $datos."<script> let usuario_js = '".$id."';</script>";
            $datos = $datos."<tr>";
            $datos = $datos."<td id='".$id."' name='fila'";
-           $datos = $datos.'onclick="set_seleccionar(usuario_js);">';
+           $datos = $datos.'onclick="set_seleccionar('.$id.');">';
            $datos = $datos.$nombre;
            $datos = $datos."</td>";
            $datos = $datos."<td >".$apellidos."</td>";

@@ -4,6 +4,7 @@
       require_once("../utilidades/conexion.php");
       require_once("../utilidades/alerta.php");
       require_once("ctrl/usuarios_ctrl.php");
+      if(isset($_SESSION['user_type'])){
       $user_type = $_SESSION['user_type'];
       $equipo_seleccionado=0;
 ?>
@@ -112,3 +113,4 @@
     </html>
 <?php }else{
     header("Location:../index.php");}?>
+<?php }?>    

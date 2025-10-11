@@ -1,7 +1,6 @@
 <?php
 
-
- if(isset( $_SESSION['usuario_logeado'])){
+// if(isset( $_SESSION['user_type'])){
     // Initialize the session.
     // If you are using session_name("something"), don't forget it now!
     session_start();
@@ -21,8 +20,9 @@
     
     // Finally, destroy the session.
     session_destroy();
-}
+    header("location:../index.php");
+//}
 
-header("location:../index.php");
+
 
 ?>
