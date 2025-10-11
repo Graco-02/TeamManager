@@ -166,11 +166,17 @@ function set_agregar_fila(evento_name,municipio,sector,id,validacion,cantidad_ju
         }else{
             fila.appendChild(celda5);
         }
+
+        fila.appendChild(celda7);
+        tableRow.appendChild(fila);
+    }else{
+        if(user_type != 0 ){
+            if(validacion!=0){
+                fila.appendChild(celda7);
+                tableRow.appendChild(fila);
+            }
+        }
     }
-
-    fila.appendChild(celda7);
-
-    tableRow.appendChild(fila);
 }
 
 function set_relacion_equipo(){
