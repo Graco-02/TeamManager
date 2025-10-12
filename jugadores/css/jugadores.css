@@ -95,6 +95,18 @@ body{
     width: 100%;
 }
 
+#lista_jugadores{
+   text-transform: uppercase;
+}
+
+
+.flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
 @media (max-width:600px) {    
     .main_contenido{
         display: flex;
@@ -107,11 +119,4 @@ body{
         margin-bottom: 0.1rem;
     }
 
-}
-
-.flex{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
 }

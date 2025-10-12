@@ -50,7 +50,7 @@ function set_insertar(){
 
     if(estado_jugador == false || user_type==0){
         console.log('accion seleccionada '+jugador_evento);
-        if(jugador_evento == 'y'){//si el jugador no esta valdiado no se permite seleccionar evento ni sacrlo de eventos
+        if(jugador_evento == 'y' || jugador_evento == '0'){//si el jugador no esta valdiado no se permite seleccionar evento ni sacrlo de eventos
         if(jugadore_name.length>=3 && jugador_lastname.length>=3 && jugador_cedula.length>=10 && jugador_fecha_nacimiento.length>=10){
             var formData = new FormData();
             var file_data = $('#pic').prop('files')[0];
