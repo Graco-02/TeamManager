@@ -135,23 +135,7 @@ body{
     align-items: center;
 }
 
-@media (max-width:600px) {    
-    .main_contenido{
-        display: flex;
-        flex-direction: column;
-    }
 
-    .input_formulario{
-        padding-top: 0.1rem;
-        padding-bottom: 0.1rem;
-        margin-bottom: 0.1rem;
-    }
-
-    #contenedor_jugadores{
-        grid-template-columns: repeat(2,1fr);
-    }
-
-}
 
 .flex{
     display: flex;
@@ -180,7 +164,7 @@ body{
 }
 
 #plantilla_jugadores_datos_jugador_img{
-    width: 3rem;
+    width: 5rem;
     border-radius: 25px;
 }
 
@@ -195,10 +179,31 @@ body{
     flex-direction: column;  
 }
 
-
-
 #contenedor_jugadores{
     display: grid;
     grid-template-columns: repeat(3,1fr);
     gap: 1rem;
+}
+
+.titulos_span{
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+@media (max-width:600px) {    
+    .main_contenido{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .input_formulario{
+        padding-top: 0.1rem;
+        padding-bottom: 0.1rem;
+        margin-bottom: 0.1rem;
+    }
+
+    #contenedor_jugadores{
+        grid-template-columns: repeat(1,1fr);
+    }
+
 }

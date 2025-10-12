@@ -48,17 +48,17 @@
             <hr>
             <br><br>     
             <section id="contenedor_jugadores">
-                <?php get_planilla_jugadores($equipo_seleccionado);?>
-          <!--      <div class="plantilla_jugadores_datos_jugador">
+                <?php get_planilla_jugadores($equipo_seleccionado);?> 
+            <!--     <div class="plantilla_jugadores_datos_jugador">
                     <img src="../imagenes/usuario1.png" alt="usuario" id="plantilla_jugadores_datos_jugador_img"/>
                     <div id="plantilla_jugadores_datos_jugador_datos">
-                        <span class="plantilla_jugadores_datos_jugador_headers" id="plantilla_jugadores_datos_jugador_nombre">jugador</span>
-                        <span class="plantilla_jugadores_datos_jugador_headers" id="plantilla_jugadores_datos_jugador_fecnac">2010-01-01</span>
-                        <span class="plantilla_jugadores_datos_jugador_headers" id="plantilla_jugadores_datos_jugador_identificaion">001-0000000-0</span>
-                        <span class="plantilla_jugadores_datos_jugador_headers" id="plantilla_jugadores_datos_jugador_centro">centro escolar</span>
-                        <span class="plantilla_jugadores_datos_jugador_headers" id="plantilla_jugadores_datos_jugador_centro_id">001-0000000-0</span>
+                        <span class="plantilla_jugadores_datos_jugador_headers" id="plantilla_jugadores_datos_jugador_nombre"><span class="titulos_span">Nombre :&nbsp;</span>jugador</span>
+                        <span class="plantilla_jugadores_datos_jugador_headers" id="plantilla_jugadores_datos_jugador_fecnac"><span class="titulos_span">fecha de nacimiento :&nbsp;</span>2010-01-01</span>
+                        <span class="plantilla_jugadores_datos_jugador_headers" id="plantilla_jugadores_datos_jugador_identificaion"><span class="titulos_span">identificacion :&nbsp;</span>001-0000000-0</span>
+                        <span class="plantilla_jugadores_datos_jugador_headers" id="plantilla_jugadores_datos_jugador_centro"><span class="titulos_span">centro :&nbsp;</span>centro escolar</span>
+                        <span class="plantilla_jugadores_datos_jugador_headers" id="plantilla_jugadores_datos_jugador_centro_id"><span class="titulos_span">id centro :&nbsp;</span>001-0000000-0</span>
                     </div>
-                </div>     -->        
+                </div>    -->        
             </section>
 
         </main>

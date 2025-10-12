@@ -329,15 +329,23 @@ function get_planilla_jugadores($equipo){
       $equipo_array_jugadores = get_jugadores_equipo_solo_lista($equipo) ;
       foreach ($equipo_array_jugadores as $jugador) {
        # code...
+           $estado_sistema="";
+           if($jugador[11]=='1') {
+            $estado_sistema="VALIDADO";
+           }else{
+              $estado_sistema= "EN REVISION";
+           }
+
            echo '<div class="plantilla_jugadores_datos_jugador">';
            echo "<img src='../imagenes_subidas/".$jugador[7]."' alt='usuario' id='plantilla_jugadores_datos_jugador_img'/>";
            echo "<div id='plantilla_jugadores_datos_jugador_datos'>";
-           echo "<span class='plantilla_jugadores_datos_jugador_headers' id='plantilla_jugadores_datos_jugador_nombre'>"
+           echo "<span class='plantilla_jugadores_datos_jugador_headers' id='plantilla_jugadores_datos_jugador_nombre'><span class='titulos_span'>Nombre :&nbsp;</span>"
            .$jugador[1]." , ".$jugador[2]."</span>";
-           echo "<span class='plantilla_jugadores_datos_jugador_headers' id='plantilla_jugadores_datos_jugador_fecnac'>".$jugador[4]."</span>";
-           echo "<span class='plantilla_jugadores_datos_jugador_headers' id='plantilla_jugadores_datos_jugador_identificaion'>".$jugador[3]."</span>";
-           echo "<span class='plantilla_jugadores_datos_jugador_headers' id='plantilla_jugadores_datos_jugador_centro'>".$jugador[9]."</span>";
-           echo "<span class='plantilla_jugadores_datos_jugador_headers' id='plantilla_jugadores_datos_jugador_centro_id'>".$jugador[10]."</span>";
+           echo "<span class='plantilla_jugadores_datos_jugador_headers' id='plantilla_jugadores_datos_jugador_fecnac'><span class='titulos_span'>fecha de nacimiento :&nbsp;</span>".$jugador[4]."</span>";
+           echo "<span class='plantilla_jugadores_datos_jugador_headers' id='plantilla_jugadores_datos_jugador_identificaion'><span class='titulos_span'>identificacion :&nbsp;</span>".$jugador[3]."</span>";
+           echo "<span class='plantilla_jugadores_datos_jugador_headers' id='plantilla_jugadores_datos_jugador_centro'><span class='titulos_span'>centro :&nbsp;</span>".$jugador[9]."</span>";
+           echo "<span class='plantilla_jugadores_datos_jugador_headers' id='plantilla_jugadores_datos_jugador_centro_id'><span class='titulos_span'>id centro :&nbsp;</span>".$jugador[10]."</span>";
+           echo "<span class='plantilla_jugadores_datos_jugador_headers' id='plantilla_jugadores_datos_jugador_centro_id'><span class='titulos_span'>Estado :&nbsp;</span>".$estado_sistema."</span>";
            echo "</div>";
            echo "</div>";   
       }
