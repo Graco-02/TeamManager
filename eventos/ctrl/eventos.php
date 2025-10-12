@@ -380,10 +380,16 @@ function set_eliminar_equipo_linkado($evento,$equipo){
 
     $sql = "DELETE FROM relacion_equipo_evento where evento =".$evento." AND equipo = ".$equipo; 
     if ($conn->query($sql) == TRUE) {
-      $conn->close();	
-      echo  'BORRADO CORRECTO';
+      $sql = "DELETE FROM relacion_equipo_jugador_evento where evento =".$evento." AND equipo = ".$equipo; 
+      if ($conn->query($sql) == TRUE) {
+        $conn->close();	
+        echo  'BORRADO CORRECTO';
+      }else{
+        $conn->close();
+        echo 'BORRADO INCORRECTO';
+      }
     }else{
-      $conn->close();
+       $conn->close();
        echo 'BORRADO INCORRECTO';
     }
 }
