@@ -327,11 +327,15 @@ function get_listar_jugadores_todos($id_equipo){
              if($jugador_evento=='x'){
                set_sacar_de_evento($jugador_equipo,$id,$jugador_evento);
              }else{
+               if($jugador_evento!='y'){
                if(set_agregar_relacion_equipo_evento($id,$jugador_equipo,$jugador_evento)){
                  echo  'MODIFICACION REALIZADA';
                }else{
                  echo  'ERROR EN MODIFICACION';
                }
+              }else{
+                echo  'MODIFICACION REALIZADA';
+              }
             }
             }else{
               echo  'MODIFICACION REALIZADA';
@@ -525,15 +529,15 @@ function get_listar_eventos_jugador($equipo,$jugador){
          }
 
         // echo "</tr> ";
-     }
+     }     
+    }
 
      if($count==0){
-        echo "<option value=".'0'.">".'NO HAY EVENTOS DISPONIBLES'."</option>"; 
+          echo "<option value=".'0'.">".'NO HAY EVENTOS DISPONIBLES'."</option>"; 
      }else{
-            echo "<option value=".'x'.">".'SACAR DE EVENTOS'."</option>"; 
+          echo "<option value=".'y'.">".'N/A'."</option>";       
+          echo "<option value=".'x'.">".'SACAR DE EVENTOS'."</option>";      
      }
-     
-    }
   
     $conn->close();
 }

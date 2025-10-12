@@ -49,6 +49,8 @@ function set_insertar(){
     }
 
     if(estado_jugador == false || user_type==0){
+        console.log('accion seleccionada '+jugador_evento);
+        if(jugador_evento == 'y'){//si el jugador no esta valdiado no se permite seleccionar evento ni sacrlo de eventos
         if(jugadore_name.length>=3 && jugador_lastname.length>=3 && jugador_cedula.length>=10 && jugador_fecha_nacimiento.length>=10){
             var formData = new FormData();
             var file_data = $('#pic').prop('files')[0];
@@ -87,6 +89,9 @@ function set_insertar(){
             });
         }else{
             alert("los campos nombres,apellidos deben tener al menos 3 caractesres, el campo identifficacion minimo 10 al igual que debe selecionar una fecha de nacimiento formato YYYY-MM-DD");
+        }
+        }else{//si el jugador aun no esta validado
+            alert('NO SE PERMITEN ACCIONES SOBRE LOS EVENTOS A JUGADORRES SIN VALIDAR');
         }
     }else{
          // alert("El jugador ya ha sido validado, no pueden realizar cambios!!, contacte con el administrador");
