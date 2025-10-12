@@ -87,8 +87,8 @@
 
                             <label for="jugador_cedula">Identificacion</label>
                             <div class="flex">
-                             <input type="text" pattern="[0-9]+" placeholder="0000000000" class="input_formulario" 
-                             name="jugador_cedula" id="jugador_cedula" maxlength="11" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
+                             <input type="text" placeholder="0000000000" class="input_formulario" 
+                             name="jugador_cedula" id="jugador_cedula" maxlength="13" onkeypress="return get_valdiaciones_identifiacion(event)//return event.charCode >= 48 && event.charCode <= 57"/>
                              <img src="../imagenes/lupa.png" alt="usuario" class="lupa" onclick="set_filtrar_listado();"/>
                             </div>
 

@@ -51,7 +51,7 @@ function set_insertar(){
     if(estado_jugador == false || user_type==0){
         console.log('accion seleccionada '+jugador_evento);
         if(jugador_evento == 'y' || jugador_evento == '0'){//si el jugador no esta valdiado no se permite seleccionar evento ni sacrlo de eventos
-        if(jugadore_name.length>=3 && jugador_lastname.length>=3 && jugador_cedula.length>=10 && jugador_fecha_nacimiento.length>=10){
+        if(jugadore_name.length>=3 && jugador_lastname.length>=3 && jugador_cedula.length>=13 && jugador_fecha_nacimiento.length>=10){
             var formData = new FormData();
             var file_data = $('#pic').prop('files')[0];
             formData.append('file',file_data);
@@ -540,4 +540,19 @@ function set_modficacion_restringida(){
         }
 
     }); 
+}
+
+function get_valdiaciones_identifiacion(e){
+    var key = window.event ? e.which : e.keyCode;
+    let txt_identificacion = document.getElementById('jugador_cedula').value;
+    let txt_identificacion_ct = document.getElementById('jugador_cedula');
+    if (key < 48 || key > 57) { // Códigos ASCII para 0-9
+        e.preventDefault();
+    }
+    console.log(txt_identificacion.length);
+    if(txt_identificacion.length==3 || txt_identificacion.length==11 ){
+        txt_identificacion=txt_identificacion+'-';
+        txt_identificacion_ct.value = txt_identificacion;
+        console.log(txt_identificacion);
+    }
 }

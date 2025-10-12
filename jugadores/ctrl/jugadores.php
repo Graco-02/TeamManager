@@ -188,7 +188,7 @@ function get_listar_jugadores_todos_paginable($id_equipo,$desde,$total_paginacio
 
 
            if($id_equipo==0){
-             $datos = $datos. "<td> <button id='bt_eliminar' "."onClick='set_eliminar_jugador(usuario_js)' >Eliminar</button></td>"; 
+             $datos = $datos. "<td> <button id='bt_eliminar' "."onClick='set_eliminar_jugador(".$id.")' >Eliminar</button></td>"; 
            }
 
 
