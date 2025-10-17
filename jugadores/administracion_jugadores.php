@@ -156,6 +156,27 @@
                 </section>
 
                 <section id="listado_usuario">
+                    <?php if($user_type != '1'){ ?>
+                       <div id="filtros_tabla">
+                       <table id="listado_filtros" class="listado_usuarios_css">
+                           <thead>
+                               <tr>
+                                 <th><label for="filtro_equipo">Equipo</label><select class="input_formulario" 
+                                 onchange="set_lista_jugadores_paginable_filtrada();" id="filtro_equipo" name="filtro_equipo">
+                                        <?php get_listar_equipos_select($equipo);?>
+                                     </select>
+                                 </th>
+                                 <th><label for="filtro_estatus">Estatus</label><select class="input_formulario" 
+                                 onchange="set_lista_jugadores_paginable_filtrada();" id="filtro_estatus" name="filtro_estatus" >
+                                   <option value="x">N/A</option>
+                                   <option value="0">SIN VALIDAR</option>
+                                   <option value="1">VALIDADO</option>
+                               </select></th>
+                               </tr>
+                           </thead>
+                        </table>                           
+                       </div>
+                    <?php }?>
                     <table id="listado_usuarios" class="listado_usuarios_css">
                         <thead>
                             <tr>

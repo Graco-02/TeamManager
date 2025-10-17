@@ -106,6 +106,13 @@ if(count($_POST)>0){
         $desde                      = $_POST["desde"];
         $total_paginacion           = $_POST["paginacion"];
         get_listar_jugadores_todos_paginable($id_equipo,$desde,$total_paginacion);
+        break;     
+      case 9:
+        $id_equipo                  = $_POST["id_equipo"];
+        $desde                      = $_POST["desde"];
+        $total_paginacion           = $_POST["paginacion"];
+        $estatus                    = $_POST["estatus"];
+        get_listar_jugadores_todos_paginabl_filtrado($id_equipo,$desde,$total_paginacion,$estatus);
         break;          
     }
        
@@ -591,6 +598,79 @@ function get_listar_eventos_jugador($equipo,$jugador){
   }
 }
 
+function get_listar_jugadores_todos_paginabl_filtrado($id_equipo,$desde,$total_paginacion,$estatus){
+    $conn = conectar();
+    $date = date('Y-m-d');
+      // Check connection
+     if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+     }
+      
+      $sql ="";
+      if($id_equipo == 0){
+         if($estatus!='x'){
+             $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
+             from jugadores where estado_sistema = ".$estatus." order by nombres asc LIMIT $desde, $total_paginacion";
+         }else{
+           $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
+           from jugadores  order by nombres asc LIMIT $desde, $total_paginacion";     
+        }    
+      }else{
+        if($estatus!='x'){
+           $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
+           from jugadores where (equipo=".$id_equipo." AND estado_sistema = ".$estatus.")  order by nombres asc LIMIT $desde, $total_paginacion";
+        }else{
+           $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
+           from jugadores where equipo=".$id_equipo."  order by nombres asc LIMIT $desde, $total_paginacion";     
+        }
+      }
 
+      $result = $conn->query($sql);
+      $count=1;      
+      $datos="";   
+      if ($result->num_rows > 0) {
+          while($row = $result->fetch_assoc() ) {
+          
+         $nombre                = $row["nombres"];				  
+         $apellidos             = $row["apellidos"];
+         $identificacion        = $row["identificacion"];
+         $fecha_nacimiento      = $row["fecha_nacimiento"];
+         $direccion             = $row["direccion"];
+         $equipo                = $row["equipo"];
+         $url_img               = $row["url_img"];
+         $url_adjunto1          = $row["url_adjunto1"];
+         $id                    = $row["id"];
+         $estatus               = $row["estatus"];
+         $telefono              = $row["telefono"];
+         $centro                = $row["centro"];
+         $equipo_name           = $row["equipo_name"];
+
+          
+
+           
+           $datos = $datos."<script> let usuario_js = '".$id."';</script>";
+           $datos = $datos."<tr>";
+           $datos = $datos."<td id='".$id."' name='fila'";
+           $datos = $datos.'onclick="set_seleccionar('.$id.');">';
+           $datos = $datos.$nombre;
+           $datos = $datos."</td>";
+           $datos = $datos."<td >".$apellidos."</td>";
+           $datos = $datos."<td >".$identificacion."</td>";
+           $datos = $datos."<td >".$equipo_name."</td>";
+
+
+           if($id_equipo==0){
+             $datos = $datos. "<td> <button id='bt_eliminar' "."onClick='set_eliminar_jugador(".$id.")' >Eliminar</button></td>"; 
+           }
+
+
+          $datos = $datos. "</tr> ";
+       }		 
+       
+      }
+    
+      $conn->close();
+      echo $datos;
+ }
 
 ?>
