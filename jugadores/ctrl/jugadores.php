@@ -121,11 +121,15 @@ function set_insert_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_naci
       $id=$conn->insert_id;		
 
       if($jugador_evento > 0){
-        if(set_agregar_relacion_equipo_evento($id,$jugador_equipo,$jugador_evento)){
-          echo  'AGREGADO CORRECTO';
-        }else{
-          echo  'ERROR EN AGREGADO';
-        }
+               if($jugador_evento!='y'){
+               if(set_agregar_relacion_equipo_evento($id,$jugador_equipo,$jugador_evento)){
+                 echo  'MODIFICACION REALIZADA';
+               }else{
+                 echo  'ERROR EN MODIFICACION';
+               }
+              }else{
+                echo  'MODIFICACION REALIZADA';
+              }
       }else{
         echo  'AGREGADO CORRECTO';
       }
@@ -535,7 +539,7 @@ function get_listar_eventos_jugador($equipo,$jugador){
      if($count==0){
           echo "<option value=".'0'.">".'NO HAY EVENTOS DISPONIBLES'."</option>"; 
      }else{
-          echo "<option value=".'y'.">".'N/A'."</option>";       
+          echo "<option value=".'y'." selected>".'N/A'."</option>";       
           echo "<option value=".'x'.">".'SACAR DE EVENTOS'."</option>";      
      }
   
