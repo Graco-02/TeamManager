@@ -260,6 +260,7 @@ function readURL2(input) {
 }
 
 function set_agregar_datos_php(jugadore_name,jugador_lastname,jugador_fecha_nacimiento,identificacion,jugador_direccion,jugador_equipo,accion,ruta,ruta2,jugador_estatus,jugador_telefono,jugador_centro,jugador_evento,jugador_id_centro,jugador_sistem_estatus){
+   console.log('acccion ',accion);
     $.post("ctrl/jugadores.php"
     ,{"jugadore_name":jugadore_name 
     ,"jugador_lastname":jugador_lastname 
@@ -280,6 +281,7 @@ function set_agregar_datos_php(jugadore_name,jugador_lastname,jugador_fecha_naci
     }
     ,function(respuesta){
         var resp = respuesta.trim();
+        console.log(respuesta);
         if(resp == 'AGREGADO CORRECTO'){
             set_insertar_accion('','A','JUGADORES','','');
             alert('AGREGADO CORRECTO');
@@ -492,11 +494,15 @@ function set_lista_jugadores_paginable_filtrada(){
 function set_paginar_adelante(){
     desde+=paginacion;
    // desde+=1;
+    if(user_type == 0 || user_type == 2){
     var equipo_filtro = document.getElementById('filtro_equipo').value;
     var estatus_filtro = document.getElementById('filtro_estatus').value;
     if(equipo_filtro!='0' || estatus_filtro!='x'){
         set_lista_jugadores_paginable_filtrada();
     }else{     
+        set_lista_jugadores_paginable();
+    }
+    }else{
         set_lista_jugadores_paginable();
     }
 }
@@ -506,12 +512,15 @@ function set_paginar_atras(){
    if(desde<0){
     desde=0;
    }
-
+    if(user_type == 0 || user_type == 2){ 
     var equipo_filtro = document.getElementById('filtro_equipo').value;
     var estatus_filtro = document.getElementById('filtro_estatus').value;
     if(equipo_filtro!='0' || estatus_filtro!='x'){
         set_lista_jugadores_paginable_filtrada();
     }else{     
+        set_lista_jugadores_paginable();
+    }
+    }else{
         set_lista_jugadores_paginable();
     }
 }

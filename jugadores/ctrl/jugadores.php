@@ -144,9 +144,74 @@ function set_insert_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_naci
     }else{
         echo 'AGREGADO INCORRECTO';
     }
-}
+  }
 
 
+function get_listar_jugadores_todos_paginable($id_equipo,$desde,$total_paginacion){
+    $conn = conectar();
+    $date = date('Y-m-d');
+      // Check connection
+     if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+     }
+      
+      $sql ="";
+      if($id_equipo == 0){
+             $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
+        from jugadores order by nombres asc LIMIT $desde, $total_paginacion";
+      }else{
+        $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
+        from jugadores where equipo=$id_equipo  order by nombres asc LIMIT $desde, $total_paginacion"; 
+      }
+
+
+      $result = $conn->query($sql);
+      $count=1;      
+      $datos="";   
+      if ($result->num_rows > 0) {
+          while($row = $result->fetch_assoc() ) {
+          
+         $nombre                = $row["nombres"];				  
+         $apellidos             = $row["apellidos"];
+         $identificacion        = $row["identificacion"];
+         $fecha_nacimiento      = $row["fecha_nacimiento"];
+         $direccion             = $row["direccion"];
+         $equipo                = $row["equipo"];
+         $url_img               = $row["url_img"];
+         $url_adjunto1          = $row["url_adjunto1"];
+         $id                    = $row["id"];
+         $estatus               = $row["estatus"];
+         $telefono              = $row["telefono"];
+         $centro                = $row["centro"];
+         $equipo_name           = $row["equipo_name"];
+
+          
+
+           
+           $datos = $datos."<script> let usuario_js = '".$id."';</script>";
+           $datos = $datos."<tr>";
+           $datos = $datos."<td id='".$id."' name='fila'";
+           $datos = $datos.'onclick="set_seleccionar('.$id.');">';
+           $datos = $datos.$nombre;
+           $datos = $datos."</td>";
+           $datos = $datos."<td >".$apellidos."</td>";
+           $datos = $datos."<td >".$identificacion."</td>";
+           $datos = $datos."<td >".$equipo_name."</td>";
+
+
+           if($id_equipo==0){
+             $datos = $datos. "<td> <button id='bt_eliminar' "."onClick='set_eliminar_jugador(".$id.")' >Eliminar</button></td>"; 
+           }
+
+
+          $datos = $datos. "</tr> ";
+       }		 
+       
+      }
+    
+      $conn->close();
+      echo $datos;
+ }
 
 
 function get_listar_jugadores_todos($id_equipo){
@@ -247,7 +312,8 @@ function get_listar_jugadores_todos($id_equipo){
  function set_modificar_jugador($jugadore_name,$jugador_lastname,$jugador_fecha_nacimiento,$identificacion,
  $jugador_direccion,$jugador_equipo,$ruta,$ruta2,$id,$jugador_estatus,$jugador_telefono,
  $jugador_centro,$jugador_evento,$jugador_id_centro,$jugador_sistem_estatus){
-    $conn = conectar();
+      
+       $conn = conectar();
  
        $sql="UPDATE jugadores SET nombres='$jugadore_name',
                                   apellidos='$jugador_lastname',
@@ -294,6 +360,7 @@ function get_listar_jugadores_todos($id_equipo){
      }   else {
       echo "Error Modificacion: " . $sql . "<br>" . $conn->error;
      }
+    
  }
 
 function set_agregar_relacion_equipo_evento($jugador,$equipo,$evento){
@@ -513,12 +580,20 @@ function get_listar_eventos_jugador($equipo,$jugador){
  }
 
  function set_modificar_jugador_restringido($id,$jugador_equipo,$jugador_evento){
+  $total_jugadores = get_validar_cantidad_jugadores_inscritos($jugador_equipo,$jugador_evento);
+  $permitdos_evento = get_total_eventos($jugador_evento);
 
-  if(set_agregar_relacion_equipo_evento($id,$jugador_equipo,$jugador_evento)){
-    echo  'MODIFICACION REALIZADA';
+  //echo ' total inscritos = '.$total_jugadores.' equipo = '.$jugador_equipo.' evento '.$jugador_evento.' permite = '.$permitdos_evento;
+  if($total_jugadores < get_total_eventos($jugador_evento)){
+    if(set_agregar_relacion_equipo_evento($id,$jugador_equipo,$jugador_evento)){
+      echo  'MODIFICACION REALIZADA';
+    }else{
+      echo  'ERROR EN MODIFICACION';
+    }
   }else{
-    echo  'ERROR EN MODIFICACION';
+      echo  'EXCEDE LIMITE DE JUGADORES EN EL EVENTO ACTUALEMTE : '.$total_jugadores;
   }
+  
  }
 
 
@@ -533,72 +608,6 @@ function get_listar_eventos_jugador($equipo,$jugador){
     echo "Error Modificacion: " . $sql . "<br>" . $conn->error;
   }
 }
-
-function get_listar_jugadores_todos_paginable($id_equipo,$desde,$total_paginacion){
-    $conn = conectar();
-    $date = date('Y-m-d');
-      // Check connection
-     if ($conn->connect_error) {
-          die("Connection failed: " . $conn->connect_error);
-     }
-      
-      $sql ="";
-      if($id_equipo == 0){
-             $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
-        from jugadores order by nombres asc LIMIT $desde, $total_paginacion";
-      }else{
-        $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
-        from jugadores where equipo=$id_equipo  order by nombres asc LIMIT $desde, $total_paginacion"; 
-      }
-
-
-      $result = $conn->query($sql);
-      $count=1;      
-      $datos="";   
-      if ($result->num_rows > 0) {
-          while($row = $result->fetch_assoc() ) {
-          
-         $nombre                = $row["nombres"];				  
-         $apellidos             = $row["apellidos"];
-         $identificacion        = $row["identificacion"];
-         $fecha_nacimiento      = $row["fecha_nacimiento"];
-         $direccion             = $row["direccion"];
-         $equipo                = $row["equipo"];
-         $url_img               = $row["url_img"];
-         $url_adjunto1          = $row["url_adjunto1"];
-         $id                    = $row["id"];
-         $estatus               = $row["estatus"];
-         $telefono              = $row["telefono"];
-         $centro                = $row["centro"];
-         $equipo_name           = $row["equipo_name"];
-
-          
-
-           
-           $datos = $datos."<script> let usuario_js = '".$id."';</script>";
-           $datos = $datos."<tr>";
-           $datos = $datos."<td id='".$id."' name='fila'";
-           $datos = $datos.'onclick="set_seleccionar('.$id.');">';
-           $datos = $datos.$nombre;
-           $datos = $datos."</td>";
-           $datos = $datos."<td >".$apellidos."</td>";
-           $datos = $datos."<td >".$identificacion."</td>";
-           $datos = $datos."<td >".$equipo_name."</td>";
-
-
-           if($id_equipo==0){
-             $datos = $datos. "<td> <button id='bt_eliminar' "."onClick='set_eliminar_jugador(".$id.")' >Eliminar</button></td>"; 
-           }
-
-
-          $datos = $datos. "</tr> ";
-       }		 
-       
-      }
-    
-      $conn->close();
-      echo $datos;
- }
 
 function get_listar_jugadores_todos_paginabl_filtrado($id_equipo,$desde,$total_paginacion,$estatus){
     $conn = conectar();
@@ -673,6 +682,50 @@ function get_listar_jugadores_todos_paginabl_filtrado($id_equipo,$desde,$total_p
     
       $conn->close();
       echo $datos;
+ }
+
+
+ function get_validar_cantidad_jugadores_inscritos($equipo,$evento){
+    $conn = conectar();
+      // Check connection
+     if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+     }
+ 
+     $sql = "select count(*) as total  from relacion_equipo_jugador_evento 
+             where equipo = ".$equipo." and evento=".$evento; 
+      $result = $conn->query($sql);
+      $validacion=0;         
+      if ($result->num_rows > 0) {
+          while($row = $result->fetch_assoc() ) {
+          $validacion=$row["total"]; 
+       }		 
+       
+      }
+      $conn->close();
+     // echo 'valido la cantidad y el resultado es '.$validacion;
+      return $validacion; 
+ }
+
+
+  function get_total_eventos($evento){
+    $conn = conectar();
+      // Check connection
+     if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+     }
+ 
+     $sql = "select cantidad_jugadores_equipo from eventos where id=".$evento; 
+      $result = $conn->query($sql);
+      $validacion=0;         
+      if ($result->num_rows > 0) {
+          while($row = $result->fetch_assoc() ) {
+          $validacion=$row["cantidad_jugadores_equipo"]; 
+       }		 
+      }
+      $conn->close();
+     // echo 'valido la cantidad y el resultado es '.$validacion;
+      return $validacion; 
  }
 
 ?>
