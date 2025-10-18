@@ -170,7 +170,12 @@ function set_seleccionar(id_seleccionado){
                estado_jugador=true;
            }else{
                estado_jugador=false;
-               jugador_sistem_estatus.innerHTML = "SIN VALIDAR"; 
+               if(json[13]=='2'){
+                 jugador_sistem_estatus.innerHTML = "PENDIENTE"; 
+               }else{
+                jugador_sistem_estatus.innerHTML = "SIN VALIDAR"; 
+            }
+               
            }
         }
 
@@ -203,7 +208,12 @@ function set_seleccionar(id_seleccionado){
         +jugador_telefono.value 
         +jugador_centro.value   ;
 
-
+        var bt_agregar = document.getElementById('bt_agregar');
+        if(json[13]=='2' && user_type!= 0){
+           bt_agregar.style.visibility = 'hidden';
+        }else{
+            bt_agregar.style.visibility = 'visible';
+        }
     }); 
 }
 

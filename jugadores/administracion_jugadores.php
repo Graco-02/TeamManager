@@ -129,8 +129,11 @@
                             <label for="jugador_sistem_estatus" >Estado Sistema</label>
                             <?php if( $user_type==0){?>
                             <select class="input_formulario" onchange="" id="jugador_sistem_estatus" name="jugador_sistem_estatus" >
+                                <option value="x" selected>N/A</option>
+                                <option value="2">PENDIENTE</option>                                
                                 <option value="0">SIN VALIDAR</option>
                                 <option value="1">VALIDADO</option>
+                                
                             </select>
                             <?php }else{?>
                                     <span class="input_formulario" id="jugador_sistem_estatus">EN REVISION</span>
@@ -139,7 +142,7 @@
 
 
                              <?php if( $user_type==0 || $user_type==1){?>
-                                <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="">
+                                <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="" id="bt_agregar">
                              <?php }?>  
 
                         </fieldset>
@@ -168,7 +171,8 @@
                                  </th>
                                  <th><label for="filtro_estatus">Estatus</label><select class="input_formulario" 
                                  onchange="set_lista_jugadores_paginable_filtrada();" id="filtro_estatus" name="filtro_estatus" >
-                                   <option value="x">N/A</option>
+                                   <option value="x" selected>N/A</option>
+                                   <option value="2">PENDIENTE</option>
                                    <option value="0">SIN VALIDAR</option>
                                    <option value="1">VALIDADO</option>
                                </select></th>
