@@ -417,7 +417,7 @@ function get_listar_equipos_select($equipo){
         
            $nombre        = $row["nombre"];				
            $id            = $row["id"];
-           echo "<option value=".$id.">".$nombre."</option>";
+           echo "<option value=".$id." selected>".$nombre."</option>";
         }		 
      
     }
