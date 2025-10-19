@@ -125,7 +125,9 @@ body{
     position: relative;
 }
 
-
+.listado_usuarios_css{
+    text-transform: uppercase;
+}
 
 @media (max-width:600px) {    
     .main_contenido{

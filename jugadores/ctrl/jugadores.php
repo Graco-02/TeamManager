@@ -417,7 +417,11 @@ function get_listar_equipos_select($equipo){
         
            $nombre        = $row["nombre"];				
            $id            = $row["id"];
-           echo "<option value=".$id." selected>".$nombre."</option>";
+           if($equipo!=0){
+            echo "<option value=".$id." selected>".$nombre."</option>";
+           }else{
+            echo "<option value=".$id.">".$nombre."</option>";
+           }
         }		 
      
     }
