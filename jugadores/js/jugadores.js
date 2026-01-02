@@ -451,6 +451,13 @@ function set_seleccionar_jugador(id_seleccionado){
     }); 
 }
 
+
+function set_validar_anio(){
+    if (event.keyCode === 13 || event.which === 13) {
+        set_lista_jugadores_paginable_filtrada();
+    }
+}
+
 function set_lista_jugadores_paginable(){
     var accion = 8;//opcion para seleccionar los datos del usuario
     //console.log("id_equipo "+id_equipo,"desde "+desde,"paginacion "+paginacion);
@@ -474,12 +481,15 @@ function set_lista_jugadores_paginable_filtrada(){
     //console.log("id_equipo "+id_equipo,"desde "+desde,"paginacion "+paginacion);
     var equipo_filtro = document.getElementById('filtro_equipo').value;
     var estatus_filtro = document.getElementById('filtro_estatus').value;
-    console.log("id_equipo "+id_equipo,"desde "+desde,"paginacion "+paginacion," equipo "+equipo_filtro," estatus "+estatus_filtro);
+    var anio_filtro = document.getElementById('txt_anio').value;
+    console.log("id_equipo "+id_equipo,"desde "+desde,"paginacion "+paginacion," equipo "+equipo_filtro," estatus "+estatus_filtro," anio_filtro ",anio_filtro);
+    
     $.post("ctrl/jugadores.php"
     ,{"id_equipo":equipo_filtro 
     ,"desde":desde 
     ,"paginacion":paginacion 
     ,"estatus":estatus_filtro 
+    ,"anio_filtro":anio_filtro 
     ,"accion":accion 
     }
     ,function(respuesta){
@@ -497,7 +507,10 @@ function set_paginar_adelante(){
     if(user_type == 0 || user_type == 2){
     var equipo_filtro = document.getElementById('filtro_equipo').value;
     var estatus_filtro = document.getElementById('filtro_estatus').value;
-    if(equipo_filtro!='0' || estatus_filtro!='x'){
+    var anio_filtro = document.getElementById('txt_anio').value;
+    console.log('equipo_filtro ',equipo_filtro);
+
+    if(equipo_filtro!='0' || estatus_filtro!='x' || anio_filtro.length > 0){
         set_lista_jugadores_paginable_filtrada();
     }else{     
         set_lista_jugadores_paginable();
@@ -515,7 +528,9 @@ function set_paginar_atras(){
     if(user_type == 0 || user_type == 2){ 
     var equipo_filtro = document.getElementById('filtro_equipo').value;
     var estatus_filtro = document.getElementById('filtro_estatus').value;
-    if(equipo_filtro!='0' || estatus_filtro!='x'){
+    var anio_filtro = document.getElementById('txt_anio').value;
+    console.log('equipo_filtro ',equipo_filtro);
+    if(equipo_filtro!='0' || estatus_filtro!='x' || anio_filtro!='' || anio_filtro.length > 0){
         set_lista_jugadores_paginable_filtrada();
     }else{     
         set_lista_jugadores_paginable();
@@ -567,33 +582,50 @@ function set_modficacion_restringida(){
     var accion = 0;//opcion para seleccionar los datos del usuario
     var jugador_equipo             = document.getElementById("jugador_equipo").value ;
     var jugador_evento             = document.getElementById("jugador_evento").value ;
+    console.log('set_modficacion_restringida ' , jugador_evento);
 
+    switch (jugador_evento) {
+        case 'y':
+               accion = 6;
+            break;
+        case 'x':
+             accion = 7;
+            break;    
+        default:
+            if(Number(jugador_evento)<=0){
+              alert('NO SE PUEDE REALIZAR MDIFICACION');
+            }else{
+                accion = 6;
+            }
+            break;
+    }
 
-    if(jugador_evento!='x' && jugador_evento!='0'){
+   /* if(jugador_evento!='x' && jugador_evento!='0'){
        // alert('modificacion restringida '+elento_seleccionado+' '+jugador_equipo+' '+ jugador_evento);
         accion = 6;
-    }else{
+    }else if(jugador_evento=='x'){
        // alert('elimina eventos '+elento_seleccionado+' '+jugador_equipo+' '+ jugador_evento);
         accion = 7;
-    }
+    }*/
     
-
-    $.post("ctrl/jugadores.php"
-    ,{"id":elento_seleccionado 
-    ,"jugador_equipo":jugador_equipo 
-    ,"jugador_evento":jugador_evento 
-    ,"accion":accion 
-    }
-    ,function(respuesta){
-        console.log(respuesta);
-        if (respuesta=='CORRECTO') {
-           set_insertar_accion('','M','JUGADORES','','');
-           alert('Modificacion realziada');
-        }else{
-            alert(respuesta);
+    if(accion==6 || accion==7){
+        $.post("ctrl/jugadores.php"
+        ,{"id":elento_seleccionado 
+        ,"jugador_equipo":jugador_equipo 
+        ,"jugador_evento":jugador_evento 
+        ,"accion":accion 
         }
-
-    }); 
+        ,function(respuesta){
+            console.log(respuesta);
+            if (respuesta=='CORRECTO') {
+               set_insertar_accion('','M','JUGADORES','','');
+               alert('Modificacion realziada');
+            }else{
+                alert(respuesta);
+            }
+    
+        }); 
+    }
 }
 
 function get_valdiaciones_identifiacion(e){

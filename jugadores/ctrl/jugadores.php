@@ -112,7 +112,8 @@ if(count($_POST)>0){
         $desde                      = $_POST["desde"];
         $total_paginacion           = $_POST["paginacion"];
         $estatus                    = $_POST["estatus"];
-        get_listar_jugadores_todos_paginabl_filtrado($id_equipo,$desde,$total_paginacion,$estatus);
+        $anio_filtro                = $_POST["anio_filtro"];
+        get_listar_jugadores_todos_paginabl_filtrado($id_equipo,$desde,$total_paginacion,$estatus,$anio_filtro);
         break;          
     }
        
@@ -613,9 +614,12 @@ function get_listar_eventos_jugador($equipo,$jugador){
   }
 }
 
-function get_listar_jugadores_todos_paginabl_filtrado($id_equipo,$desde,$total_paginacion,$estatus){
+function get_listar_jugadores_todos_paginabl_filtrado($id_equipo,$desde,$total_paginacion,$estatus,$anio_filtro){
     $conn = conectar();
     $date = date('Y-m-d');
+    
+
+
       // Check connection
      if ($conn->connect_error) {
           die("Connection failed: " . $conn->connect_error);
@@ -624,19 +628,40 @@ function get_listar_jugadores_todos_paginabl_filtrado($id_equipo,$desde,$total_p
       $sql ="";
       if($id_equipo == 0){
          if($estatus!='x'){
-             $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
-             from jugadores where estado_sistema = ".$estatus." order by nombres asc LIMIT $desde, $total_paginacion";
+             if(strlen($anio_filtro)==0){
+                $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
+                from jugadores where estado_sistema = ".$estatus." order by nombres asc LIMIT $desde, $total_paginacion";     
+             }else{
+                $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
+                from jugadores where estado_sistema = ".$estatus." and substr(fecha_nacimiento,1,4)='".$anio_filtro."' order by nombres asc LIMIT $desde, $total_paginacion";
+             }
          }else{
-           $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
-           from jugadores  order by nombres asc LIMIT $desde, $total_paginacion";     
+             if(strlen($anio_filtro)==0){
+                 $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
+                 from jugadores  order by nombres asc LIMIT $desde, $total_paginacion"; 
+             }else{
+                 $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
+                 from jugadores where substr(fecha_nacimiento,1,4)='".$anio_filtro."' order by nombres asc LIMIT $desde, $total_paginacion"; 
+             }    
         }    
       }else{
         if($estatus!='x'){
+          if(strlen($anio_filtro)==0){
            $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
            from jugadores where (equipo=".$id_equipo." AND estado_sistema = ".$estatus.")  order by nombres asc LIMIT $desde, $total_paginacion";
+          }else{
+            $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
+            from jugadores where equipo=".$id_equipo." AND estado_sistema = ".$estatus." and substr(fecha_nacimiento,1,4)='".$anio_filtro."'
+              order by nombres asc LIMIT $desde, $total_paginacion";
+          }
         }else{
+          if(strlen($anio_filtro)==0){
            $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
            from jugadores where equipo=".$id_equipo."  order by nombres asc LIMIT $desde, $total_paginacion";     
+          }else{
+           $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
+           from jugadores where equipo=".$id_equipo." and substr(fecha_nacimiento,1,4)='".$anio_filtro."' order by nombres asc LIMIT $desde, $total_paginacion";              
+          } 
         }
       }
 

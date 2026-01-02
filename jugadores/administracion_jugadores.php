@@ -141,7 +141,7 @@
                             <?php }?>    
 
 
-                             <?php if( $user_type==0 || $user_type==1){?>
+                             <?php if( $user_type==0 || $user_type==1){?><!--el boton de agregado solo se muestra a administradores y equipos-->
                                 <input type="submit" value="AGREGAR" name="acceder_bt" class="buton_formulario" onclick="" id="bt_agregar">
                              <?php }?>  
 
@@ -176,7 +176,13 @@
                                    <option value="0">SIN VALIDAR</option>
                                    <option value="1">VALIDADO</option>
                                </select></th>
-                               </tr>
+                                
+                                <th>
+                                    <label for="txt_anio" class="input_formulario" >ANIO</label>
+                                    <input type="text" name="txt_anio" id="txt_anio" class="input_formulario" onkeypress="set_validar_anio();" >
+                                </th>
+                               
+                            </tr>
                            </thead>
                         </table>                           
                        </div>
