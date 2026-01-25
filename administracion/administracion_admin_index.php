@@ -27,7 +27,7 @@
                       <a href="../equipos/administracion_equipos.php">equipos</a> 
                       <a href="../jugadores/administracion_jugadores.php">jugadores</a> 
                       <a href="../histlog/histlog.php">historico</a> 
-                      <a href="../mensages/mensage.php">mensage</a> 
+                      <a href="../mensages/mensage.php">mensaje</a> 
                       <a href="../utilidades/logout.php">SALIR</a> 
               </div>
             </div>

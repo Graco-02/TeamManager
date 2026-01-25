@@ -165,7 +165,7 @@
 
 
      <div id="mensages" class="flex_colum">
-          <h1>Mensages</h1><button id="close_mensages" onclick="set_cerrar_mensages();">X</button>
+          <h1>Mensajes</h1><button id="close_mensages" onclick="set_cerrar_mensages();">X</button>
           <br>
           <div id="lista_mensages">
                <div class="mensage">

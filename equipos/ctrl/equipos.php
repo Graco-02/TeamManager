@@ -439,7 +439,7 @@ function get_listar_mensages_equipo($equipo){
    }
 
    $sql = "SELECT usuario,mensage,fecha_alta,fecha_ini,fecha_fin,estado from mensage 
-            WHERE usuario = 'TODOS' OR usuario  = (select nombre from equipos where id = ".$equipo.")";
+            WHERE fecha_ini <=  fecha_fin AND usuario = 'TODOS' OR usuario  = (select nombre from equipos where id = ".$equipo.")";
 
     $result = $conn->query($sql);
     $count=0;

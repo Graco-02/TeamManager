@@ -51,7 +51,7 @@
                 <section class="formulario_entrada">
                     <form id="form" action="javascript: set_insertar_accion();" class="loging_formulario" enctype=" multipart/form-data">
                         <fieldset>
-                            <legend class="formulario_legend">Mensages</legend>
+                            <legend class="formulario_legend">Mensajes</legend>
 
                             <label for="usuario_select">Usuario</label>
                             <select class="input_formulario" onchange="//pruebas();" id="usuario_select" name="usuario_select" required>
@@ -77,7 +77,7 @@
                         <thead>
                             <tr>
                               <th>Usuario</th>
-                              <th>mensage</th>
+                              <th>mensaje</th>
                               <th>fecha inicio</th>
                               <th>fecha fin</th>
                             </tr>
