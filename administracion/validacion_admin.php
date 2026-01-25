@@ -23,10 +23,10 @@ function set_validar_logging($user_name,$user_clave){
                       //  $_SESSION['admin_id'] = $row["id"];
 
                         if($user_clave != $user_name){
-                            get_equipo_validacion($_SESSION['usuario_logeado']);
                             if($row["tipo"]==0 || $row["tipo"]==2){
                                 header("Location:administracion/administracion_admin_index.php");    
                             }else{
+                                get_equipo_validacion($_SESSION['usuario_logeado']);
                                 header("Location:equipos/adsministracion_equipos_restringida.php");    
                             }
                         }else{
@@ -101,7 +101,7 @@ function get_equipo_validacion($equipo){
       $count=1;         
       if ($result->num_rows > 0) {
           while($row = $result->fetch_assoc() ) { 
-           //  alert('ENCONTRE .:'.$row["id"]); 
+           //  alert('ENCONTRE .:'.$row["id"]); s
              $_SESSION['admin_id'] = $row["id"];
           }		   
       }else{

@@ -36,6 +36,8 @@ body{
    background-position: center;
    height: 100vh;
    font-family: "Gothan ultra italic";
+   display: flex;
+   flex-direction: column;
 }
 
 header span{
@@ -168,10 +170,11 @@ main{
 
 .menu_administracion_principal{
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(6,1fr);
-    justify-content: center;
-    align-items: center;
+    display: flex;
+   /* display: grid; */
+   /* grid-template-columns: repeat(7,1fr);*/
+   /* justify-content: center;*/
+   /* align-items: center;*/
     gap: 1rem;
     color: white;
     background-color: var(--color_primario_d);
@@ -186,6 +189,7 @@ main{
     text-transform: uppercase;
     font-size: 1.2rem;
     font-weight: 700;
+    width: 100%;
 }
 
 .menu_administracion_principal a:hover{
@@ -209,6 +213,8 @@ main{
 
     .menu_administracion_principal{
         left: 40%;
+        flex-direction: column;
+        height: 25rem;
     }
 
     header span{
@@ -217,5 +223,9 @@ main{
 
     .logo_name p{
          font-size: 1rem;    
+    }
+
+    body{
+                gap: 15rem;
     }
 }

@@ -59,7 +59,11 @@ if(count($_POST)>0){
           $jugador       = $_POST['jugador'];
           $evento       = $_POST['evento'];
           set_sacar_de_evento($equipo,$jugador,$evento);
-        break ;            
+        break ;     
+      case 7:
+          $equipo        = $_POST['equipo'];
+          get_listar_mensages_equipo($equipo);
+        break ;                 
     }
        
 }
@@ -423,6 +427,47 @@ function get_jugadores_equipo_solo_lista($equipo){
       $conn->close();
 
       return $jugadores_array;
+}
+
+
+function get_listar_mensages_equipo($equipo){
+  $conn = conectar();
+  $date = date('Y-m-d');
+    // Check connection
+   if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+   }
+
+   $sql = "SELECT usuario,mensage,fecha_alta,fecha_ini,fecha_fin,estado from mensage 
+            WHERE usuario = 'TODOS' OR usuario  = (select nombre from equipos where id = ".$equipo.")";
+
+    $result = $conn->query($sql);
+    $count=0;
+    $mensages_array = array();           
+    if ($result->num_rows > 0) {
+
+        while($row = $result->fetch_assoc() ) {		
+
+          echo'<div class="mensage">
+                 <label for=""><b>'.$row['usuario'].'</b></label>
+                 <label for="">'.$row['mensage'].'</label>
+               </div>';
+                   
+
+         /* $mensage_array = array();   
+          array_push($mensage_array,$row['usuario']);
+          array_push($mensage_array,$row['mensage']);
+          array_push($mensage_array,$row['fecha_alta']);
+          array_push($mensage_array,$row['fecha_ini']);
+          array_push($mensage_array,$row['fecha_fin']);
+          array_push($mensage_array,$row['estado']);
+
+          array_push($mensages_array,$mensage_array);*/
+        }		 
+    }
+  
+    $conn->close();
+   // echo json_encode($mensages_array);
 }
 
 ?>

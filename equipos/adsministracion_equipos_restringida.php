@@ -6,6 +6,7 @@
       if(isset($_SESSION['user_type'])){
       $user_type = $_SESSION['user_type'];
       $usuario_logeado = $_SESSION['usuario_logeado'];
+      $admin_id = $_SESSION['admin_id'];
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +22,9 @@
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <script src="js/equipos.js"></script>
     <script>user_type=<?php echo $user_type; ?></script>
-    <!--<script>usuario_logeado=<?php echo $usuario_logeado; ?></script>-->
+    <script>id_seleccionado=<?php echo $admin_id; ?></script>
+    </script>
+
 </head>
 <body>
         <header>
@@ -159,6 +162,20 @@
 
             </div>
         </main>
+
+
+     <div id="mensages" class="flex_colum">
+          <h1>Mensages</h1><button id="close_mensages" onclick="set_cerrar_mensages();">X</button>
+          <br>
+          <div id="lista_mensages">
+               <div class="mensage">
+                <!-- <label for=""><b>Sr. Anonimo</b></label>
+                 <label for="">Le recordamos que debe realziar su pago </label> -->
+                 <?php get_listar_mensages_equipo($admin_id)?>
+               </div>
+          </div>
+     </div>
+
 </body>
 </html>
 <?php } ?>

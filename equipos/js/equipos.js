@@ -383,3 +383,23 @@ function set_seleccionar_2(equipo){
         equipo_name.innerHTML=json[1];
     }); 
 }
+
+function set_listar_mensages_equipo(){
+    var accion = 7;//opcion para seleccionar los datos del usuario
+     
+    $.post("ctrl/equipos.php"
+    ,{"equipo":id_seleccionado 
+    ,"accion":accion 
+    }
+    ,function(respuesta){
+        var json = $.parseJSON(respuesta);
+        console.log(json);  
+        var lista_mensages = Document.getElementById('lista_mensages');
+        lista_mensages.innerHTML='';
+    }); 
+}
+
+function set_cerrar_mensages() {
+    const element = document.getElementById("mensages");
+    element.classList.toggle("hidden");
+}
