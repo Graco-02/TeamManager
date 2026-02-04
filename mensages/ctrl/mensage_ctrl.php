@@ -11,7 +11,7 @@ if(count($_POST)>0){
     switch ($accion) {
         case 1:
             # code... para agregar nuevo mensage
-            $usuario = $_POST['usuario'];;
+            $usuario = $_POST['usuario'];
             $mensage = $_POST['mensage'];
             $fecha_ini = $_POST['fecha_ini'];
             $fecha_fin = $_POST['fecha_fin'];
@@ -20,7 +20,11 @@ if(count($_POST)>0){
             break;
         case 2:
             get_listar_mensages();
-            break;        
+            break;     
+        case 3:
+            $id = $_POST['id'];
+            set_eliminar_mensaje($id);
+            break;                   
         default:
             # code...
             break;
@@ -75,7 +79,7 @@ function get_listar_mensages(){
         die("Connection failed: " . $conn->connect_error);
    }
 
-   $sql = "SELECT usuario,mensage,fecha_alta,fecha_ini,fecha_fin,estado from mensage "; 
+   $sql = "SELECT id,usuario,mensage,fecha_alta,fecha_ini,fecha_fin,estado from mensage "; 
 
     $result = $conn->query($sql);
     $count=0;
@@ -84,6 +88,7 @@ function get_listar_mensages(){
 
         while($row = $result->fetch_assoc() ) {		
           $mensage_array = array();   
+          array_push($mensage_array,$row['id']);
           array_push($mensage_array,$row['usuario']);
           array_push($mensage_array,$row['mensage']);
           array_push($mensage_array,$row['fecha_alta']);
@@ -97,6 +102,18 @@ function get_listar_mensages(){
   
     $conn->close();
     echo json_encode($mensages_array);
+}
+
+function set_eliminar_mensaje($id){
+  $conn = conectar();
+ 
+  $sql="DELETE FROM mensage WHERE id =".$id;
+
+  if ($conn->query($sql) == TRUE) {		   
+      echo  'ELIMINACION REALIZADA';
+  }   else {
+    echo "Error Eliminacion: " . $sql . "<br>" . $conn->error;
+  }
 }
 
 ?>

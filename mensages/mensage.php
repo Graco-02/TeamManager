@@ -80,6 +80,7 @@
                               <th>mensaje</th>
                               <th>fecha inicio</th>
                               <th>fecha fin</th>
+                              <th>acciones</th>
                             </tr>
                         </thead>
                         <tbody id="lista_mensages">
