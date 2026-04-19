@@ -107,6 +107,10 @@ body{
     gap: 1rem;
 }
 
+.texto_header_tabla{
+    text-transform: uppercase;
+}
+
 @media (max-width:600px) {    
     .main_contenido{
         display: flex;

@@ -439,11 +439,13 @@ function get_listar_mensages_equipo($equipo){
    }
 
    $sql = "SELECT usuario,mensage,fecha_alta,fecha_ini,fecha_fin,estado from mensage 
-            WHERE fecha_ini <=  fecha_fin AND usuario = 'TODOS' OR usuario  = (select nombre from equipos where id = ".$equipo.")";
+            WHERE fecha_fin >=  '".$date."' AND (usuario = 'TODOS' OR usuario  = (select nombre from equipos where id = ".$equipo."))";
 
     $result = $conn->query($sql);
     $count=0;
-    $mensages_array = array();           
+    $mensages_array = array();   
+    echo '<div><label for=""><b>'."Usted tiene ".$result->num_rows." Mensajes".'</b></label></div> <br>';        
+    
     if ($result->num_rows > 0) {
 
         while($row = $result->fetch_assoc() ) {		
@@ -451,7 +453,7 @@ function get_listar_mensages_equipo($equipo){
           echo'<div class="mensage">
                  <label for=""><b>'.$row['usuario'].'</b></label>
                  <label for="">'.$row['mensage'].'</label>
-               </div>';
+               </div><br>';
                    
 
          /* $mensage_array = array();   

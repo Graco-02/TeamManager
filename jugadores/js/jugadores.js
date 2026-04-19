@@ -170,11 +170,17 @@ function set_seleccionar(id_seleccionado){
                estado_jugador=true;
            }else{
                estado_jugador=false;
-               if(json[13]=='2'){
-                 jugador_sistem_estatus.innerHTML = "PENDIENTE"; 
-               }else{
-                jugador_sistem_estatus.innerHTML = "SIN VALIDAR"; 
-            }
+               switch (json[13]) {
+                case '2':
+                    jugador_sistem_estatus.innerHTML = "PENDIENTE"; 
+                    break;
+                case '3':
+                    jugador_sistem_estatus.innerHTML = "POR CONFIRMAR"; 
+                    break;                    
+                default:
+                    jugador_sistem_estatus.innerHTML = "SIN VALIDAR"; 
+                    break;
+               }
                
            }
         }
@@ -374,7 +380,7 @@ function set_listado_filtrado(jugador_cedula,jugador_equipo,jugador_name,jugador
             var json = $.parseJSON(respuesta);
             console.log(json);
             for(i=0;i<json.length;i++){
-                //console.log(json[i]);                
+                console.log(json[i]);                
                 set_agregar_fila(json[i][1],json[i][2],json[i][3],json[i][0]);
             }
         }); 

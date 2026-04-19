@@ -167,12 +167,8 @@
      <div id="mensages" class="flex_colum">
           <h1>Mensajes</h1><button id="close_mensages" onclick="set_cerrar_mensages();">X</button>
           <br>
-          <div id="lista_mensages">
-               <div class="mensage">
-                <!-- <label for=""><b>Sr. Anonimo</b></label>
-                 <label for="">Le recordamos que debe realziar su pago </label> -->
-                 <?php get_listar_mensages_equipo($admin_id)?>
-               </div>
+          <div id="lista_mensages">\
+                <?php get_listar_mensages_equipo($admin_id)?>
           </div>
      </div>
 

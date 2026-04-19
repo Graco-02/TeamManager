@@ -133,6 +133,7 @@
                                 <option value="2">PENDIENTE</option>                                
                                 <option value="0">SIN VALIDAR</option>
                                 <option value="1">VALIDADO</option>
+                                <option value="3">POR CONFIRMAR</option>
                                 
                             </select>
                             <?php }else{?>
@@ -175,6 +176,7 @@
                                    <option value="2">PENDIENTE</option>
                                    <option value="0">SIN VALIDAR</option>
                                    <option value="1">VALIDADO</option>
+                                   <option value="3">POR CONFIRMAR</option>
                                </select></th>
                                 
                                 <th>
@@ -187,19 +189,20 @@
                         </table>                           
                        </div>
                     <?php }?>
-                    <table id="listado_usuarios" class="listado_usuarios_css">
+                    <table id="listado_usuarios" class="listado_usuarios_css texto_header_tabla">
                         <thead>
                             <tr>
                               <th>Nombres</th>
                               <th>Apellidos</th>
                               <th>Identificacion</th>
+                              <th>Id Escolar</th>
+                              <th>Fecha De Nacimiento</th>
                               <th>Equipo</th>
                               <th></th>
                             </tr>
                         </thead>
                         <tbody id="lista_jugadores">
                             <script>set_lista_jugadores_paginable();</script>
-                          <!--   <?php get_listar_jugadores_todos($equipo);?> -->
                         </tbody>
                     </table>
                     

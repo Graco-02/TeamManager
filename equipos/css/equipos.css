@@ -7,6 +7,8 @@
                     --color_primario_d:#004542;
                     --color_secundario_d:#187E79;
                     --color_teciario_d:#1CBBB4;
+
+                    --color_secundario_d2:rgba(24, 126, 121, 0.901);
 }
 
 @font-face {
@@ -193,12 +195,13 @@ body{
 
 #mensages{
     position: absolute;
-    background-color: var(--color_secundario_d);
+    background-color: var(--color_secundario_d2);
     padding: 5rem;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
 }
 
 .flex_colum{
