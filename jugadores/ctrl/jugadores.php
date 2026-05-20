@@ -462,19 +462,36 @@ function get_jugadores($cedula,$equipo,$jugador_nombre,$jugador_apellido){
     $sql = " " ; 
     switch ($equipo) {
       case '0':
-        $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro 
-                from jugadores where (identificacion like '%".$cedula."%') OR (equipo = $equipo) OR (nombres like '%".$jugador_nombre."%') 
-                OR  (apellidos like '%".$jugador_apellido."%') " ; 
+        if(strlen($cedula)==13){
+          $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,idescolar,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
+                  from jugadores where identificacion = '".$cedula."'" ; 
+        }else{
+                $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,idescolar,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
+                from jugadores where (identificacion like '%".$cedula."%') AND (equipo = $equipo) AND (nombres like '%".$jugador_nombre."%') 
+                AND  (apellidos like '%".$jugador_apellido."%') " ; 
+        }
+
         break;
       
       case '2':
-        $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro 
+        if(strlen($cedula)==13){
+          $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,idescolar,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
+                from jugadores where identificacion  = '".$cedula."'" ; 
+        }else{
+        $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,idescolar,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name  
                 from jugadores " ; 
+        }
+
         break;
 
       default:
-        $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro 
+        if(strlen($cedula)==13){
+          $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,idescolar,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name 
+                from jugadores where identificacion  = '".$cedula."'" ; 
+        }else{      
+        $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,estatus,telefono,centro,idescolar,(select eq.nombre from equipos eq where eq.id = equipo ) as equipo_name  
                 from jugadores where (identificacion like '%".$cedula."%' AND equipo = $equipo)  OR (equipo = $equipo)" ; 
+        }
         break;
     }
 
@@ -498,7 +515,9 @@ function get_jugadores($cedula,$equipo,$jugador_nombre,$jugador_apellido){
        array_push($jugador_array,$row["estatus"]);
        array_push($jugador_array,$row["telefono"]);
        array_push($jugador_array,$row["centro"]);
-
+       array_push($jugador_array,$row["idescolar"]);
+       array_push($jugador_array,$row["equipo_name"]);
+       
        array_push($jugadores_array,$jugador_array);
      }		 
         echo json_encode($jugadores_array);

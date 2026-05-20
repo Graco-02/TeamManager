@@ -342,26 +342,36 @@ function set_filtrar_listado(){
     set_listado_filtrado(jugador_cedula,jugador_equipo,jugador_name,jugador_apellido);
 }
 
-function set_agregar_fila(jugadore_name,jugador_lastname,identificacion,id){
+function set_agregar_fila(jugadore_name,jugador_lastname,identificacion,id,id_escolar,fecha_nacimiento,equipo){
     var tableRow = document.getElementById("lista_jugadores");
     var fila = document.createElement("tr");
     var celda1 = document.createElement("td");
     var celda2 = document.createElement("td");
     var celda3 = document.createElement("td");
+    var celda4 = document.createElement("td");
+    var celda5 = document.createElement("td");
+    var celda6 = document.createElement("td");
     celda1.innerHTML = jugadore_name;
     celda2.innerHTML = jugador_lastname;
     celda3.innerHTML = identificacion;
+    celda4.innerHTML = id_escolar;
+    celda5.innerHTML = fecha_nacimiento;
+    celda6.innerHTML = equipo;
 
     celda1.onclick = function() {  set_seleccionar(id); };
 
     fila.appendChild(celda1);
     fila.appendChild(celda2);
     fila.appendChild(celda3);
+    fila.appendChild(celda4);
+    fila.appendChild(celda5);
+    fila.appendChild(celda6);
     tableRow.appendChild(fila);
 }
 
 function set_listado_filtrado(jugador_cedula,jugador_equipo,jugador_name,jugador_apellido){
     var accion = 4;//opcion para seleccionar los datos del equipo
+   // alert(jugador_cedula + " "+ jugador_cedula.length);
     console.log('jugador_cedula'+jugador_cedula)
     console.log('jugador_equipo'+jugador_equipo)
     console.log('jugador_name'+jugador_name)
@@ -381,7 +391,7 @@ function set_listado_filtrado(jugador_cedula,jugador_equipo,jugador_name,jugador
             console.log(json);
             for(i=0;i<json.length;i++){
                 console.log(json[i]);                
-                set_agregar_fila(json[i][1],json[i][2],json[i][3],json[i][0]);
+                set_agregar_fila(json[i][1],json[i][2],json[i][3],json[i][0],json[i][12],json[i][4],json[i][13]);
             }
         }); 
 }
@@ -563,7 +573,7 @@ function set_insertar_accion(usuario,accion_modulo,modulo,regant,regnew){
         if(resp != 'AGREGADO CORRECTO'){
             alert('ERROR AGREGANDO HISTORICO => '+respuesta);
         }
-        location.reload();
+      //  location.reload();
  });
 }
 
@@ -606,13 +616,6 @@ function set_modficacion_restringida(){
             break;
     }
 
-   /* if(jugador_evento!='x' && jugador_evento!='0'){
-       // alert('modificacion restringida '+elento_seleccionado+' '+jugador_equipo+' '+ jugador_evento);
-        accion = 6;
-    }else if(jugador_evento=='x'){
-       // alert('elimina eventos '+elento_seleccionado+' '+jugador_equipo+' '+ jugador_evento);
-        accion = 7;
-    }*/
     
     if(accion==6 || accion==7){
         $.post("ctrl/jugadores.php"
@@ -646,5 +649,29 @@ function get_valdiaciones_identifiacion(e){
         txt_identificacion=txt_identificacion+'-';
         txt_identificacion_ct.value = txt_identificacion;
         console.log(txt_identificacion);
+    }
+}
+
+function get_valdiaciones_identifiacion_pegar(e){
+
+    let txt_identificacion = document.getElementById('jugador_cedula').value;
+    let txt_identificacion_ct = document.getElementById('jugador_cedula');
+    
+    for (const caracter of txt_identificacion) {
+       if(
+          caracter != '-' && 
+          caracter != '0' && 
+          caracter != '1' &&
+          caracter != '2' &&
+          caracter != '3' &&
+          caracter != '4' &&
+          caracter != '5' &&
+          caracter != '6' &&
+          caracter != '7' &&
+          caracter != '8' &&
+          caracter != '9' 
+       ){
+           alert('IDENTIFICACION NO VALIDA');
+       }
     }
 }
