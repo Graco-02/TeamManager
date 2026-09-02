@@ -30,6 +30,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <script src="js/eventos.js"></script>
     <script>user_type=<?php echo $user_type; ?></script>
+    
 </head>
 <body>
         <header>
@@ -121,6 +122,16 @@
 
                     <div id='equipos_div'>
                     <h1>Equipos</h1>
+                    <span id="opciones_vista_equipos_inscritos">
+                        <input type="checkbox" id="vista_equipos_dentro" name="vista_equipos_dentro" value="0" checked>
+                        <label for="vista_equipos_dentro">Inscritos</label>
+                        <input type="checkbox" id="vista_equipos_fuera" name="vista_equipos_fuera" value="0" checked>
+                        <label for="vista_equipos_fuera">No Inscritos</label>                        
+                        <div id="opcion_excell_div" class="display_none">
+                            <a class="btn btn-info" download="Mi_Excel" href="ctrl/generar_reporte.php">
+                                <img src="../imagenes/excell.png" alt="" srcset="" id="logo_excell">Exportar Excel Ahora</a>
+                        </div>
+                    </span>
                     <table id="listado_equipos" class="listado_usuarios_css">
                         <thead>
                         <tr>
@@ -132,7 +143,9 @@
                         </tr>
                         </thead>
 
-                        <tbody id="lista_equipos_evento"></tbody>
+                        <tbody id="lista_equipos_evento">
+
+                        </tbody>
                     </table>
                     </div>
                 </section>

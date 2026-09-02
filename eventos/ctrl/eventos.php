@@ -208,6 +208,8 @@ function get_listar_eventos_todos(){
          array_push($evento_array,$row["descripcion"]);
          array_push($evento_array,$row["fecha_incio"]);
          array_push($evento_array,$row["estado"]);
+         session_start();
+          $_SESSION['evento_seleccionado'] = $evento;
 
          echo json_encode($evento_array);
        }		 
@@ -216,6 +218,28 @@ function get_listar_eventos_todos(){
         $conn->close();
  }
  
+
+ function get_evento_name($evento){
+    $conn = conectar();
+      // Check connection
+     if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+     }
+ 
+      $sql = "SELECT id,nombre,cantidad_equipos,cantidad_jugadores_equipo,descripcion,fecha_incio,estado from eventos where id =$evento"; 
+ 
+      $result = $conn->query($sql);
+      $evento_name='N/A';         
+      if ($result->num_rows > 0) {
+          while($row = $result->fetch_assoc() ) {
+         $evento_name=$row["nombre"];
+       }		 
+       
+      }
+        $conn->close();
+        return $evento_name;
+ }
+
  function set_modificar($evento_name, $evento_num_equipos,$evento_num_jug_equipos,$evento_descripcion,$evento_fecha_inicio,$id,$check_estado_evento){
     $conn = conectar();
  
@@ -430,5 +454,66 @@ function set_modificar_indicador_pago_evento($evento,$equipo,$ruta){
          echo "Error Modificacion: " . $sql . "<br>" . $conn->error;
       }
 }
+
+
+function get_listar_equipos_reporte($evento){
+  $conn = conectar();
+  $date = date('Y-m-d');
+    // Check connection
+   if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+   }
+
+    $sql = "SELECT a.id,a.nombre,a.municipio,a.sector,a.url_logo,a.estado 
+    from equipos a"; 
+
+
+    $result = $conn->query($sql);
+    $count=1;     
+    $equipo_array_lista    = array();  
+
+    if ($result->num_rows > 0) {
+          $cabeceras = array();
+          array_push($cabeceras,"nombre");
+          array_push($cabeceras,"municipio");
+          array_push($cabeceras,"sector");
+          array_push($cabeceras,"evento");
+          array_push($cabeceras,"estado evento");
+          array_push($cabeceras,"cantidad_jugadores");
+          array_push($cabeceras,"estaus_pago_evento");
+          array_push($equipo_array_lista, $cabeceras);
+
+
+        while($row = $result->fetch_assoc() ) {
+           $equipo_array = array();
+           array_push($equipo_array,$row["nombre"]);
+           array_push($equipo_array,$row["municipio"]);
+           array_push($equipo_array,$row["sector"]);
+           array_push($equipo_array,$evento);
+
+           $estatus = get_listar_equipos_linkados($evento,$row["id"]);
+           if($estatus==1){
+             array_push($equipo_array,'SI INSCRITO');
+           }else{
+            array_push($equipo_array,'NO INSCRITO');
+           }
+          
+           array_push($equipo_array,get_cantidad_jugadores($row["id"],$evento));
+
+           $estatus_pago = get_estaus_pago_evento_2($evento,$row["id"]);
+           if($estatus_pago==1){
+             array_push($equipo_array,'SI PAGO');
+           }else{
+            array_push($equipo_array,'NO PAGO');
+           }
+           
+           array_push($equipo_array_lista, $equipo_array);
+        }		 
+    }
+  
+    $conn->close();
+    return $equipo_array_lista;
+}
+
 
 ?>

@@ -9,6 +9,35 @@ let volante_seleccionado=false;
 let fichero_seleccionado ="" ;
 let id_equipo_seleccionado=0;
 
+
+function generar_reporte() {
+    
+    var accion = 2;//opcion para seleccionar los datos del usuario
+    if(elento_seleccionado!=0 && user_type == 0)  {
+ 
+            // 1. Define los datos en un array de objetos o matriz
+        const datos = [
+            { Nombre: "Ana", Edad: 28, Ciudad: "Madrid" },
+            { Nombre: "Carlos", Edad: 34, Ciudad: "Barcelona" },
+            { Nombre: "Elena", Edad: 22, Ciudad: "Valencia" }
+        ];
+    
+        // 2. Crea una nueva hoja de trabajo a partir de los datos
+        const hojaDeTrabajo = XLSX.utils.json_to_sheet(datos);
+    
+        // 3. Crea un libro de trabajo nuevo y añade la hoja
+        const libroDeTrabajo = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(libroDeTrabajo, hojaDeTrabajo, "Usuarios");
+    
+        // 4. Genera el archivo y dispara la descarga en el navegador
+        XLSX.writeFile(libroDeTrabajo, "reporte_usuarios.xlsx");
+
+
+    }else{
+          alert('Debe seleccionar un Evento Primero');
+    }
+}
+
 function set_insertar(){
     var evento_name              = document.getElementById("evento_name").value;
     var evento_num_equipos       = Number(document.getElementById("evento_num_equipos").value);
@@ -170,17 +199,19 @@ function set_agregar_fila(evento_name,municipio,sector,id,validacion,cantidad_ju
         fila.appendChild(celda7);
         tableRow.appendChild(fila);
     }else{
-        if(user_type != 0 ){
-            if(validacion!=0){
+      //  if(user_type != 0 ){
+         //   if(validacion!=0){
                 fila.appendChild(celda7);
                 tableRow.appendChild(fila);
-            }
-        }
+          //  }
+      //  }
     }
 }
 
 function set_relacion_equipo(){
     var accion = 4;//opcion para seleccionar los datos del equipo
+    const  opcion_inscritos = document.getElementById('vista_equipos_dentro');
+    const  opcion_noinscritos = document.getElementById('vista_equipos_fuera');
     
     if(elento_id_seleccionado>0){//primera validacion de que se ha seleccionado un elemento
         $.post("ctrl/eventos.php"
@@ -191,9 +222,37 @@ function set_relacion_equipo(){
             var json_equipos = $.parseJSON(respuesta);
             console.log(json_equipos);
 
-            for(i=0;i<json_equipos.length;i++){            
-                set_agregar_fila(json_equipos[i][1],json_equipos[i][2],json_equipos[i][3],json_equipos[i][0],json_equipos[i][6],json_equipos[i][7],json_equipos[i][8]);
+            for(i=0;i<json_equipos.length;i++){    
+                
+               switch (json_equipos[i][6]) {
+                case 1:
+                    if(opcion_inscritos.checked){
+                       set_agregar_fila(json_equipos[i][1],
+                         json_equipos[i][2],
+                         json_equipos[i][3],
+                         json_equipos[i][0],
+                         json_equipos[i][6], //control_inscripcion
+                         json_equipos[i][7],
+                         json_equipos[i][8]);
+                       }                  
+                    break;
+                case 0:
+                    if(opcion_noinscritos.checked){
+                       set_agregar_fila(json_equipos[i][1],
+                         json_equipos[i][2],
+                         json_equipos[i][3],
+                         json_equipos[i][0],
+                         json_equipos[i][6], //control_inscripcion
+                         json_equipos[i][7],
+                         json_equipos[i][8]);
+                       }                  
+                    break;            
+                default:
+                    break;
+               }
             }
+                var opcion_excell_div = document.getElementById("opcion_excell_div");
+                opcion_excell_div.classList.toggle("display_blok");
         }); 
     }else{
         alert('DEBE SELECCIONAR UN EVENTO PRIMERO');
