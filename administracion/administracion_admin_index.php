@@ -28,6 +28,7 @@
                       <a href="../jugadores/administracion_jugadores.php">jugadores</a> 
                       <a href="../histlog/histlog.php">historico</a> 
                       <a href="../mensages/mensage.php">mensaje</a> 
+                      <a href="../prestamos/administracion_prestamos.php">prestamos</a> 
                       <a href="../utilidades/logout.php">SALIR</a> 
               </div>
             </div>
