@@ -87,9 +87,12 @@
 
                             <label for="jugador_cedula">Identificacion</label>
                             <div class="flex">
-                             <input type="text" placeholder="000-0000000-0" class="input_formulario" 
+                          <!--   <input type="text" placeholder="000-0000000-0" class="input_formulario" 
                              name="jugador_cedula" id="jugador_cedula" maxlength="13" 
                              onkeypress="return get_valdiaciones_identifiacion(event)//return event.charCode >= 48 && event.charCode <= 57"
+                             /> -->
+                             <input type="text" placeholder="000-0000000-0" class="input_formulario" 
+                             name="jugador_cedula" id="jugador_cedula" maxlength="13" 
                              />
                             <script>
                             const campo = document.getElementById('jugador_cedula');

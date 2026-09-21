@@ -427,8 +427,12 @@ function get_cantidad_jugadores($equipo,$evento){
         die("Connection failed: " . $conn->connect_error);
    }
 
-    $sql = "SELECT count(*) as total
+  /*  $sql = "SELECT count(*) as total
      from jugadores where equipo = ".$equipo." and (equipo,$evento,id) in (select equipo,evento,jugador from relacion_equipo_jugador_evento)" ; 
+*/
+    $sql = "SELECT count(*) as total
+     from relacion_equipo_jugador_evento where equipo = ".$equipo." and evento = ".$evento ; 
+
 
     $result = $conn->query($sql);
     $count=1;    

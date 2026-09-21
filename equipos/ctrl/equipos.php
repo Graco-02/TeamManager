@@ -252,7 +252,7 @@ function get_jugadores_equipo($equipo,$evento){
     from jugadores where  equipo =".$equipo ; 
    }else{
     $sql = "SELECT id,nombres,apellidos,identificacion,fecha_nacimiento,direccion,equipo,url_img,url_adjunto1,idescolar,estado_sistema
-    from jugadores where  equipo =".$equipo." and (id,$equipo,$evento) in (select jugador,equipo,evento from relacion_equipo_jugador_evento)" ; 
+    from jugadores where  (id,$equipo,$evento) in (select jugador,equipo,evento from relacion_equipo_jugador_evento)" ; 
    }
 
     $result = $conn->query($sql);
@@ -353,40 +353,6 @@ function get_planilla_jugadores($equipo){
            echo "</div>";
            echo "</div>";   
       }
-
-  /*    $conn = conectar();
-      // Check connection
-     if ($conn->connect_error) {
-          die("Connection failed: " . $conn->connect_error);
-     }
- 
-      $sql = "SELECT id,nombre,municipio,sector,url_logo,estado,categoria,circunscripcion,anio,rama,entrenador,entrenador_tel,delegado,delegado_tel
-       from equipos where id=$equipo"; 
- 
-      $result = $conn->query($sql);
-      $count=1;         
-      if ($result->num_rows > 0) {
-          while($row = $result->fetch_assoc() ) {
-        
-         array_push($equipo_array,$row["id"]);
-         array_push($equipo_array,$row["nombre"]);
-         array_push($equipo_array,$row["municipio"]);
-         array_push($equipo_array,$row["sector"]);
-         array_push($equipo_array,$row["url_logo"]);
-         array_push($equipo_array,$row["estado"]);
-         array_push($equipo_array,$row["categoria"]);
-         array_push($equipo_array,$row["circunscripcion"]);
-         array_push($equipo_array,$row["anio"]);
-         array_push($equipo_array,$row["rama"]);
-         array_push($equipo_array,$row["entrenador"]);
-         array_push($equipo_array,$row["entrenador_tel"]);
-         array_push($equipo_array,$row["delegado"]);
-         array_push($equipo_array,$row["delegado_tel"]);
-
-       }		 
-       
-      }
-        $conn->close();*/
 }
 
 

@@ -37,11 +37,15 @@ if(count($_POST)>0){
      break;     
      case 5://opcion 1-selecciona el jugador a trasladar
         $jugador_cedula  = $_POST['jugador_cedula'];
-        get_jugadore_prestamos($jugador_cedula);          
-    }
-       
+        get_jugadore_prestamos($jugador_cedula);      
+     break;
+     case 6:
+      $jugador = $_POST['jugador'];
+      $evento  = $_POST['evento'];     
+      get_eliminar_jugador($jugador,$evento);
+      break;
+    }      
 }
-
 
 function set_insert_jugador( $jugador_equipo_temporal,$prestamo_fecha_ini,$prestamo_fecha_fin,$jugador_equipo_base,$id_evento,$id_jugador,$carta ){
     $conn = conectar();
@@ -51,8 +55,9 @@ function set_insert_jugador( $jugador_equipo_temporal,$prestamo_fecha_ini,$prest
    
     if ($conn->query($sql) == TRUE) {
       $id=$conn->insert_id;		
-      echo 'CORRECTO';
+      set_agregar_relacion_equipo_evento($id_jugador,$jugador_equipo_temporal,$id_evento);
     }else{
+        $conn->close();      
         echo 'INCORRECTO';
     }
   }
@@ -159,13 +164,12 @@ function set_agregar_relacion_equipo_evento($jugador,$equipo,$evento){
     VALUES ($equipo,$evento,$jugador)";
    
     if ($conn->query($sql) == TRUE) {	
-      //echo($jugador.$equipo.$evento);
+       echo 'CORRECTO';
     }else{
-      $validacion=false;
-    }
-       $conn->close();
+      $conn->close();
+      echo 'INCORRECTO';
+    }  
   }
-       return $validacion;
 }
 
  function set_insert_usuario($usuario_names,$usuario_lastnames,$usuario_identificacion,$usuario_name_acces,$usuario_clave,$usuario_tipo,$url_img){
@@ -336,12 +340,12 @@ function get_listar_eventos_jugador($equipo,$jugador){
             $diff = strtotime($fecha_incio) - strtotime($date);
             $dias = $diff/(60*60*24);
      
-              if($dias>0){
+         //     if($dias>0){
                  $nombre        = $row["nombre"];				
                  $id            = $row["id"];
                  echo "<option value=".$id.">".$nombre."</option>";
                  $count++;
-              }
+            //  }
         }     
     }
 
@@ -352,21 +356,20 @@ function get_listar_eventos_jugador($equipo,$jugador){
     $conn->close();
 }
 
- function get_eliminar_jugador($jugador){
+ function get_eliminar_jugador($jugador,$evento){
     $conn = conectar();
       // Check connection
      if ($conn->connect_error) {
           die("Connection failed: " . $conn->connect_error);
      }
  
-
      //PRIMERO SE ELIMINAN LOS REGISTROS DE EVENTOS DEL JUGADOR LUEGO LO DEMAS
-     $sql = "DELETE from relacion_equipo_jugador_evento where jugador=$jugador"; 
+     $sql = "DELETE from relacion_equipo_jugador_evento where jugador=$jugador and evento=$evento "; 
  
       $result = $conn->query($sql);
        
       if ($conn->query($sql) == TRUE) {		   
-         $sql = "DELETE from jugadores where id=$jugador"; 
+         $sql = "DELETE from prestamos where id_jugador=$jugador"; 
               $result = $conn->query($sql);      
          if ($conn->query($sql) == TRUE) {	
            echo 'CORRECTO';
@@ -582,4 +585,5 @@ function get_listar_jugadores_todos_paginabl_filtrado($id_equipo,$desde,$total_p
       }
         $conn->close();
  }
+
 ?>

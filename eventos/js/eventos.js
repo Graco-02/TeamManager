@@ -220,7 +220,7 @@ function set_relacion_equipo(){
         }
         ,function(respuesta){
             var json_equipos = $.parseJSON(respuesta);
-            console.log(json_equipos);
+
 
             for(i=0;i<json_equipos.length;i++){    
                 
